@@ -1,0 +1,35 @@
+head {
+background-image:#;
+}
+
+.pagetitle {
+  font-size: 300%;
+  font-family: Montserrat, sans-serif;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.button {
+  font-family: Montserrat;
+  font-size: 250%;
+  padding: 0 20px;
+  border: 3px solid black;
+  border-radius: 5px;
+  text-align: center;
+}
+
+nav ul{
+  padding: 0;
+  list-style-type: none;
+  align: center;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a:hover {
+  color: grey;
+  border: 3px solid grey;
+}

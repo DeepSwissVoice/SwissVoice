@@ -16,39 +16,42 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
-<div class="grid">
+<body>
+  <div class="grid">
 
-  <span class="pagetitle box ">Swiss Voice</span>
+    <div class="pagetitle box ">
+      Swiss Voice
+    </div>
+    <nav>
+      <!-- nav mit 4 buttons: Sprich!, Hör!, Schreib!, About-->
+      <ul class="grid2 box">
+        <li><a class="button" href="#sprichDiv">Sprich!</a></li>
+        <li><a class="button" href="#hoerDiv">Hör!</a></li>
+        <li><a class="button">Schreib!</a></li>
+        <li><a class="button">About</a></li>
+      </ul>
+    </nav>
 
-  <nav>
-    <!-- nav mit 4 buttons: Sprich!, Hör!, Schreib!, About-->
-    <ul class="grid2 box">
-      <li><a class="button" href="#sprichDiv">Sprich!</a></li>
-      <li><a class="button" href="#hoerDiv">Hör!</a></li>
-      <li><a class="button">Schreib!</a></li>
-      <li><a class="button">About</a></li>
-    </ul>
-  </nav>
-
-  <div class="box gridFullColumn infotext">
-    INFOTEXT über die Webseite
-  </div>
+    <div class="box gridFullColumn text info">
+      INFOTEXT über die Webseite
+    </div>
 
     <!-- Sprich! section -->
-    <div href="sprich" id="sprichDiv" class="box sprich gridFullColumn">
-      <h1>Hier wird jemand (Kevin) eine Aufnahmefunktion einbinden</h1>
+    <div href="sprich" id="sprichDiv" class="box sprich gridFullColumn text">
+      Hier wird jemand (Kevin) eine Aufnahmefunktion einbinden
     </div>
 
     <!-- Hör! section -->
-    <div href="hoer" id="hoerDiv" class="box hoer gridFullColumn">
-      <h1>Hier wird jemand mit viel Freude einmal Aufnahmen hören können</h1>
+    <div href="hoer" id="hoerDiv" class="box hoer gridFullColumn text">
+      Hier wird jemand mit viel Freude einmal Aufnahmen hören können
     </div>
 
-  <footer class="box footer gridFullColumn">
-    <!-- donate button, social media, github etc. -->
-    Text in footer
-    <br />
-  </footer>
-</div>
+    <footer class="box footer gridFullColumn text ">
+      <!-- donate button, social media, github etc. -->
+      Text in footer
+      <br />
+    </footer>
+  </div>
+</body>
 
 </html>

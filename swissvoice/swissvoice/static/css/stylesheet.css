@@ -1,63 +1,71 @@
-head {
-  background-image: #;
+body {
+  margin: 0;
+  padding: 0;
 }
-
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 2fr 3fr 3fr 2fr;
   grid-gap: 20px;
-
 }
+
 /*
 .box {
-  background-color: #444;
   color: #fff;
   border-radius: 5px;
   border: 5px dotted blue;
+}
+
+
+.grid2 li {
+  border: 5px dotted cyan;
+  border-radius: 5px;
 }
 */
 .gridFullColumn {
   grid-column: 1 / -1;
 }
+
 .grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: 1fr;
   grid-gap: 5px;
 }
 
-/*
-.grid2 li {
-  border: 5px dotted cyan;
-}
-*/
 
 .pagetitle {
   font-size: 300%;
   font-family: Montserrat, sans-serif;
   font-weight: bold;
   text-align: center;
-  vertical-align: middle;
+  height: auto;
+  margin: auto;
   line-height: 100%;
-
+  border-bottom: 3px solid black;
 }
 
-.infotext {
+.text {
   font-size: 200%;
   font-family: Montserrat, sans-serif;
+  text-align: center;
 }
 
 .button {
   font-family: Montserrat;
   font-size: 250%;
-  padding: 0 20px;
+  padding: 2px 20px;
   border: 3px solid black;
   border-radius: 5px;
   text-align: center;
   text-decoration: none;
   color: black;
+
+}
+
+.info {
+  padding-top: 20px;
 }
 
 nav ul {
@@ -67,11 +75,15 @@ nav ul {
 }
 
 nav ul li {
-  align-items: center; 
+  align-items: center;
   margin: 1%;
 }
 
 nav ul li a:hover {
   color: grey;
   border: 3px solid grey;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.2);
 }

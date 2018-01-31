@@ -1,6 +1,5 @@
 """Main stuff for the app."""
 
-import wave
 from datetime import datetime
 from functools import partial
 from os import path
@@ -71,7 +70,7 @@ def get_voice_sample(region):
     samples = []
     for sample in voice_cur:
         text_doc = texts_coll.find_one(sample["text_id"])
-        samples.append(dict(location=text_doc["text"], voice_id=str(sample["_id"])))
+        samples.append(dict(text=text_doc["text"], location=sample["filename"], voice_id=str(sample["_id"])))
     if not samples:
         return error_response(Error.NO_SAMPLE_FOUND, "Couldn't find any voice samples")
     return response(samples=samples)
@@ -98,8 +97,8 @@ def vote_voice_sample(sample_id):
     voice_coll = audio_samples_coll.find_one(sample_id)
     if not voice_coll:
         return error_response(Error.NO_SAMPLE_FOUND, f"No sample found with this id. ({sample_id})")
-    audio_samples_coll.update_one(sample_id, {
-        "$currentTime": {
+    audio_samples_coll.update_one({"_id": sample_id}, {
+        "$currentDate": {
             "edited_at": True
         },
         "$inc": {
@@ -124,14 +123,8 @@ def upload_voice_sample(text_id):
     if "file" not in request.files:
         return error_response(Error.INVALID_REQUEST, "No file attached!")
     upload_file = request.files["file"]
-    with wave.open(upload_file, "rb") as wav:
-        frames = wav.getnframes()
-        rate = wav.getframerate()
-        duration = frames / rate
-        # TODO do more file checks and wrap in a try statement
-
     file_oid = ObjectId()
-    filename = secure_filename(f"{str(file_oid)}.wav")
+    filename = secure_filename(f"{str(file_oid)}.mp3")
     filepath = path.join(app.config["VOICE_SAMPLES_FOLDER"], filename)
     upload_file.save(filepath)
 
@@ -139,13 +132,14 @@ def upload_voice_sample(text_id):
         "_id": file_oid,
         "filename": filename,
         "text_id": text_oid,
+        "region": res["region"],
         "votes": 0,
         "balance": 0,
         "created_at": datetime.utcnow(),
         "edited_at": datetime.utcnow()
     })
 
-    texts_coll.update_one(text_oid, {
+    texts_coll.update_one({"_id": text_oid}, {
         "$inc": {
             "voice_samples": 1
         }

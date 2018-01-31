@@ -3,11 +3,10 @@
 import wave
 from datetime import datetime
 from functools import partial
-from io import BytesIO
 from os import path
 
 from bson.objectid import InvalidId, ObjectId
-from flask import Flask, g, render_template, request
+from flask import Flask, g, request
 from pymongo import MongoClient
 from werkzeug.local import LocalProxy
 from werkzeug.utils import secure_filename
@@ -38,8 +37,8 @@ def get_mongo_collection(name):
 
 mongo_client = LocalProxy(get_mongo)
 mongo_database = LocalProxy(get_mongo_database)
-texts_coll = partial("texts")
-audio_samples_coll = partial("audio_samples")
+texts_coll = LocalProxy(partial(get_mongo_collection, "texts"))
+audio_samples_coll = LocalProxy(partial(get_mongo_collection, "audio_samples"))
 
 
 @app.teardown_appcontext

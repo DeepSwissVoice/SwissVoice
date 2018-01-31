@@ -1,13 +1,46 @@
 head {
-background-image:#;
+  background-image: #;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr 3fr 3fr 2fr;
+  grid-gap: 20px;
+
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  border: 5px dotted blue;
+}
+.gridFullColumn {
+  grid-column: 1 / -1;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 5px;
+}
+
+.grid2 li {
+  border: 5px dotted cyan;
 }
 
 .pagetitle {
   font-size: 300%;
   font-family: Montserrat, sans-serif;
   font-weight: bold;
-  display: block;
   text-align: center;
+}
+
+.infotext {
+  font-size: 300%;
+  font-family: Montserrat, sans-serif;
 }
 
 .button {
@@ -19,27 +52,20 @@ background-image:#;
   text-align: center;
   text-decoration: none;
   color: black;
-
 }
 
-nav ul{
+nav ul {
   padding: 0;
   list-style-type: none;
   align: center;
 }
 
 nav ul li {
-  display: inline-block;
   align-items: center;
+  margin: 1%;
 }
-
 
 nav ul li a:hover {
   color: grey;
   border: 3px solid grey;
 }
-/*
-#sprich, #hoer {
-  height: 500px;
-}
-*/

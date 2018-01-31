@@ -10,6 +10,10 @@
   <meta name="author" content="DeepSwissVoice">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css\stylesheet.css" />
+
+  <!-- javascript -->
+  <script src="/js/api.js"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
 <header>
@@ -19,8 +23,8 @@
 <nav>
   <!-- nav mit 4 buttons: Sprich!, Hör!, Schreib!, About-->
   <ul>
-    <li><a class="button">Sprich!</a></li>
-    <li><a class="button">Hör!</a></li>
+    <li><a class="button" href="#sprich">Sprich!</a></li>
+    <li><a class="button" href="#hoer">Hör!</a></li>
     <li><a class="button">Schreib!</a></li>
     <li><a class="button">About</a></li>
   </ul>
@@ -29,14 +33,14 @@
 
 <body>
   <!-- Sprich! section -->
-  <div id="Sprich">
+  <div href="sprich" id="sprich">
     <h1>Hier wird jemand (Kevin) eine Aufnahmefunktion einbinden</h1>
   </div>
 
   <hr />
 
   <!-- Hör! section -->
-  <div>
+  <div href="hoer" id="hoer">
     <h1>Hier wird jemand mit viel Freude einmal Aufnahmen hören können</h1>
   </div>
 </body>

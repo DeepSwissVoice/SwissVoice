@@ -17,6 +17,9 @@ background-image:#;
   border: 3px solid black;
   border-radius: 5px;
   text-align: center;
+  text-decoration: none;
+  color: black;
+
 }
 
 nav ul{
@@ -27,9 +30,16 @@ nav ul{
 
 nav ul li {
   display: inline-block;
+  align-items: center;
 }
+
 
 nav ul li a:hover {
   color: grey;
   border: 3px solid grey;
 }
+/*
+#sprich, #hoer {
+  height: 500px;
+}
+*/

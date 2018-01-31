@@ -1,5 +1,6 @@
 """Main stuff for the app."""
 
+import os
 from datetime import datetime
 from functools import partial
 from os import path
@@ -109,7 +110,7 @@ def vote_voice_sample(sample_id):
     return response()
 
 
-@app.route("/api/upload/<text_id>")
+@app.route("/api/upload/<text_id>", methods=["PUT", "POST"])
 def upload_voice_sample(text_id):
     """Upload voice sample to server."""
     try:
@@ -125,7 +126,12 @@ def upload_voice_sample(text_id):
     upload_file = request.files["file"]
     file_oid = ObjectId()
     filename = secure_filename(f"{str(file_oid)}.mp3")
-    filepath = path.join(app.config["VOICE_SAMPLES_FOLDER"], filename)
+    filedir = app.config["VOICE_SAMPLES_FOLDER"]
+    filepath = path.join(filedir, filename)
+
+    if not path.exists(filedir):
+        os.makedirs(filedir)
+
     upload_file.save(filepath)
 
     audio_samples_coll.insert_one({

@@ -28,9 +28,11 @@ head {
   grid-gap: 5px;
 }
 
+/*
 .grid2 li {
   border: 5px dotted cyan;
 }
+*/
 
 .pagetitle {
   font-size: 300%;
@@ -39,6 +41,7 @@ head {
   text-align: center;
   vertical-align: middle;
   line-height: 100%;
+
 }
 
 .infotext {
@@ -64,7 +67,7 @@ nav ul {
 }
 
 nav ul li {
-  align-items: center;
+  align-items: center; 
   margin: 1%;
 }
 

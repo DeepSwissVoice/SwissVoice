@@ -103,7 +103,7 @@ def vote_voice_sample(sample_id):
         },
         "$inc": {
             "votes": 1,
-            "balance": 2 * int(vote) - 1
+            "balance": int(vote)
         }
     })
     return response()

@@ -105,6 +105,7 @@ const SwissVoiceAPI = (() => {
     getSample() {
       ensureSampleCache();
       const item = sampleCache.shift();
+      item.location = buildUrl("samples", item.location);
       currentSample = item;
       return item;
     },
@@ -116,6 +117,11 @@ const SwissVoiceAPI = (() => {
         ["vote", opinion]
       ]);
       return resp.success;
+    },
+    async uploadSample(blob, textId) {
+      textId = textId || currentText.text_id;
+      const url = buildUrl("api", "upload", textId);
+      return await HTTP.post(url, blob);
     }
   };
 })();

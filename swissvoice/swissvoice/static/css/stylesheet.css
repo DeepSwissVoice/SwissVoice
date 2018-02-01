@@ -3,16 +3,18 @@ body {
   padding: 0;
 }
 
+.text {
+  font-size: 200%;
+  font-family: Montserrat, sans-serif;
+  text-align: center;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 2fr 3fr 3fr 2fr;
   grid-gap: 20px;
-  grid-template-areas: "pagetitle nav"
-                      "info info"
-                      "sprich sprich"
-                      "hoer hoer"
-                      "footer footer";
+  grid-template-areas: "pagetitle nav" "info info" "sprich sprich" "hoer hoer" "footer footer";
 }
 
 /*
@@ -29,18 +31,6 @@ body {
 }
 */
 
-.grid2 {
-  grid-area: nav;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 5px;
-}
-
-.grid2 li {
-  justify-content: space-between;
-}
-
 .pagetitle {
   font-size: 300%;
   font-family: Montserrat, sans-serif;
@@ -53,10 +43,26 @@ body {
   grid-area: pagetitle;
 }
 
-.text {
-  font-size: 200%;
-  font-family: Montserrat, sans-serif;
-  text-align: center;
+.grid2 {
+  grid-area: nav;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 5px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+nav  {
+  height: auto;
+  margin: 1%;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav  a:hover {
+  color: grey;
+  border: 2px solid grey;
 }
 
 .button {
@@ -68,33 +74,11 @@ body {
   text-align: center;
   text-decoration: none;
   color: black;
-  justify-self: auto;
 }
 
 .info {
   padding-top: 20px;
   grid-area: info;
-}
-
-nav {
-  height: auto;
-  margin: auto;
-}
-
-nav ul {
-  padding: 0;
-  list-style-type: none;
-  align: center;
-}
-
-nav ul li {
-  align-items: center;
-  margin: 1%;
-}
-
-nav ul li a:hover {
-  color: grey;
-  border: 3px solid grey;
 }
 
 .sprich {

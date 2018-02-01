@@ -97,7 +97,9 @@ footer {
   vertical-align: middle;
   line-height: 1000%;
 }
+
 /*Tablets*/
+
 @media only screen and (max-width: 920px) {
   .grid {
     display: grid;
@@ -112,11 +114,12 @@ footer {
 }
 
 /* smartphones*/
+
 @media only screen and (max-width: 515px) {
   .pagetitle {
     font-size: 200%;
   }
-  .button{
+  .button {
     font-size: 100%;
   }
 }

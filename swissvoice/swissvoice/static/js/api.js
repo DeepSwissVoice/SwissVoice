@@ -69,7 +69,7 @@ const SwissVoiceAPI = (() => {
         ["count", settings.cacheRestockCount]
       ]);
       if (!resp.success) {
-        throw Exception();
+        throw new Error("Couldn't get any texts", resp.error);
       }
       textCache.push(...resp.texts);
     }
@@ -82,7 +82,7 @@ const SwissVoiceAPI = (() => {
         ["count", settings.cacheRestockCount]
       ]);
       if (!resp.success) {
-        throw Exception();
+        throw new Error("Couldn't get any samples", resp.error);
       }
       sampleCache.push(...resp.samples);
     }

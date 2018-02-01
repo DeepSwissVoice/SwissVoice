@@ -93,8 +93,8 @@ const SwissVoiceAPI = (() => {
       regionId = region;
       settings.domain = apiDomain;
 
-      ensureTextCache();
-      ensureSampleCache();
+      await ensureTextCache();
+      await ensureSampleCache();
     },
     getText() {
       ensureTextCache();
@@ -105,7 +105,7 @@ const SwissVoiceAPI = (() => {
     getSample() {
       ensureSampleCache();
       const item = sampleCache.shift();
-      item.location = buildUrl("samples", item.location);
+      item.location = buildUrl("samples", item.location).slice(1);
       currentSample = item;
       return item;
     },

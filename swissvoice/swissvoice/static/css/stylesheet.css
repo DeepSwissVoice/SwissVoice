@@ -41,9 +41,10 @@ body {
   line-height: 100%;
   border-bottom: 3px solid black;
   grid-area: pagetitle;
+  cursor: pointer;
 }
 
-.grid2 {
+.gridButton {
   grid-area: nav;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -74,6 +75,7 @@ nav a:hover {
   text-align: center;
   text-decoration: none;
   color: black;
+  transition: all ease .3s;
 }
 
 .info {
@@ -100,7 +102,7 @@ footer {
 
 /*Tablets*/
 
-@media only screen and (max-width: 920px) {
+@media (max-width: 920px) {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -115,11 +117,21 @@ footer {
 
 /* smartphones*/
 
-@media only screen and (max-width: 515px) {
+@media (max-width: 515px) {
   .pagetitle {
     font-size: 200%;
   }
   .button {
     font-size: 100%;
+  }
+}
+
+@media (max-width: 415px) {
+  .gridButton{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+  .grid {
+    grid-template-rows: 40px auto 2fr 3fr 3fr 2fr;
   }
 }

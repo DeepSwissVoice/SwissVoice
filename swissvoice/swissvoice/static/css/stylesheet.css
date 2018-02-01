@@ -53,14 +53,14 @@ body {
   justify-content: space-between;
 }
 
-nav  {
+nav {
   height: auto;
   margin: 1%;
   padding: 0;
   list-style-type: none;
 }
 
-nav  a:hover {
+nav a:hover {
   color: grey;
   border: 2px solid grey;
 }
@@ -96,4 +96,27 @@ footer {
   height: auto;
   vertical-align: middle;
   line-height: 1000%;
+}
+/*Tablets*/
+@media only screen and (max-width: 920px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 60px 2fr 3fr 3fr 2fr;
+    grid-gap: 10px;
+    grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "footer";
+  }
+  .button {
+    font-size: 150%;
+  }
+}
+
+/* smartphones*/
+@media only screen and (max-width: 515px) {
+  .pagetitle {
+    font-size: 200%;
+  }
+  .button{
+    font-size: 100%;
+  }
 }

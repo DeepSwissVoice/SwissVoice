@@ -1,6 +1,6 @@
 const HTTP = (() => {
-  ajax(method, url, params, body, headers) {
-    return Promise((resolve, reject) => {
+  function ajax(method, url, params, body, headers) {
+    return new Promise((resolve, reject) => {
       const request = new XMLHttpRequest();
 
       if (params) {
@@ -12,8 +12,8 @@ const HTTP = (() => {
         url += paramString;
       }
 
-      request.addEventHandler("load", () => resolve(this.response));
-      request.addEventHandler("error", () => reject(this));
+      request.addEventListener("load", () => resolve(request.response));
+      request.addEventListener("error", () => reject(request.response));
       request.open(method, url);
 
       if (headers) {
@@ -46,17 +46,9 @@ const HTTP = (() => {
 
 const SwissVoiceAPI = (() => {
   const settings = {
+    domain: "/",
     minCacheSize: 5,
     cacheRestockCount: 10
-  };
-  const endpoints = {
-    API: "/api",
-    UPLOAD: API + "/upload",
-    VOICE: API + "/voice",
-    TEXT: API + "/text",
-    VOTE: API + "/vote",
-
-    SAMPLES_STORE = "/samples"
   };
 
   let regionId = "";
@@ -66,9 +58,13 @@ const SwissVoiceAPI = (() => {
   const textCache = [];
   const sampleCache = [];
 
-  async ensureTextCache() {
+  function buildUrl(...endpoint) {
+    return settings.domain + endpoint.join("/");
+  }
+
+  async function ensureTextCache() {
     if (textCache.length < settings.minCacheSize) {
-      const url = endpoints.TEXT + "/" + regionId;
+      const url = buildUrl("api", "text", regionId);
       const resp = await HTTP.get(url, [
         ["count", settings.cacheRestockCount]
       ]);
@@ -79,20 +75,27 @@ const SwissVoiceAPI = (() => {
     }
   };
 
-  async ensureSampleCache() {
+  async function ensureSampleCache() {
     if (sampleCache.length < settings.minCacheSize) {
-      const url = endpoints.VOICE + "/" + regionId;
+      const url = buildUrl("api", "voice", regionId);
       const resp = await HTTP.get(url, [
         ["count", settings.cacheRestockCount]
       ]);
       if (!resp.success) {
         throw Exception();
       }
-      sampleCache.push(...resp.texts);
+      sampleCache.push(...resp.samples);
     }
   };
 
   return {
+    async setup(region, apiDomain = "/") {
+      regionId = region;
+      settings.domain = apiDomain;
+
+      ensureTextCache();
+      ensureSampleCache();
+    },
     getText() {
       ensureTextCache();
       const item = textCache.shift();
@@ -105,10 +108,10 @@ const SwissVoiceAPI = (() => {
       currentSample = item;
       return item;
     },
-    async approveSample(opinion, sampleId) {
-      opinion = opinion || false;
-      sampleId = sampleId || currentSample.id;
-      const url = endpoints.VOTE + "/" + sampleId;
+    async approveSample(opinion, voiceId) {
+      opinion = Boolean(opinion);
+      voiceId = voiceId || currentSample.voice_id;
+      const url = buildUrl("api", "vote", voiceId);
       const resp = await HTTP.get(url, [
         ["vote", opinion]
       ]);

@@ -7,9 +7,9 @@ async function init() {
 }
 
 function nextSample() {
-    currentSample = SwissVoiceAPI.getSample();
-    $("#text_sample_display").text(currentSample.text);
-    $("#sample_voting").removeClass("active");
+  currentSample = SwissVoiceAPI.getSample();
+  $("#text_sample_display").text(currentSample.text);
+  $("#sample_voting").removeClass("active");
 }
 
 function getSample() {
@@ -37,11 +37,9 @@ function togglePlay() {
 }
 
 function voteSample(opinion) {
-  if (player && currentSample) {
-    if (player.ended) {
-      SwissVoiceAPI.approveSample(opinion);
-      nextSample();
-    }
+  if (currentSample && $("#sample_voting").hasClass("active")) {
+    SwissVoiceAPI.approveSample(opinion);
+    nextSample();
   }
 }
 

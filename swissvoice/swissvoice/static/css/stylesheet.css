@@ -4,8 +4,7 @@ body {
 }
 
 #text {
-  font-size: 20px
-  font-family: Montserrat, sans-serif;
+  font-size: 20px font-family: Montserrat, sans-serif;
 }
 
 .text {
@@ -15,10 +14,15 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 2fr 3fr 3fr 2fr;
-  grid-gap: 20px;
-  grid-template-areas: "pagetitle nav" "info info" "sprich sprich" "hoer hoer" "footer footer";
+  grid-template-columns: minmax(auto, 8%) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 8%);
+  grid-template-rows: 60px 150px minmax(300px,auto) minmax(300px,auto) 350px;
+  grid-gap: 30px;
+  grid-template-areas:
+    ". pagetitle nav ."
+    ". info info ."
+    ". sprich sprich ."
+    ". hoer hoer ."
+    "footer footer footer footer";
 }
 
 /*
@@ -39,13 +43,13 @@ body {
   font-size: 300%;
   font-family: Montserrat, sans-serif;
   font-weight: bold;
-  text-align: center;
   height: auto;
   margin: auto;
   line-height: 100%;
   border-bottom: 3px solid black;
   grid-area: pagetitle;
   cursor: pointer;
+  white-space:nowrap;
 }
 
 .gridButton {
@@ -65,12 +69,11 @@ nav {
   list-style-type: none;
 }
 
-@media (pointer: fine){
-  nav a:hover {
+nav a:hover {
   color: grey;
   border: 2px solid grey;
-  }
 }
+
 .button {
   font-family: Montserrat;
   font-size: 200%;
@@ -96,6 +99,34 @@ nav {
   grid-area: hoer;
 }
 
+#hoerDiv {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto auto;
+  grid-gap: 5px;
+  grid-template-areas:
+    "infotext_hoer infotext_hoer  infotext_hoer . . "
+    "text_sample text_sample text_sample play_button voting";
+}
+
+#infotext_hoer {
+  grid.area: infotext_hoer;
+}
+
+#text_sample_display {
+  gird-area: text_sample;
+}
+
+#play_button {
+  gird-area: play_button;
+}
+
+#sample_voting {
+  display: flex;
+  flex-direction: column;
+  gird-area: voting;
+}
+
 footer {
   grid-area: footer;
   background-color: rgba(0, 0, 0, 0.2);
@@ -107,43 +138,40 @@ footer {
 
 /*Tablets*/
 
-@media (max-width: 920px) {
+@media (max-width: 970px) {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 60px 2fr 3fr 3fr 2fr;
+    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 2fr;
     grid-gap: 10px;
     grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "footer";
   }
+}
+
+@media (max-width: 720px) {
   .button {
-    font-size: 150%;
+    font-size: 150%
   }
 }
 
 /* smartphones*/
 
-@media (max-width: 515px) {
-  .pagetitle {
-    font-size: 250%;
-  }
-  .button {
-    font-size: 200%;
-  }
-}
-
-@media (max-width: 415px) {
+@media (max-width: 522px) {
   .grid {
     grid-template-rows: 70px auto 2fr 3fr 3fr 2fr;
   }
   .text {
     font-size: 120%;
   }
-  .gridButton{
+  .pagetitle {
+    font-size: 250%;
+  }
+  .gridButton {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
   .button {
     padding: 2px 40px;
+    font-size: 200%;
   }
-
 }

@@ -22,41 +22,41 @@
 <body>
   <div class="grid">
 
-    <div class="pagetitle box ">
+    <div class="pagetitle">
       Swiss Voice
     </div>
-    <nav class="gridButton box">
+    <nav class="gridButton">
       <!-- nav mit 4 buttons: Sprich!, Hör!, Schreib!, About-->
-      <a class="button" href="#sprichDiv">Sprich!</a>
-      <a class="button" href="#hoerDiv">Hör!</a>
-      <a class="button">Schreib!</a>
-      <a class="button">About</a>
+      <a class="nav_button" href="#sprichDiv">Sprich!</a>
+      <a class="nav_button" href="#hoerDiv">Hör!</a>
+      <a class="nav_button">Schreib!</a>
+      <a class="nav_button">About</a>
 
     </nav>
 
-    <div class="box text info">
+    <div class="text info">
       Willkommen bei <b>Swiss Voice</b>.<br /> Teile <b>deine bezaubernde Stimme</b> mit uns, damit wir <b>dich</b> mit einer <b>schweizerdeutsche Spracherkennung</b> beglücken können.
     </div>
 
     <!-- Sprich! section -->
-    <div href="sprich" id="sprichDiv" class="box sprich text">
+    <div href="sprich" id="sprichDiv" class="sprich text">
       Hier wird jemand (Kevin) eine Aufnahmefunktion einbinden
     </div>
 
     <!-- Hör! section -->
-    <div href="hoer" id="hoerDiv" class="box hoer text">
-      <div id="infotext_hoer">
-        Hier wird jemand mit viel Freude einmal Aufnahmen hören können.
+    <div href="hoer" id="hoerDiv" class="hoer">
+      <div id="infotext_hoer" class="text">
+        Stimmt die Aufnahme mit dem Text überein? Ja / Nein
       </div>
-      <div id="text_sample_display">This is where the sentence goes.</div>
+      <div class="text" id="text_sample_display">This is where the sentence goes.</div>
       <button id="play_button" onclick="togglePlay();">play</button>
-      <div id="sample_voting" class="">
-        <button onclick="voteSample(true);">yes gud</button>
-        <button onclick="voteSample(false);">no gud</button>
+      <div id="sample_voting">
+        <button class="vote_button" onclick="voteSample(true);">Ja</button>
+        <button class="vote_button" onclick="voteSample(false);">Nein</button>
       </div>
     </div>
 
-    <footer class="box text ">
+    <footer class="text ">
       <!-- donate button, social media, github etc. -->
       Text in footer
       <br />

@@ -15,7 +15,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: minmax(auto, 8%) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 8%);
-  grid-template-rows: 60px 150px minmax(300px,auto) minmax(300px,auto) 350px;
+  grid-template-rows: 60px 150px minmax(300px,auto) minmax(150px,auto) 200px;
   grid-gap: 30px;
   grid-template-areas:
     ". pagetitle nav ."
@@ -24,20 +24,6 @@ body {
     ". hoer hoer ."
     "footer footer footer footer";
 }
-
-/*
-.box {
-  color: #fff;
-  border-radius: 5px;
-  border: 5px dotted blue;
-}
-
-
-.grid2 li {
-  justify-self: center;
-  border:2px solid rgba(0,0,0,0)
-}
-*/
 
 .pagetitle {
   font-size: 300%;
@@ -74,7 +60,7 @@ nav a:hover {
   border: 2px solid grey;
 }
 
-.button {
+.nav_button {
   font-family: Montserrat;
   font-size: 200%;
   padding: 2px 20px;
@@ -101,39 +87,55 @@ nav a:hover {
 
 #hoerDiv {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: minmax(30px, auto) auto;
   grid-gap: 5px;
+  /*dosn't work for some reason*/
   grid-template-areas:
-    "infotext_hoer infotext_hoer  infotext_hoer . . "
-    "text_sample text_sample text_sample play_button voting";
+    "infotext_hoer infotext_hoer  infotext_hoer  "
+    "text_sample play_button voting";
 }
 
 #infotext_hoer {
+  grid-column: 1 / -1;
   grid.area: infotext_hoer;
+  color: grey;
+  font-size: 150%;
 }
 
 #text_sample_display {
   gird-area: text_sample;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #play_button {
   gird-area: play_button;
+  font-size: 200%;
+  border-radius: 25%;
 }
 
 #sample_voting {
+  gird-area: voting;
   display: flex;
   flex-direction: column;
-  gird-area: voting;
+  align-items: center;
+  justify-content: center;
+}
+
+.vote_button {
+  font-size: 200%;
+  border-radius: 25%;
 }
 
 footer {
   grid-area: footer;
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0px -3px 5px 2px rgba(0, 0, 0, 0.5);
-  height: auto;
-  vertical-align: middle;
-  line-height: 1000%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*Tablets*/
@@ -142,14 +144,14 @@ footer {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 2fr;
+    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 1fr;
     grid-gap: 10px;
     grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "footer";
   }
 }
 
 @media (max-width: 720px) {
-  .button {
+  .nav_button {
     font-size: 150%
   }
 }
@@ -170,7 +172,7 @@ footer {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
-  .button {
+  .nav_button {
     padding: 2px 40px;
     font-size: 200%;
   }

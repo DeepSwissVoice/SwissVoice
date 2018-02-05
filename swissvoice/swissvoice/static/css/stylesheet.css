@@ -15,13 +15,14 @@ body {
 .grid {
   display: grid;
   grid-template-columns: minmax(auto, 8%) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 8%);
-  grid-template-rows: 60px 150px minmax(300px,auto) minmax(150px,auto) 200px;
+  grid-template-rows: 60px 150px minmax(300px,auto) minmax(150px,auto) 80px 200px;
   grid-gap: 30px;
   grid-template-areas:
     ". pagetitle nav ."
     ". info info ."
     ". sprich sprich ."
     ". hoer hoer ."
+    ". . . ."
     "footer footer footer footer";
 }
 
@@ -36,6 +37,9 @@ body {
   grid-area: pagetitle;
   cursor: pointer;
   white-space:nowrap;
+
+  display: flex;
+  justify-content: flex-start;
 }
 
 .gridButton {
@@ -92,32 +96,33 @@ nav a:hover {
   grid-gap: 5px;
   /*dosn't work for some reason*/
   grid-template-areas:
-    "infotext_hoer infotext_hoer  infotext_hoer  "
+    "infotext_hoer infotext_hoer infotext_hoer"
     "text_sample play_button voting";
 }
 
 #infotext_hoer {
-  grid-column: 1 / -1;
-  grid.area: infotext_hoer;
+  grid-area: infotext_hoer;
   color: grey;
   font-size: 150%;
 }
 
 #text_sample_display {
-  gird-area: text_sample;
+  grid-area: text_sample;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+  border: 2px solid black;
 }
 
 #play_button {
-  gird-area: play_button;
+  grid-area: play_button;
   font-size: 200%;
   border-radius: 25%;
 }
 
 #sample_voting {
-  gird-area: voting;
+  grid-area: voting;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,15 +149,21 @@ footer {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 1fr;
+    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 50px 1fr;
     grid-gap: 10px;
-    grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "footer";
+    grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "." "footer";
   }
 }
 
 @media (max-width: 720px) {
   .nav_button {
     font-size: 150%
+  }
+  .text {
+    font-size: 150%
+  }
+  #infotext_hoer {
+    font-size: 120%;
   }
 }
 
@@ -162,18 +173,44 @@ footer {
   .grid {
     grid-template-rows: 70px auto 2fr 3fr 3fr 2fr;
   }
+
   .text {
     font-size: 120%;
   }
+
   .pagetitle {
     font-size: 250%;
   }
+
   .gridButton {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
+
   .nav_button {
     padding: 2px 40px;
     font-size: 200%;
+  }
+
+  #hoerDiv {
+    grid-template-columns: 3fr 1fr 20px;
+    grid-template-rows: minmax(30px, auto) minmax(70px,auto) 10px 50px;
+    grid-gap: 10px;
+    /*dosn't work for some reason*/
+    grid-template-areas:
+      "infotext_hoer infotext_hoer infotext_hoer"
+      "text_sample  play_button ."
+      ". . ."
+      "voting voting voting";
+  }
+
+  #infotext_hoer {
+    font-size: 100%;
+  }
+
+  #sample_voting {
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: rgba(250,0,0,0.7)
   }
 }

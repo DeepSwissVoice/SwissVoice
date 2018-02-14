@@ -79,11 +79,7 @@ nav a:hover {
   transition: all ease .3s;
 }
 
-
-
-
 .popup{
-
 	width: 35%;
 	height: 50%;
 	background-color: white;
@@ -96,9 +92,7 @@ nav a:hover {
   font-family: Oxygen,"Open-Sans",Helvetica,sans-serif;
   line-height: 100px;
   text-align: center;
-
   box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
-
 }
 
 .options{
@@ -106,11 +100,9 @@ nav a:hover {
 	width: 100%;
 	bottom: 0;
 	left: 0;
-
 }
 
 .cover{
-
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -118,7 +110,6 @@ nav a:hover {
 	background-color: rgba(0,0,0,0.9);
 	top: 0;
 	left: 0;
-
 }
 
 

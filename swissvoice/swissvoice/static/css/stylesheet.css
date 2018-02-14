@@ -168,7 +168,17 @@ nav a:hover {
 .vote_button {
   font-size: 200%;
   border-radius: 25%;
+  width: 100px;
 }
+
+#vote_ja {
+  background-color: #4CAF50;
+}
+
+#vote_nein {
+  background-color: #D32F2F;
+}
+
 
 footer {
   grid-area: footer;
@@ -247,6 +257,5 @@ footer {
   #sample_voting {
     flex-direction: row;
     justify-content: space-around;
-    background-color: rgba(250,0,0,0.7)
   }
 }

@@ -12,6 +12,19 @@ function nextSample() {
   $("#sample_voting").removeClass("active");
 }
 
+function showOverlay(currentState){
+  if(currentState == 0){
+    window.scrollTo(0,0);
+    document.getElementsByTagName("body")[0].style = "overflow: hidden";
+    $(".cover").fadeIn("slow");
+    $(".popup").fadeIn("slow");
+  } else {
+    document.getElementsByTagName("body")[0].style = "";
+    $(".cover").fadeOut("slow");
+    $(".popup").fadeOut("slow");
+  }
+}
+
 function getSample() {
   if (!currentSample) {
     nextSample();

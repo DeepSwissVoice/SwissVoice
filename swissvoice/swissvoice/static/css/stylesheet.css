@@ -6,7 +6,8 @@ body {
 }
 
 #text {
-  font-size: 20px font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
 }
 
 .text {
@@ -40,7 +41,6 @@ body {
   grid-area: pagetitle;
   cursor: pointer;
   white-space:nowrap;
-
   display: flex;
   justify-content: flex-start;
 }
@@ -111,9 +111,6 @@ nav a:hover {
 	top: 0;
 	left: 0;
 }
-
-
-
 
 .info {
   padding-top: 20px;

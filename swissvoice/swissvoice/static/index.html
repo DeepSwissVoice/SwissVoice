@@ -58,8 +58,8 @@
       <button id="play_button" onclick="togglePlay();">play</button>
 
       <div id="sample_voting">
-        <button class="vote_button" onclick="voteSample(true);">Ja</button>
-        <button class="vote_button" onclick="voteSample(false);">Nein</button>
+        <button id="vote_ja" class="vote_button" onclick="voteSample(true);">Ja</button>
+-        <button id="vote_nein" class="vote_button" onclick="voteSample(false);">Nein</button>
       </div>
     </div>
 
@@ -71,28 +71,26 @@
       </div>
       <div class="cover"></div>
       <script src="js/jquery.js"></script>
-      <button class="vote_button" onclick="showOverlay(0);">Cover_Test</button>
-      Text in footer
-      <br />
+      <button class="vote_button" style="width:auto" onclick="showOverlay(0);">Cover_Test</button>
+      <script>
+      var listOfRegions = SwissVoiceAPI.getRegions();
+      var listOfCantons;
+      setTimeout(function(){
+          listOfCantons = listOfRegions[0].cantons;
+          for(var a = 0; a < listOfCantons.length; a++) {
+            var regionName = listOfCantons[a].name;
+            var regionElement = document.createElement("P");
+            var regionImage = document.createElement("img");
+            regionImage.src = 'images/' + regionName + '.svg';
+            regionImage.setAttribute("width", "30%");
+            regionImage.setAttribute("height", "30%");
+            regionImage.addEventListener("click", function(){console.log(regionName)});
+            regionElement.appendChild(regionImage);
+            document.getElementById("popup").appendChild(regionElement);
+          }
+        }, 1000);
+      </script>
     </footer>
-    <script>
-    var listOfRegions = SwissVoiceAPI.getRegions();
-    var listOfCantons;
-    setTimeout(function(){
-        listOfCantons = listOfRegions[0].cantons;
-        for(var a = 0; a < listOfCantons.length; a++) {
-          var regionName = listOfCantons[a].name;
-          var regionElement = document.createElement("P");
-          var regionImage = document.createElement("img");
-          regionImage.src = 'images/' + regionName + '.svg';
-          regionImage.setAttribute("width", "30%");
-          regionImage.setAttribute("height", "30%");
-          regionImage.addEventListener("click", function(){console.log(regionName)});
-          regionElement.appendChild(regionImage);
-          document.getElementById("popup").appendChild(regionElement);
-        }
-      }, 1000);
-    </script>
   </div>
 </body>
 

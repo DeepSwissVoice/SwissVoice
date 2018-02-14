@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+   xmlns="http://www.w3.org/2000/svg"
+   width="540" height="620" viewBox="0 0 540 620">
+  <title>Wappen des Kantons Basel-Landschaft</title>
+  <desc>Wappen des Schweizer Kantons Basel-Landschaft</desc>
+  <g stroke="black" stroke-width="9" fill="#e2001a">
+    <path d="M 4.5,4.5 h 531 V 350 A 265.5 265.5 0 0 1 4.5,350 z" fill="white" />
+    <circle cx="221" cy="151" r="21.5" />
+    <circle cx="260" cy="88" r="21.5" />
+    <circle cx="324.5" cy="49.5" r="21.5" />
+    <circle cx="399.5" cy="47.5" r="21.5" />
+    <circle cx="463" cy="87" r="21.5" />
+    <circle cx="484" cy="156" r="21.5" />
+    <circle cx="445" cy="218" r="21.5" />
+    <path d="M 323,290 c 6,96 19,200 35,281.5 -14,-6.7 -43.7,-66.9 -61,-116.5 l -33,130 -33,-130 c -17.3,49.6 -47,109.8 -61,116.5 16,-81.5 29,-185.5 35,-281.5 l 10.5,-80 c -0.2,-133.8 137,-199.6 223.7,-139.9 45.2,31.2 50.4,84.7 27.9,121.1 -29.2,47.3 -98.2,45.2 -115.6,0.8 l 16.4,-13.5 c 51.3,60 97.4,-23.9 48.2,-58.8 -36.7,-26.1 -102.1,-5.7 -101.7,90.3 z" stroke-miterlimit="9" />
+    <g stroke="none">
+      <circle cx="221" cy="151" r="17" />
+      <circle cx="260" cy="88" r="17" />
+      <circle cx="324.5" cy="49.5" r="17" />
+      <circle cx="399.5" cy="47.5" r="17" />
+      <circle cx="463" cy="87" r="17" />
+      <circle cx="484" cy="156" r="17" />
+      <circle cx="445" cy="218" r="17" />
+    </g>
+    <path d="M 265.5,212.7 c -1.5,-130.7 115.3,-159.1 165.8,-114 67.4,60.2 -21.8,150.4 -62.6,77.9" stroke-width="4" fill="none" />
+    <path d="M 261.5,287 l 2,259 1,0 2,-259" stroke="none" fill="black" />
+    <path d="M 185.5,214.5 h 157 v 71 h -157 z" />
+    <path d="M 168.5,234.5 h 191 v 31 h -191 z" />
+  </g>
+</svg>

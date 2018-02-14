@@ -95,8 +95,8 @@ def vote_voice_sample(sample_id):
     def conv(val):
         val = val.lower()
         return (
-            True if val in {"u", "up", "y", "yes"} else
-            False if val in {"d", "down", "n", "no"} else
+            True if val in {"u", "up", "y", "yes", "true", "t"} else
+            False if val in {"d", "down", "n", "no", "false", "f"} else
             None
         )
     raw_vote = request.args.get("vote")

@@ -90,24 +90,28 @@ const SwissVoiceAPI = (() => {
   };
 
   async function fetchRegions() {
+    if (regions.length > 0) {
+      return false;
+    }
     const url = buildUrl("api", "regions")
     const resp = await HTTP.get(url)
     if (!resp.success) {
       throw new Error("Couldn't fetch any regions!", resp.error);
     }
-    regions = resp.regions;
+    regions.push(...resp.regions);
   }
 
   return {
     setRegion(region) {
       regionId = region;
-    }
+    },
     async setup(region, apiDomain = "/") {
       regionId = region;
       settings.domain = apiDomain;
 
       await ensureTextCache();
       await ensureSampleCache();
+      await fetchRegions();
     },
     getRegions() {
       return regions;

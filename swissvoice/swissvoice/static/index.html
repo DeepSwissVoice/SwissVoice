@@ -41,6 +41,7 @@
       Willkommen bei <b>Swiss Voice</b>.<br/>Teile <b>deine bezaubernde Stimme</b> mit uns, damit wir <b>dich</b> mit einer <b>schweizerdeutschen Spracherkennung</b> beglücken können.
     </div>
 
+
     <!-- Sprich! section -->
     <div href="sprich" id="sprichDiv" class="sprich text">
       <!-- Hier wird jemand (NICHT Kevin) eine Aufnahmefunktion einbinden -->
@@ -57,8 +58,8 @@
       <button id="play_button" onclick="togglePlay();">play</button>
 
       <div id="sample_voting">
-        <button id="vote_ja" class="vote_button" onclick="voteSample(true);">Ja</button>
-        <button id="vote_nein" class="vote_button" onclick="voteSample(false);">Nein</button>
+        <button class="vote_button" onclick="voteSample(true);">Ja</button>
+        <button class="vote_button" onclick="voteSample(false);">Nein</button>
       </div>
     </div>
 
@@ -67,8 +68,6 @@
 
       <div class = "popup" id = "popup">
         Wähle Deine Sprachregion aus.
-        <div class = "options">
-        </div>
       </div>
       <div class="cover"></div>
       <script src="js/jquery.js"></script>
@@ -76,6 +75,24 @@
       Text in footer
       <br />
     </footer>
+    <script>
+    var listOfRegions = SwissVoiceAPI.getRegions();
+    var listOfCantons;
+    setTimeout(function(){
+        listOfCantons = listOfRegions[0].cantons;
+        for(var a = 0; a < listOfCantons.length; a++) {
+          var regionName = listOfCantons[a].name;
+          var regionElement = document.createElement("P");
+          var regionImage = document.createElement("img");
+          regionImage.src = 'images/' + regionName + '.svg';
+          regionImage.setAttribute("width", "30%");
+          regionImage.setAttribute("height", "30%");
+          regionImage.addEventListener("click", function(){console.log(regionName)});
+          regionElement.appendChild(regionImage);
+          document.getElementById("popup").appendChild(regionElement);
+        }
+      }, 1000);
+    </script>
   </div>
 </body>
 

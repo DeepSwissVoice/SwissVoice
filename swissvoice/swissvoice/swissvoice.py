@@ -39,6 +39,7 @@ mongo_client = LocalProxy(get_mongo)
 mongo_database = LocalProxy(get_mongo_database)
 texts_coll = LocalProxy(partial(get_mongo_collection, "texts"))
 audio_samples_coll = LocalProxy(partial(get_mongo_collection, "audio_samples"))
+regions_coll = LocalProxy(partial(get_mongo_collection, "regions"))
 
 
 @app.teardown_appcontext
@@ -46,6 +47,17 @@ def close_mongo(exception):
     """Clean closing for MongoDB."""
     if "mongo_client" in g:
         g.mongo_client.close()
+
+
+@app.route("/api/regions")
+def get_regions():
+    """Get all regions."""
+    pipeline = [
+        {"$lookup": {"from": "cantons", "localField": "cantons", "foreignField": "_id", "as": "cantons"}}
+    ]
+    raw_regions = regions_coll.aggregate(pipeline)
+    regions = [{"_id": str(region["_id"]), "cantons": [{"name": canton["_id"], "image": canton["image"]} for canton in region["cantons"]]} for region in raw_regions]
+    return response(regions=regions)
 
 
 @app.route("/api/text/<region>")

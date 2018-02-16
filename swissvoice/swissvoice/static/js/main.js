@@ -15,7 +15,7 @@ function nextSample() {
 }
 
 function showOverlay(currentState){
-  if(currentState == 0){
+  if(currentState == 1){
     window.scrollTo(0,0);
     document.getElementsByTagName("body")[0].style = "overflow: hidden";
     $(".cover").fadeIn("slow");
@@ -29,19 +29,36 @@ function showOverlay(currentState){
 
 function fecthCantons(){
   var listOfRegions = SwissVoiceAPI.getRegions();
-  var listOfCantons;
-  listOfCantons = listOfRegions[0].cantons;
+  var listOfCantons = listOfRegions[0].cantons;
   for(var a = 0; a < listOfCantons.length; a++) {
-    var regionName = listOfCantons[a].name;
-    var regionElement = document.createElement("P");
-    var regionImage = document.createElement("img");
-    regionImage.src = 'images/' + regionName + '.svg';
-    regionImage.setAttribute("width", "30%");
-    regionImage.setAttribute("height", "30%");
-    regionImage.addEventListener("click", function(){console.log(regionName)});
-    regionElement.appendChild(regionImage);
-    document.getElementById("popup").appendChild(regionElement);
+    var cantonName = listOfCantons[a].name;
+    var cantonImageSrc = listOfCantons[a].image;
+    var cantonImage = document.createElement("img");
+    cantonImage.src = cantonImageSrc;
+    cantonImage.setAttribute("width", "25%");
+    cantonImage.style = "padding: 5px;";
+    var cantonNameHandleEventObject = {
+      handleEvent: function() {
+          saveCanton(this.localCantonName, this.localCantonImageSrc);
+      },
+      localCantonName: cantonName,
+      localCantonImageSrc: cantonImageSrc
+    };
+    cantonImage.addEventListener("click", cantonNameHandleEventObject , false);
+    document.getElementById("imageView").appendChild(cantonImage);
   }
+}
+
+function saveCanton(selectedCantonName, selectedCantonImageSrc){
+  localStorage.cantonName = selectedCantonName;
+  console.log(localStorage.cantonName); //TODO: Delete after testing
+  displayCantonFlag(selectedCantonImageSrc);
+  showOverlay(0);
+}
+
+function displayCantonFlag(selectedCantonImageSrc){
+  document.getElementById("currentCantonImage").src = selectedCantonImageSrc;
+  document.getElementById("currentCantonImage").hidden = "";
 }
 
 function getSample() {

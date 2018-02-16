@@ -37,7 +37,7 @@
 
 
 
-    <div class="text info">
+    <div class="text info" id = "infoText"><img class = "currentCantonImage" id = "currentCantonImage" src="" hidden="hidden">
       Willkommen bei <b>Swiss Voice</b>.<br/>Teile <b>deine bezaubernde Stimme</b> mit uns, damit wir <b>dich</b> mit einer <b>schweizerdeutschen Spracherkennung</b> beglücken können.
     </div>
 
@@ -65,11 +65,14 @@
 
     <footer class="text ">
       <!-- donate button, social media, github etc. -->
-      <button class="vote_button" style="width:auto" onclick="showOverlay(0);">Cover_Test</button>
+      <button class="vote_button" style="width:auto" onclick="showOverlay(1);">Cover_Test</button>
     </footer>
   </div>
-  <div class = "popup" id = "popup">
+  <div style="overflow-y: scroll" class = "popup" id = "popup">
     Wähle Deine Sprachregion aus.
+    <div style = "float:left" id = "imageView">
+
+    </div>
   </div>
   <div class="cover"></div>
 </body>

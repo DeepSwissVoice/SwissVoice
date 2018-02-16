@@ -4,6 +4,8 @@ let currentSample;
 async function init() {
   await SwissVoiceAPI.setup("test");
   nextSample();
+  await SwissVoiceAPI.getRegions();
+  fecthCantons();
 }
 
 function nextSample() {
@@ -22,6 +24,23 @@ function showOverlay(currentState){
     document.getElementsByTagName("body")[0].style = "";
     $(".cover").fadeOut("slow");
     $(".popup").fadeOut("slow");
+  }
+}
+
+function fecthCantons(){
+  var listOfRegions = SwissVoiceAPI.getRegions();
+  var listOfCantons;
+  listOfCantons = listOfRegions[0].cantons;
+  for(var a = 0; a < listOfCantons.length; a++) {
+    var regionName = listOfCantons[a].name;
+    var regionElement = document.createElement("P");
+    var regionImage = document.createElement("img");
+    regionImage.src = 'images/' + regionName + '.svg';
+    regionImage.setAttribute("width", "30%");
+    regionImage.setAttribute("height", "30%");
+    regionImage.addEventListener("click", function(){console.log(regionName)});
+    regionElement.appendChild(regionImage);
+    document.getElementById("popup").appendChild(regionElement);
   }
 }
 

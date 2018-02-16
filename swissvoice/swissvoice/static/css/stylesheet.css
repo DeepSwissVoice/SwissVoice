@@ -86,7 +86,7 @@ nav a:hover {
 }
 
 .popup {
-	width: 35%;
+	width: 40%;
 	height: 50%;
 	background-color: white;
 	border-radius: 4px;
@@ -96,6 +96,7 @@ nav a:hover {
 	display: none;
 	z-index: 1;
   font-family: Oxygen,"Open-Sans",Helvetica,sans-serif;
+  font-size: 2vw;
   line-height: 100px;
   text-align: center;
   box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);

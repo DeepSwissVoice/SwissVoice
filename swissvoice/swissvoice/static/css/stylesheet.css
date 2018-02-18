@@ -19,7 +19,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: minmax(auto, 8%) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 8%);
-  grid-template-rows: 60px 150px minmax(300px,auto) minmax(150px,auto) 80px 200px;
+  grid-template-rows: auto 150px minmax(300px,auto) minmax(150px,auto) 80px 200px;
   grid-gap: 30px;
   grid-template-areas:
     ". pagetitle nav ."
@@ -35,14 +35,12 @@ body {
   font-family: Montserrat, sans-serif;
   font-weight: bold;
   height: auto;
-  margin: auto;
+  margin: 30px auto 30px 0px;
   line-height: 100%;
   border-bottom: 3px solid black;
   grid-area: pagetitle;
   cursor: pointer;
   white-space:nowrap;
-  display: flex;
-  justify-content: flex-start;
 }
 
 .gridButton {
@@ -199,6 +197,10 @@ footer {
     grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 50px 1fr;
     grid-gap: 10px;
     grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "." "footer";
+  }
+  
+  .pagetitle {
+    margin: auto;
   }
 }
 

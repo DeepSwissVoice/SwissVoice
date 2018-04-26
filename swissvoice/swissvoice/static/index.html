@@ -49,15 +49,15 @@
         </div>
       </div>
       <div class="row" style="height:50px; text-align:center; line-height:50px;">
-        <div class="col-6" style="border-style:solid;">
+        <div class="col-6" style="border-style:solid;" id="text_sample_display">
           This is where the sentence goes.
         </div>
         <div class="col">
-          <button type="button" class="btn btn-secondary">Play</button>
+          <button type="button" class="btn btn-secondary" onclick="togglePlay();">Play</button>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-success">Ja</button>
-          <button type="button" class="btn btn-danger">Nein</button>
+          <button type="button" class="btn btn-success" onclick="voteSample(true);">Ja</button>
+          <button type="button" class="btn btn-danger" onclick="voteSample(false);">Nein</button>
         </div>
       </div>
     </div>

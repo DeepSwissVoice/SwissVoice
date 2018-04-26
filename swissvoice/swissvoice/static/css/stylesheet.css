@@ -1,80 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Oxygen");
-
 body {
   margin: 0;
   padding: 0;
-}
-
-#text {
-  font-size: 20px;
-  font-family: Montserrat, sans-serif;
-}
-
-.text {
-  font-size: 200%;
-  text-align: center;
-  font-family: Oxygen,"Open-Sans",Helvetica,sans-serif;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: minmax(auto, 8%) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 8%);
-  grid-template-rows: auto 150px minmax(300px,auto) minmax(150px,auto) 80px 200px;
-  grid-gap: 30px;
-  grid-template-areas:
-    ". pagetitle nav ."
-    ". info info ."
-    ". sprich sprich ."
-    ". hoer hoer ."
-    ". . . ."
-    "footer footer footer footer";
-}
-
-.pagetitle {
-  font-size: 300%;
-  font-family: Montserrat, sans-serif;
-  font-weight: bold;
-  height: auto;
-  margin: 30px auto 30px 0px;
-  line-height: 100%;
-  border-bottom: 3px solid black;
-  grid-area: pagetitle;
-  cursor: pointer;
-  white-space:nowrap;
-}
-
-.gridButton {
-  grid-area: nav;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 5px;
-  margin: auto;
-  justify-content: space-between;
-}
-
-nav {
-  height: auto;
-  margin: 1%;
-  padding: 0;
-  list-style-type: none;
-}
-
-nav a:hover {
-  color: grey;
-  border: 2px solid grey;
-}
-
-.nav_button {
-  font-family: Montserrat;
-  font-size: 200%;
-  padding: 2px 20px;
-  border: 2px solid black;
-  border-radius: 5px;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  transition: all ease .3s;
 }
 
 .currentCantonImage {
@@ -110,82 +36,8 @@ nav a:hover {
 	left: 0;
 }
 
-.info {
-  padding-top: 20px;
-  grid-area: info;
-}
-
-.sprich {
-  grid-area: sprich;
-}
-
-.hoer {
-  grid-area: hoer;
-}
-
-#hoerDiv {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-  grid-template-rows: minmax(30px, auto) auto;
-  grid-gap: 5px;
-  /*dosn't work for some reason*/
-  grid-template-areas:
-    "infotext_hoer infotext_hoer infotext_hoer"
-    "text_sample play_button voting";
-}
-
-#infotext_hoer {
-  grid-area: infotext_hoer;
-  color: grey;
-  font-size: 150%;
-}
-
-#text_sample_display {
-  grid-area: text_sample;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  border: 2px solid black;
-}
-
-#play_button {
-  grid-area: play_button;
-  font-size: 200%;
-  border-radius: 25%;
-}
-
-#sample_voting {
-  grid-area: voting;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.vote_button {
-  font-size: 200%;
-  border-radius: 25%;
-  width: 100px;
-}
-
-#vote_ja {
-  background-color: #4CAF50;
-}
-
-#vote_nein {
-  background-color: #D32F2F;
-}
-
-
-
-footer {
-  grid-area: footer;
-  background-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0px -3px 5px 2px rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#mainText {
+  font-size: 25px;
 }
 
 /*Tablets*/
@@ -198,7 +50,7 @@ footer {
     grid-gap: 10px;
     grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "." "footer";
   }
-  
+
   .pagetitle {
     margin: auto;
   }
@@ -239,22 +91,6 @@ footer {
   .nav_button {
     padding: 2px 40px;
     font-size: 200%;
-  }
-
-  #hoerDiv {
-    grid-template-columns: 3fr 1fr 20px;
-    grid-template-rows: minmax(30px, auto) minmax(70px,auto) 10px 50px;
-    grid-gap: 10px;
-    /*dosn't work for some reason*/
-    grid-template-areas:
-      "infotext_hoer infotext_hoer infotext_hoer"
-      "text_sample  play_button ."
-      ". . ."
-      "voting voting voting";
-  }
-
-  #infotext_hoer {
-    font-size: 100%;
   }
 
   #sample_voting {

@@ -1,6 +1,6 @@
 .idea/
 venv/
-*.pyc
-*.egg-info
+node_modules/
 
-config.cfg
+*.pyc
+package-lock.json

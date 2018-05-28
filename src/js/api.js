@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 const SwissVoiceAPI = (() => {
     const settings = {
         domain: "/",
@@ -12,6 +14,7 @@ const SwissVoiceAPI = (() => {
     const textCache = [];
     const sampleCache = [];
     const regions = [];
+    const cantons = [];
 
     function buildUrl(...endpoint) {
         return settings.domain + endpoint.join("/");
@@ -20,11 +23,11 @@ const SwissVoiceAPI = (() => {
     async function ensureTextCache() {
         if (textCache.length < settings.minCacheSize) {
             const url = buildUrl("api", "text", regionId);
-            const resp = await $.getJSON(url, [
-                ["count", settings.cacheRestockCount]
-            ]);
+            const resp = await $.getJSON(url, {
+                count: settings.cacheRestockCount
+            });
             if (!resp.success) {
-                throw new Error("Couldn't get any texts", resp.error);
+                throw new Error("Couldn't get any texts: " + resp.error);
             }
             textCache.push(...resp.texts);
         }
@@ -33,11 +36,11 @@ const SwissVoiceAPI = (() => {
     async function ensureSampleCache() {
         if (sampleCache.length < settings.minCacheSize) {
             const url = buildUrl("api", "voice", regionId);
-            const resp = await $.getJSON(url, [
-                ["count", settings.cacheRestockCount]
-            ]);
+            const resp = await $.getJSON(url, {
+                count: settings.cacheRestockCount
+            });
             if (!resp.success) {
-                throw new Error("Couldn't get any samples", resp.error);
+                throw new Error("Couldn't get any samples: " + resp.error);
             }
             sampleCache.push(...resp.samples);
         }
@@ -50,9 +53,13 @@ const SwissVoiceAPI = (() => {
         const url = buildUrl("api", "regions");
         const resp = await $.getJSON(url);
         if (!resp.success) {
-            throw new Error("Couldn't fetch any regions!", resp.error);
+            throw new Error("Couldn't fetch any regions!:" + resp.error);
         }
         regions.push(...resp.regions);
+
+        for (const region of regions) {
+            cantons.push(region.cantons);
+        }
     }
 
     return {
@@ -70,6 +77,9 @@ const SwissVoiceAPI = (() => {
         getRegions() {
             return regions;
         },
+        getCantons() {
+            return cantons;
+        },
         getText() {
             ensureTextCache();
             const item = textCache.shift();
@@ -79,7 +89,6 @@ const SwissVoiceAPI = (() => {
         getSample() {
             ensureSampleCache();
             const item = sampleCache.shift();
-            item.location = buildUrl("samples", item.location).slice(1);
             currentSample = item;
             return item;
         },
@@ -99,3 +108,5 @@ const SwissVoiceAPI = (() => {
         }
     };
 })();
+
+export {SwissVoiceAPI};

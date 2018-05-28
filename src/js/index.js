@@ -1,3 +1,5 @@
+import {SwissVoiceAPI} from "./api"
+
 let player;
 let currentSample;
 

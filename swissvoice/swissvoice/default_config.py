@@ -2,5 +2,7 @@ ENVVARKEY = "SWISSVOICE_SETTINGS"
 
 MAX_REQUEST_COUNT = 50
 
-MONGODB_URI = "mongodb://localhost:27017/"
+SENTRY_DSN = None
 
+MONGODB_URI = "mongodb://localhost:27017/"
+DATABASE_NAME = "SwissVoice"

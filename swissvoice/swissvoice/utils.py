@@ -1,13 +1,14 @@
-"""Some utilities."""
+__all__ = ["Error", "response", "error_response", "cast_type"]
 
 from enum import IntEnum
+from typing import Any, Callable, TypeVar
 
-from flask import jsonify
+from flask import Response, jsonify
+
+_DEFAULT = object()
 
 
 class Error(IntEnum):
-    """Error codes."""
-
     GENERAL = 0
     INVALID_REQUEST = 1
 
@@ -16,15 +17,13 @@ class Error(IntEnum):
     NO_SAMPLE_FOUND = 2001
 
 
-def response(**kwargs):
-    """Return a response."""
+def response(**kwargs) -> Response:
     data = kwargs
     data["success"] = kwargs.get("success", True)
     return jsonify(data)
 
 
-def error_response(error, msg):
-    """Return an error response."""
+def error_response(error: Error, msg: str) -> Response:
     error = {
         "name": error.name,
         "code": error.value,
@@ -33,11 +32,16 @@ def error_response(error, msg):
     return response(error=error, success=False)
 
 
-def cast_type(cls, val, default):
-    """Convert val to cls or return default."""
+T1 = TypeVar("T1")
+T2 = TypeVar("T2")
+
+
+def cast_type(cls: Callable[[T1], T2], val: T2, default: Any = _DEFAULT) -> T2:
     try:
         val = cls(val)
     except Exception:
+        if default is _DEFAULT:
+            raise
         val = default
-
-    return val
+    finally:
+        return val

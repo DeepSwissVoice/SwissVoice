@@ -73,11 +73,11 @@ const SwissVoiceAPI = (() => {
     async function setup(region, apiDomain = "/") {
         regionId = region;
         settings.domain = apiDomain;
+        
+        await fetchRegions();
 
         await ensureTextCache();
         await ensureSampleCache();
-        await fetchRegions();
-
     }
 
     return {

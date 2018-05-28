@@ -63,7 +63,7 @@ const SwissVoiceAPI = (() => {
         regions.push(...resp.regions);
 
         for (const region of regions) {
-            for (const canton of region) {
+            for (const canton of region.cantons) {
                 canton.region = region._id;
                 cantons.add(canton);
             }

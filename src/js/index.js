@@ -34,6 +34,7 @@ function fetchCantons() {
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         const cantonImage = document.createElement("img");
+        cantonImage.classList.add("canton_image"); // Here, I already added the class :3 (remove this line asap)
         cantonImage.src = canton.image;
         //
         // cantonImage.setAttribute("width", "25%"); // TODO do these with css, not with javascript!! ( by adding a class to the image and then styling them)
@@ -47,7 +48,6 @@ function fetchCantons() {
 
 function selectCanton(canton) {
     currentRegionId = canton.region;
-    console.log(canton);
     localStorage.setItem("region", currentRegionId);
     displayCantonFlag(canton.image);
     toggleOverlay();
@@ -116,7 +116,7 @@ function _init() {
     currentRegionId = localStorage.getItem("region");
     if (!currentRegionId) {
         alert("No region key found in your local storage... Using \"test\" until someone fixes this shit");
-        currentRegionId = "test";
+        currentRegionId = "TestRegion";
     }
 
     SwissVoiceAPI.setup(currentRegionId);

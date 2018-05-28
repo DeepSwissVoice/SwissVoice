@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  app:
+    container_name: SwissVoice
+    build: .
+    image: swissvoice
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - backend
+    environment:
+      - SENTRY_DSN
+    depends_on:
+      - database
+  database:
+    container_name: SwissVoice_MongoDB
+    image: mongo
+    restart: always
+    expose:
+      - "27017"
+    volumes:
+      - swissvoice:/data/db
+    networks:
+      - backend
+
+volumes:
+  swissvoice: {}
+
+networks:
+  backend: {}

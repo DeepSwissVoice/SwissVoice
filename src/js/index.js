@@ -1,14 +1,11 @@
 import {SwissVoiceAPI} from "./api"
+import $ from "jquery";
+import Raven from "raven-js";
+
+let currentRegionId;
 
 let player;
 let currentSample;
-
-async function init() {
-    await SwissVoiceAPI.setup("test");
-    nextSample();
-    await SwissVoiceAPI.getRegions();
-    fetchCantons();
-}
 
 function nextSample() {
     currentSample = SwissVoiceAPI.getSample();
@@ -16,8 +13,10 @@ function nextSample() {
     $("#sample_voting").removeClass("active");
 }
 
-function showOverlay(currentState) {
-    if (currentState === 1) {
+let cantonsOverlayVisible = false;
+
+function toggleOverlay() {
+    if (!cantonsOverlayVisible) {
         window.scrollTo(0, 0);
         document.getElementsByTagName("body")[0].style = "overflow: hidden";
         $(".cover").fadeIn("slow");
@@ -27,35 +26,31 @@ function showOverlay(currentState) {
         $(".cover").fadeOut("slow");
         $(".popup").fadeOut("slow");
     }
+    cantonsOverlayVisible = !cantonsOverlayVisible;
 }
 
 function fetchCantons() {
-    const listOfRegions = SwissVoiceAPI.getRegions();
-    const listOfCantons = listOfRegions[0].cantons;
-    for (let a = 0; a < listOfCantons.length; a++) {
-        const cantonName = listOfCantons[a].name;
-        const cantonImageSrc = listOfCantons[a].image;
+    const cantonContainer = document.getElementById("imageView");
+    const cantons = SwissVoiceAPI.getCantons();
+    for (const canton of cantons) {
         const cantonImage = document.createElement("img");
-        cantonImage.src = cantonImageSrc;
-        cantonImage.setAttribute("width", "25%");
-        cantonImage.style = "padding: 5px;";
-        const cantonNameHandleEventObject = {
-            handleEvent: function () {
-                saveCanton(this.localCantonName, this.localCantonImageSrc);
-            },
-            localCantonName: cantonName,
-            localCantonImageSrc: cantonImageSrc
-        };
-        cantonImage.addEventListener("click", cantonNameHandleEventObject, false);
-        document.getElementById("imageView").appendChild(cantonImage);
+        cantonImage.src = canton.image;
+        //
+        // cantonImage.setAttribute("width", "25%"); // TODO do these with css, not with javascript!! ( by adding a class to the image and then styling them)
+        // cantonImage.style = "padding: 5px;"; //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //
+        cantonImage.addEventListener("click", () => selectCanton(canton));
+
+        cantonContainer.appendChild(cantonImage);
     }
 }
 
-function saveCanton(selectedCantonName, selectedCantonImageSrc) {
-    localStorage.cantonName = selectedCantonName;
-    console.log(localStorage.cantonName); //TODO: Delete after testing
-    displayCantonFlag(selectedCantonImageSrc);
-    showOverlay(0);
+function selectCanton(canton) {
+    currentRegionId = canton.region;
+    console.log(canton);
+    localStorage.setItem("region", currentRegionId);
+    displayCantonFlag(canton.image);
+    toggleOverlay();
 }
 
 function displayCantonFlag(selectedCantonImageSrc) {
@@ -94,4 +89,39 @@ function voteSample(opinion) {
     }
 }
 
-$(document).ready(init);
+
+const btnMapping = {
+    "show_overlay_btn": toggleOverlay,
+    "toggle_play_btn": togglePlay,
+    "vote_sample_true_btn": () => voteSample(true),
+    "vote_sample_false_btn": () => voteSample(false)
+};
+
+function setupPage() {
+    for (const [id, listener] of Object.entries(btnMapping)) {
+        document.getElementById(id).addEventListener("click", listener);
+    }
+}
+
+async function init() {
+    setupPage();
+    await SwissVoiceAPI.ready;
+
+    nextSample();
+    await SwissVoiceAPI.getRegions();
+    fetchCantons();
+}
+
+function _init() {
+    currentRegionId = localStorage.getItem("region");
+    if (!currentRegionId) {
+        alert("No region key found in your local storage... Using \"test\" until someone fixes this shit");
+        currentRegionId = "test";
+    }
+
+    SwissVoiceAPI.setup(currentRegionId);
+    $(init);
+}
+
+Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965").install();
+Raven.context(_init);

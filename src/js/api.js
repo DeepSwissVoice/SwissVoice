@@ -1,4 +1,5 @@
 import $ from "jquery";
+import Raven from "raven-js";
 
 const SwissVoiceAPI = (() => {
     const settings = {
@@ -7,6 +8,7 @@ const SwissVoiceAPI = (() => {
         cacheRestockCount: 10
     };
 
+    let readyPromise;
     let regionId = "";
     let currentText = null;
     let currentSample = null;
@@ -27,7 +29,8 @@ const SwissVoiceAPI = (() => {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
-                throw new Error("Couldn't get any texts: " + resp.error);
+                Raven.captureBreadcrumb({data: resp});
+                throw new Error("Couldn't get any texts");
             }
             textCache.push(...resp.texts);
         }
@@ -40,7 +43,8 @@ const SwissVoiceAPI = (() => {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
-                throw new Error("Couldn't get any samples: " + resp.error);
+                Raven.captureBreadcrumb({data: resp});
+                throw new Error("Couldn't get any samples");
             }
             sampleCache.push(...resp.samples);
         }
@@ -53,26 +57,39 @@ const SwissVoiceAPI = (() => {
         const url = buildUrl("api", "regions");
         const resp = await $.getJSON(url);
         if (!resp.success) {
-            throw new Error("Couldn't fetch any regions!:" + resp.error);
+            Raven.captureBreadcrumb({data: resp});
+            throw new Error("Couldn't fetch any regions!");
         }
         regions.push(...resp.regions);
 
         for (const region of regions) {
-            cantons.push(region.cantons);
+            for (const canton of region) {
+                canton.region = region._id;
+                cantons.add(canton);
+            }
         }
+    }
+
+    async function setup(region, apiDomain = "/") {
+        regionId = region;
+        settings.domain = apiDomain;
+
+        await ensureTextCache();
+        await ensureSampleCache();
+        await fetchRegions();
+
     }
 
     return {
         setRegion(region) {
             regionId = region;
         },
-        async setup(region, apiDomain = "/") {
-            regionId = region;
-            settings.domain = apiDomain;
-
-            await ensureTextCache();
-            await ensureSampleCache();
-            await fetchRegions();
+        setup(region, apiDomain = "/") {
+            readyPromise = setup(region, apiDomain);
+            return readyPromise;
+        },
+        get ready() {
+            return readyPromise;
         },
         getRegions() {
             return regions;

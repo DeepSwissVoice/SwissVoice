@@ -51,19 +51,19 @@
             This is where the sentence goes.
         </div>
         <div class="col">
-            <button type="button" class="btn btn-secondary" onclick="togglePlay();">Play</button>
+            <button id="toggle_play_btn" type="button" class="btn btn-secondary">Play</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success" onclick="voteSample(true);">Ja</button>
-            <button type="button" class="btn btn-danger" onclick="voteSample(false);">Nein</button>
+            <button id="vote_sample_true_btn" type="button" class="btn btn-success">Ja</button>
+            <button id="vote_sample_false_btn" type="button" class="btn btn-danger">Nein</button>
         </div>
     </div>
 </div>
 
 <footer class="footer footer-light bg-light navbar-fixed-bottom">
     <div class="container" style="height:60px; text-align:center;">
-        <span class="text-muted"><p style="line-height:60px;"><button type="button" class="btn btn-secondary"
-                                                                      onclick="showOverlay(1);">Sprachregion</button></p></span>
+        <span class="text-muted"><p style="line-height:60px;"><button id="show_overlay_btn" type="button"
+                                                                      class="btn btn-secondary">Sprachregion</button></p></span>
     </div>
 </footer>
 <div style="overflow-y: scroll;" class="popup" id="popup">

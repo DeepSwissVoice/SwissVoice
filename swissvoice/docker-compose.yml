@@ -10,8 +10,6 @@ services:
       - 80:80
     networks:
       - backend
-    environment:
-      - SENTRY_DSN
     depends_on:
       - database
   database:

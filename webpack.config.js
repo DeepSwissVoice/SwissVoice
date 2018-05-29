@@ -4,10 +4,13 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     mode: "production",
-    entry: path.resolve("src", "js", "index.js"),
+    entry: {
+        index: path.resolve("src", "js", "index.js"),
+        about: path.resolve("src", "js", "about.js")
+    },
     output: {
-        filename: "bundle.js",
-        path: path.resolve(__dirname, "swissvoice", "swissvoice", "static")
+        filename: "[name]-bundle.js",
+        path: path.resolve(__dirname, "swissvoice", "swissvoice", "static", "js")
     },
     plugins: [
         new UglifyJsPlugin({

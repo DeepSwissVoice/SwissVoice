@@ -11,12 +11,11 @@ body {
 
 .popup {
 	width: 40%;
-	height: 50%;
 	background-color: white;
 	border-radius: 4px;
 	margin: auto;
 	position: absolute;
-	top: 10%; left: 0; bottom: 0; right: 0;
+	top: 10%; left: 0; bottom: 5%; right: 0;
 	display: none;
 	z-index: 1;
   font-family: Oxygen,"Open-Sans",Helvetica,sans-serif;

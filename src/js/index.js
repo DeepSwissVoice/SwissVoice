@@ -1,4 +1,4 @@
-import {SwissVoiceAPI} from "./api"
+import {SwissVoiceAPI} from "./api";
 import $ from "jquery";
 import Raven from "raven-js";
 
@@ -29,7 +29,7 @@ function toggleOverlay() {
     cantonsOverlayVisible = !cantonsOverlayVisible;
 }
 
-function fetchCantons() {
+function displayCantons() {
     const cantonContainer = document.getElementById("imageView");
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
@@ -94,7 +94,8 @@ const btnMapping = {
     "show_overlay_btn": toggleOverlay,
     "toggle_play_btn": togglePlay,
     "vote_sample_true_btn": () => voteSample(true),
-    "vote_sample_false_btn": () => voteSample(false)
+    "vote_sample_false_btn": () => voteSample(false),
+    "cover": toggleOverlay
 };
 
 function setupPage() {
@@ -109,7 +110,7 @@ async function init() {
 
     nextSample();
     await SwissVoiceAPI.getRegions();
-    fetchCantons();
+    displayCantons();
 }
 
 function _init() {

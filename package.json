@@ -9,7 +9,7 @@
     "build": "webpack"
   },
   "devDependencies": {
-    "webpack": "^4.9.1",
+    "webpack": "^4.10.1",
     "webpack-cli": "^2.1.4"
   }
 }

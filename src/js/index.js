@@ -2,9 +2,10 @@ import "bootstrap";
 import $ from "jquery";
 import Raven from "raven-js";
 
-import {SwissVoiceAPI} from "./api";
+import SwissVoiceAPI from "./api";
+import {record} from "./record";
 
-const elements = {};
+export const elements = {};
 
 let currentRegionId;
 
@@ -46,7 +47,7 @@ function selectCanton(canton) {
 
 function displayCantonFlag(selectedCantonImageSrc) {
     document.getElementById("current-canton-image").src = selectedCantonImageSrc;
-    document.getElementById("current-canton-image").hidden = "";
+    document.getElementById("current-canton-image").hidden = false;
 }
 
 let player;
@@ -72,14 +73,16 @@ function onAudioEnd() {
 
 function togglePlay() {
     if (player) {
-        player.pause();
+        if (!(player.ended || player.paused)) {
+            player.pause();
+        }
         player = null;
-        return;
+    } else {
+        const sample = getSample();
+        player = new Audio(sample.location);
+        player.addEventListener("ended", onAudioEnd);
+        player.play();
     }
-    const sample = getSample();
-    player = new Audio(sample.location);
-    player.addEventListener("ended", onAudioEnd);
-    player.play();
 }
 
 function voteSample(opinion) {
@@ -95,7 +98,8 @@ const btnMapping = {
     "cover": toggleOverlay,
     "toggle_play_btn": togglePlay,
     "vote_sample_true_btn": () => voteSample(true),
-    "vote_sample_false_btn": () => voteSample(false)
+    "vote_sample_false_btn": () => voteSample(false),
+    "record-btn": record
 };
 
 const elQueryMapping = {
@@ -114,21 +118,23 @@ function setupPage() {
 
 async function init() {
     setupPage();
-    await SwissVoiceAPI.ready;
+    if (SwissVoiceAPI.ready) {
+        await SwissVoiceAPI.ready;
 
-    nextSample();
+        nextSample();
+    } else {
+        alert("Api isn't setup yet...");
+    }
     await SwissVoiceAPI.getRegions();
     displayCantons();
 }
 
 function _init() {
     currentRegionId = localStorage.getItem("region");
-    if (!currentRegionId) {
-        alert("No region key found in your local storage... Using \"test\" until someone fixes this shit");
-        currentRegionId = "TestRegion";
+    if (currentRegionId) {
+        SwissVoiceAPI.setup(currentRegionId);
     }
 
-    SwissVoiceAPI.setup(currentRegionId);
     $(init);
 }
 

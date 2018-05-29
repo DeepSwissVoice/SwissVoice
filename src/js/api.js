@@ -1,7 +1,7 @@
 import $ from "jquery";
 import Raven from "raven-js";
 
-const SwissVoiceAPI = (() => {
+export default (() => {
     const settings = {
         domain: "/",
         minCacheSize: 5,
@@ -125,5 +125,3 @@ const SwissVoiceAPI = (() => {
         }
     };
 })();
-
-export {SwissVoiceAPI};

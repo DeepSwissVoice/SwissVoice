@@ -36,10 +36,6 @@ function displayCantons() {
         const cantonImage = document.createElement("img");
         cantonImage.classList.add("canton_image"); // Here, I already added the class :3 (remove this line asap)
         cantonImage.src = canton.image;
-        //
-        // cantonImage.setAttribute("width", "25%"); // TODO do these with css, not with javascript!! ( by adding a class to the image and then styling them)
-        // cantonImage.style = "padding: 5px;"; //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //
         cantonImage.addEventListener("click", () => selectCanton(canton));
 
         cantonContainer.appendChild(cantonImage);

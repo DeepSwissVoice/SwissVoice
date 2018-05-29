@@ -36,65 +36,11 @@ body {
 	left: 0;
 }
 
+.canton_image {
+  padding: 0px;
+  width: 25%;
+}
+
 #mainText {
   font-size: 25px;
-}
-
-/*Tablets*/
-
-@media (max-width: 970px) {
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 60px minmax(100,auto) minmax(100,auto) minmax(100,auto) 50px 1fr;
-    grid-gap: 10px;
-    grid-template-areas: "pagetitle " "nav" "info" "sprich" "hoer" "." "footer";
-  }
-
-  .pagetitle {
-    margin: auto;
-  }
-}
-
-@media (max-width: 720px) {
-  .nav_button {
-    font-size: 150%
-  }
-  .text {
-    font-size: 150%
-  }
-  #infotext_hoer {
-    font-size: 120%;
-  }
-}
-
-/* smartphones*/
-
-@media (max-width: 522px) {
-  .grid {
-    grid-template-rows: 70px auto 2fr 3fr 3fr 2fr;
-  }
-
-  .text {
-    font-size: 120%;
-  }
-
-  .pagetitle {
-    font-size: 250%;
-  }
-
-  .gridButton {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-  }
-
-  .nav_button {
-    padding: 2px 40px;
-    font-size: 200%;
-  }
-
-  #sample_voting {
-    flex-direction: row;
-    justify-content: space-around;
-  }
 }

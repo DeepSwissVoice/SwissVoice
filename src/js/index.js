@@ -36,7 +36,7 @@ function displayCantons() {
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         const cantonImage = document.createElement("img");
-        cantonImage.classList.add("canton_image"); // Here, I already added the class :3 (remove this line asap)
+        cantonImage.classList.add("canton-image"); // Here, I already added the class :3 (remove this line asap)
         cantonImage.src = canton.image;
         cantonImage.addEventListener("click", () => selectCanton(canton));
 

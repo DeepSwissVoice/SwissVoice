@@ -73,7 +73,7 @@ const SwissVoiceAPI = (() => {
     async function setup(region, apiDomain = "/") {
         regionId = region;
         settings.domain = apiDomain;
-        
+
         await fetchRegions();
 
         await ensureTextCache();
@@ -113,9 +113,9 @@ const SwissVoiceAPI = (() => {
             opinion = Boolean(opinion);
             voiceId = voiceId || currentSample.voice_id;
             const url = buildUrl("api", "vote", voiceId);
-            const resp = await $.getJSON(url, [
-                ["vote", opinion]
-            ]);
+            const resp = await $.getJSON(url, {
+                "vote": opinion
+            });
             return resp.success;
         },
         async uploadSample(blob, textId) {

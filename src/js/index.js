@@ -4,16 +4,9 @@ import Raven from "raven-js";
 
 import {SwissVoiceAPI} from "./api";
 
+const elements = {};
+
 let currentRegionId;
-
-let player;
-let currentSample;
-
-function nextSample() {
-    currentSample = SwissVoiceAPI.getSample();
-    $("#text_sample_display").text(currentSample.text);
-    $("#sample_voting").removeClass("active");
-}
 
 let cantonsOverlayVisible = false;
 
@@ -36,7 +29,7 @@ function displayCantons() {
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         const cantonImage = document.createElement("img");
-        cantonImage.classList.add("canton-image"); // Here, I already added the class :3 (remove this line asap)
+        cantonImage.classList.add("canton-image");
         cantonImage.src = canton.image;
         cantonImage.addEventListener("click", () => selectCanton(canton));
 
@@ -56,6 +49,15 @@ function displayCantonFlag(selectedCantonImageSrc) {
     document.getElementById("currentCantonImage").hidden = "";
 }
 
+let player;
+let currentSample;
+
+function nextSample() {
+    currentSample = SwissVoiceAPI.getSample();
+    $("#text_sample_display").text(currentSample.text);
+    elements.voteSampleButtons.addClass("disabled");
+}
+
 function getSample() {
     if (!currentSample) {
         nextSample();
@@ -64,7 +66,7 @@ function getSample() {
 }
 
 function onAudioEnd() {
-    $("#sample_voting").addClass("active");
+    elements.voteSampleButtons.removeClass("disabled");
     player = null;
 }
 
@@ -81,7 +83,7 @@ function togglePlay() {
 }
 
 function voteSample(opinion) {
-    if (currentSample && $("#sample_voting").hasClass("active")) {
+    if (currentSample && !elements.voteSampleButtons.hasClass("disabled")) {
         SwissVoiceAPI.approveSample(opinion);
         nextSample();
     }
@@ -96,9 +98,17 @@ const btnMapping = {
     "vote_sample_false_btn": () => voteSample(false)
 };
 
+const elQueryMapping = {
+    "voteSampleButtons": "#vote_sample_true_btn, #vote_sample_false_btn"
+};
+
 function setupPage() {
     for (const [id, listener] of Object.entries(btnMapping)) {
         document.getElementById(id).addEventListener("click", listener);
+    }
+
+    for (const [id, selector] of Object.entries(elQueryMapping)) {
+        elements[id] = $(selector);
     }
 }
 

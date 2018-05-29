@@ -92,10 +92,10 @@ function voteSample(opinion) {
 
 const btnMapping = {
     "show_overlay_btn": toggleOverlay,
+    "cover": toggleOverlay,
     "toggle_play_btn": togglePlay,
     "vote_sample_true_btn": () => voteSample(true),
-    "vote_sample_false_btn": () => voteSample(false),
-    "cover": toggleOverlay
+    "vote_sample_false_btn": () => voteSample(false)
 };
 
 function setupPage() {

@@ -45,8 +45,8 @@ function selectCanton(canton) {
 }
 
 function displayCantonFlag(selectedCantonImageSrc) {
-    document.getElementById("currentCantonImage").src = selectedCantonImageSrc;
-    document.getElementById("currentCantonImage").hidden = "";
+    document.getElementById("current-canton-image").src = selectedCantonImageSrc;
+    document.getElementById("current-canton-image").hidden = "";
 }
 
 let player;

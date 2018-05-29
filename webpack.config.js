@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
@@ -11,6 +12,10 @@ module.exports = {
     plugins: [
         new UglifyJsPlugin({
             sourceMap: true
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            Popper: ["popper.js", "default"]
         })
     ],
     devtool: "source-map"

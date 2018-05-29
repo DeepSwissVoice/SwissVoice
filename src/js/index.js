@@ -1,6 +1,8 @@
-import {SwissVoiceAPI} from "./api";
+import "bootstrap";
 import $ from "jquery";
 import Raven from "raven-js";
+
+import {SwissVoiceAPI} from "./api";
 
 let currentRegionId;
 

@@ -34,30 +34,31 @@
 </nav>
 
 <div class="container" style="margin-top:25px; margin-bottom:25px; text-align:center;">
-    <p class="main-text">
-        <img src="#" hidden="hidden" class="current-canton-image" id="current-canton-image">
-        Willkommen bei <b>Swiss Voice</b>.<br>Teile <b>deine bezaubernde Stimme</b> mit uns, damit wir <b>dich</b> mit einer <b>schweizerdeutschen
-        Spracherkennung</b> beglücken können.
-    </p>
+    <p class="main-text"><img src="#" hidden="hidden" class="current-canton-image" id="current-canton-image">
+      Willkommen bei <b>Swiss Voice</b>.<br>Teile <b>deine bezaubernde Stimme</b> mit uns, damit wir <b>dich</b> mit einer <b>schweizerdeutschen
+        Spracherkennung</b> beglücken können.</p>
 </div>
 <br>
-<!--Aufnahmefunktion-->
+
+<hr/ style="margin-left:10vw; margin-right:10vw; border-top: 2px solid rgba(0, 0, 0, 0.6)">
+
+  <!--Aufnahmefunktion-->
 <div class="container" id="sprichDiv" style="margin-top:5vh; margin-bottom:25px;">
-    <div class="row" style="height:50px; text-align:center; line-height:50px;">
-        <div class="col-6" style="border-style:solid;">
-            Text der gesprochen werden wird
-        </div>
-        <div class="col">
-            <button id="record-btn" class="btn btn-info">Aufnahme!</button>
-            <!--This isn't here to stay!!-->
-            <div id="record-visualiser" style="background-color: green; position: absolute; width: 50px;"></div>
-        </div>
+  <div class="row" style="min-height:50px; text-align:center; line-height:50px;">
+    <div class="col-6" style="border-style:solid;">
+      Text der gesprochen werden wird
     </div>
+    <div class="col">
+      <button class="btn btn-info">Aufnahme!</button>
+    </div>
+  </div>
 </div>
+
+<hr/ style="margin-left:10vw; margin-right:10vw; border-top: 2px solid rgba(0, 0, 0, 0.6)">
 
 <!-- Hörfunktion-->
 <div class="container" id="hoerDiv" style="margin-top:5vh; margin-bottom:50px;">
-    <div class="row" style="height:50px; text-align:center; line-height:50px;">
+    <div class="row" style="min-height:50px; text-align:center; line-height:50px;">
         <div class="col">
             <p>Stimmt die Aufnahme mit dem Text überein?</p>
         </div>
@@ -70,16 +71,15 @@
             <button id="toggle_play_btn" type="button" class="btn btn-secondary">Play</button>
         </div>
         <div class="col">
-            <button id="vote_sample_true_btn" type="button" class="btn btn-success disabled">Ja</button>
-            <button id="vote_sample_false_btn" type="button" class="btn btn-danger disabled">Nein</button>
+            <button id="vote_sample_true_btn" type="button" class="btn btn-success">Ja</button>
+            <button id="vote_sample_false_btn" type="button" class="btn btn-danger">Nein</button>
         </div>
     </div>
 </div>
 
 <footer class="footer footer-light bg-light navbar-fixed-bottom">
     <div class="container" style="height:60px; text-align:center;">
-        <span class="text-muted"><p style="line-height:60px;"><button id="show_overlay_btn" type="button"
-                                                                      class="btn btn-secondary">Sprachregion</button></p></span>
+        <span class="text-muted"><p style="line-height:60px;"><button id="show_overlay_btn" type="button" class="btn btn-secondary">Sprachregion</button></p></span>
     </div>
 </footer>
 <div style="overflow-y: scroll;" class="popup" id="popup">

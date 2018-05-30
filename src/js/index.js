@@ -55,7 +55,7 @@ let currentSample;
 
 function nextSample() {
     currentSample = SwissVoiceAPI.getSample();
-    $("#text_sample_display").text(currentSample.text);
+    $("#text-sample-display").text(currentSample.text);
     elements.voteSampleButtons.addClass("disabled");
 }
 
@@ -94,16 +94,16 @@ function voteSample(opinion) {
 
 
 const btnMapping = {
-    "show_overlay_btn": toggleOverlay,
+    "show-overlay-btn": toggleOverlay,
     "cover": toggleOverlay,
-    "toggle_play_btn": togglePlay,
-    "vote_sample_true_btn": () => voteSample(true),
-    "vote_sample_false_btn": () => voteSample(false),
+    "toggle-play-btn": togglePlay,
+    "vote-sample-true-btn": () => voteSample(true),
+    "vote-sample-false-btn": () => voteSample(false),
     "record-btn": record
 };
 
 const elQueryMapping = {
-    "voteSampleButtons": "#vote_sample_true_btn, #vote_sample_false_btn"
+    "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn"
 };
 
 function setupPage() {

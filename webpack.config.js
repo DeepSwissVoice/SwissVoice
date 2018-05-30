@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
+const swissvoice = require("./package.json");
+
 module.exports = {
     mode: "production",
     entry: {
@@ -13,12 +15,15 @@ module.exports = {
         path: path.resolve(__dirname, "server", "swissvoice", "static", "js")
     },
     plugins: [
-        new UglifyJsPlugin({
-            sourceMap: true
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(swissvoice.version)
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
             Popper: ["popper.js", "default"]
+        }),
+        new UglifyJsPlugin({
+            sourceMap: true
         })
     ],
     devtool: "source-map"

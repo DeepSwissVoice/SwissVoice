@@ -1,5 +1,3 @@
-"""Main stuff for the app."""
-
 import os
 from datetime import datetime
 from os import path
@@ -9,14 +7,15 @@ from flask import Flask, Response, g, request
 from raven.contrib.flask import Sentry
 from werkzeug.utils import secure_filename
 
-from . import proxy
+from . import __version__, proxy
 from .utils import Error, cast_type, error_response, response
 
 app = Flask(__name__)
 app.config.from_object(f"{__package__}.default_config")
 app.config.from_envvar(app.config["ENVVARKEY"])
 
-Sentry(app, dsn=app.config["SENTRY_DSN"])
+sentry = Sentry(app, dsn=app.config["SENTRY_DSN"])
+sentry.client.release = __version__
 
 
 @app.teardown_appcontext

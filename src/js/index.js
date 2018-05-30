@@ -138,5 +138,7 @@ function _init() {
     $(init);
 }
 
-Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965").install();
+Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {
+    release: VERSION
+}).install();
 Raven.context(_init);

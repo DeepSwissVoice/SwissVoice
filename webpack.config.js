@@ -10,7 +10,7 @@ module.exports = {
     },
     output: {
         filename: "[name]-bundle.js",
-        path: path.resolve(__dirname, "swissvoice", "swissvoice", "static", "js")
+        path: path.resolve(__dirname, "server", "swissvoice", "static", "js")
     },
     plugins: [
         new UglifyJsPlugin({

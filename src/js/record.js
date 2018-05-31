@@ -7,6 +7,10 @@ let currentRecordText;
 
 export function nextRecordText() {
     currentRecordText = SwissVoiceAPI.getText();
+    if (!currentRecordText) {
+        alert("There aren't any texts left...");
+        return;
+    }
     elements.textRecordDisplay.text(currentRecordText.text);
 }
 

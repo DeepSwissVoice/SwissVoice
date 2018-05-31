@@ -1,25 +1,18 @@
+import logging.config
 from datetime import datetime
 from io import BytesIO
 
 from bson.objectid import InvalidId, ObjectId
-from flask import Flask, Response, g, request
-from raven.contrib.flask import Sentry
+from flask import Response, request
 
-from . import __version__, proxy
+from . import proxy
+from .factory import get_app
 from .utils import Error, cast_type, error_response, response
 
-app = Flask(__name__)
-app.config.from_object(f"{__package__}.default_config")
-app.config.from_envvar(app.config["ENVVARKEY"])
+log = logging.getLogger(__name__)
 
-sentry = Sentry(app, dsn=app.config["SENTRY_DSN"])
-sentry.client.release = __version__
-
-
-@app.teardown_appcontext
-def close_mongo(*args):
-    if "mongo_client" in g:
-        g.mongo_client.close()
+app = get_app()
+app.teardown_appcontext(proxy.teardown)
 
 
 @app.route("/api/regions")
@@ -103,18 +96,19 @@ def upload_voice_sample(text_id: str) -> Response:
         text_oid = ObjectId(text_id)
     except InvalidId:
         return error_response(Error.INVALID_REQUEST, f"The provided text id is not a valid id ({text_id})")
+
     res = proxy.texts_coll.find_one(text_oid)
     if not res:
         return error_response(Error.NO_TEXT_FOUND, f"There's no text with that id ({text_id})")
 
     upload_file = BytesIO(request.data)
-
     if not upload_file:
         return error_response(Error.INVALID_REQUEST, "No data attached!")
 
     recording_id = ObjectId()
     key = app.config["RECORDING_KEY_PREFIX"] + str(recording_id) + ".mp3"
 
+    log.debug(f"uploading recording \"{key}\"")
     proxy.s3_client.upload_fileobj(upload_file, Bucket=app.config["BUCKET_NAME"], Key=key, ExtraArgs={"ACL": "public-read"})
 
     proxy.audio_samples_coll.insert_one({

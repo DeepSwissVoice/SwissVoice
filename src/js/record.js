@@ -1,6 +1,14 @@
 import AudioWeb from "./audio-web";
+import {elements} from "./index";
+import SwissVoiceAPI from "./api";
 
 const audioWeb = new AudioWeb();
+let currentRecordText;
+
+export function nextRecordText() {
+    currentRecordText = SwissVoiceAPI.getText();
+    elements.textRecordDisplay.text(currentRecordText.text);
+}
 
 function sleep(timeout) {
     return new Promise(res => setTimeout(res, timeout));

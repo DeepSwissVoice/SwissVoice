@@ -9,9 +9,9 @@ export default (() => {
     };
 
     let readyPromise;
-    let regionId = "";
-    let currentText = null;
-    let currentSample = null;
+    let regionId;
+    let currentText;
+    let currentSample;
 
     const textCache = [];
     const sampleCache = [];
@@ -70,21 +70,28 @@ export default (() => {
         }
     }
 
-    async function setup(region, apiDomain = "/") {
-        regionId = region;
-        settings.domain = apiDomain;
+    async function setup(region, apiDomain) {
+        if (region) {
+            regionId = region;
+
+            await ensureTextCache();
+            await ensureSampleCache();
+        }
+        if (apiDomain) {
+            settings.domain = apiDomain;
+        }
 
         await fetchRegions();
-
-        await ensureTextCache();
-        await ensureSampleCache();
     }
 
     return {
-        setRegion(region) {
-            regionId = region;
+        region(region) {
+            if (region) {
+                regionId = region;
+            }
+            return regionId;
         },
-        setup(region, apiDomain = "/") {
+        setup(region, apiDomain) {
             readyPromise = setup(region, apiDomain);
             return readyPromise;
         },

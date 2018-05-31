@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const SentryPlugin = require("@sentry/webpack-plugin");
 
 const swissvoice = require("./package.json");
 
@@ -12,7 +13,7 @@ module.exports = {
     },
     output: {
         filename: "[name]-bundle.js",
-        path: path.resolve(__dirname, "server", "swissvoice", "static", "js")
+        path: path.resolve("server", "swissvoice", "static", "js")
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -24,7 +25,14 @@ module.exports = {
         }),
         new UglifyJsPlugin({
             sourceMap: true
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            filename: "[name]-bundle.js.map",
+            append: false
+        }),
+        new SentryPlugin({
+            release: swissvoice.version,
+            include: path.resolve("server", "swissvoice", "static", "js")
         })
-    ],
-    devtool: "source-map"
+    ]
 };

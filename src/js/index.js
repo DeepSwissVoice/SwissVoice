@@ -3,93 +3,50 @@ import $ from "jquery";
 import Raven from "raven-js";
 
 import SwissVoiceAPI from "./api";
-import {record} from "./record";
+import {nextRecordText, record} from "./record";
+import {nextSample, togglePlay, voteSample} from "./vote";
 
 export const elements = {};
 
-let currentRegionId;
-
+let currentCanton;
 let cantonsOverlayVisible = false;
 
 function toggleOverlay() {
-    if (!cantonsOverlayVisible) {
-        window.scrollTo(0, 0);
-        document.getElementsByTagName("body")[0].style = "overflow: hidden";
-        $(".cover").fadeIn("slow");
-        $(".popup").fadeIn("slow");
-    } else {
-        document.getElementsByTagName("body")[0].style = "";
+    if (cantonsOverlayVisible) {
+        document.body.style.overflow = "";
         $(".cover").fadeOut("slow");
         $(".popup").fadeOut("slow");
+    } else {
+        window.scrollTo(0, 0);
+        document.body.style.overflow = "hidden";
+        $(".cover").fadeIn("slow");
+        $(".popup").fadeIn("slow");
     }
     cantonsOverlayVisible = !cantonsOverlayVisible;
 }
 
 function displayCantons() {
-    const cantonContainer = document.getElementById("imageView");
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         const cantonImage = document.createElement("img");
         cantonImage.classList.add("canton-image");
         cantonImage.src = canton.image;
         cantonImage.addEventListener("click", () => selectCanton(canton));
-
-        cantonContainer.appendChild(cantonImage);
+        console.log(cantonImage);
+        elements.cantonContainer.append(cantonImage);
     }
 }
 
 function selectCanton(canton) {
-    currentRegionId = canton.region;
-    localStorage.setItem("region", currentRegionId);
-    displayCantonFlag(canton.image);
+    currentCanton = canton;
+    localStorage.setItem("canton", JSON.stringify(currentCanton));
+    displayCantonFlag();
     toggleOverlay();
 }
 
-function displayCantonFlag(selectedCantonImageSrc) {
-    document.getElementById("current-canton-image").src = selectedCantonImageSrc;
+function displayCantonFlag() {
+    document.getElementById("current-canton-image").src = currentCanton.image;
     document.getElementById("current-canton-image").hidden = false;
-}
-
-let player;
-let currentSample;
-
-function nextSample() {
-    currentSample = SwissVoiceAPI.getSample();
-    $("#text-sample-display").text(currentSample.text);
-    elements.voteSampleButtons.addClass("disabled");
-}
-
-function getSample() {
-    if (!currentSample) {
-        nextSample();
-    }
-    return currentSample;
-}
-
-function onAudioEnd() {
-    elements.voteSampleButtons.removeClass("disabled");
-    player = null;
-}
-
-function togglePlay() {
-    if (player) {
-        if (!(player.ended || player.paused)) {
-            player.pause();
-        }
-        player = null;
-    } else {
-        const sample = getSample();
-        player = new Audio(sample.location);
-        player.addEventListener("ended", onAudioEnd);
-        player.play();
-    }
-}
-
-function voteSample(opinion) {
-    if (currentSample && !elements.voteSampleButtons.hasClass("disabled")) {
-        SwissVoiceAPI.approveSample(opinion);
-        nextSample();
-    }
 }
 
 
@@ -103,7 +60,10 @@ const btnMapping = {
 };
 
 const elQueryMapping = {
-    "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn"
+    "cantonContainer": "#image-view",
+    "textRecordDisplay": "#text-record-display",
+    "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn",
+    "textSampleDisplay": "#text-sample-display"
 };
 
 function setupPage() {
@@ -118,10 +78,11 @@ function setupPage() {
 
 async function init() {
     setupPage();
-    if (SwissVoiceAPI.ready) {
-        await SwissVoiceAPI.ready;
 
+    await SwissVoiceAPI.ready;
+    if (SwissVoiceAPI.region()) {
         nextSample();
+        nextRecordText();
     } else {
         alert("Api isn't setup yet...");
     }
@@ -130,9 +91,12 @@ async function init() {
 }
 
 function _init() {
-    currentRegionId = localStorage.getItem("region");
-    if (currentRegionId) {
-        SwissVoiceAPI.setup(currentRegionId);
+    currentCanton = JSON.parse(localStorage.getItem("canton"));
+    if (currentCanton) {
+        SwissVoiceAPI.setup(currentCanton.region);
+        displayCantonFlag();
+    } else {
+        SwissVoiceAPI.setup();
     }
 
     $(init);

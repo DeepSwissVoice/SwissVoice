@@ -14,12 +14,13 @@ body {
     bottom: 5%;
     right: 0;
     display: none;
-    z-index: 1;
+    z-index: 2001;
     font-family: Oxygen, "Open-Sans", Helvetica, sans-serif;
     font-size: 2vw;
     line-height: 100px;
     text-align: center;
     box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
+    overflow-y: scroll;
 }
 
 .current-canton-image {
@@ -36,6 +37,7 @@ body {
     background-color: rgba(0, 0, 0, 0.9);
     top: 0;
     left: 0;
+    z-index: 2000;
 }
 
 .canton-image {

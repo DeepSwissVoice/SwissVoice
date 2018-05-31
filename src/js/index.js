@@ -32,21 +32,20 @@ function displayCantons() {
         cantonImage.classList.add("canton-image");
         cantonImage.src = canton.image;
         cantonImage.addEventListener("click", () => selectCanton(canton));
-        console.log(cantonImage);
         elements.cantonContainer.append(cantonImage);
     }
 }
 
-function selectCanton(canton) {
-    currentCanton = canton;
+function selectCanton(selectedCanton) {
+    currentCanton = selectedCanton;
     localStorage.setItem("canton", JSON.stringify(currentCanton));
     displayCantonFlag();
     toggleOverlay();
 }
 
 function displayCantonFlag() {
-    document.getElementById("current-canton-image").src = currentCanton.image;
-    document.getElementById("current-canton-image").hidden = false;
+    elements.cantonDisplay.attr("src", currentCanton.image);
+    elements.cantonDisplay.show();
 }
 
 
@@ -61,6 +60,7 @@ const btnMapping = {
 
 const elQueryMapping = {
     "cantonContainer": "#image-view",
+    "cantonDisplay": "#current-canton-image",
     "textRecordDisplay": "#text-record-display",
     "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn",
     "textSampleDisplay": "#text-sample-display"
@@ -81,6 +81,7 @@ async function init() {
 
     await SwissVoiceAPI.ready;
     if (SwissVoiceAPI.region()) {
+        displayCantonFlag();
         nextSample();
         nextRecordText();
     } else {
@@ -94,7 +95,6 @@ function _init() {
     currentCanton = JSON.parse(localStorage.getItem("canton"));
     if (currentCanton) {
         SwissVoiceAPI.setup(currentCanton.region);
-        displayCantonFlag();
     } else {
         SwissVoiceAPI.setup();
     }

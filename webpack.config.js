@@ -15,6 +15,16 @@ module.exports = {
         filename: "[name]-bundle.js",
         path: path.resolve("server", "swissvoice", "static", "js")
     },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                sourceMap: true,
+                uglifyOptions: {
+                    inline: false
+                }
+            })
+        ]
+    },
     plugins: [
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(swissvoice.version)
@@ -23,16 +33,12 @@ module.exports = {
             $: "jquery",
             Popper: ["popper.js", "default"]
         }),
-        new UglifyJsPlugin({
-            sourceMap: true
-        }),
         new webpack.SourceMapDevToolPlugin({
-            filename: "[name]-bundle.js.map",
-            append: false
+            filename: "[name]-bundle.js.map"
         }),
         new SentryPlugin({
             release: swissvoice.version,
-            include: path.resolve("server", "swissvoice", "static", "js")
+            include: path.resolve("server", "swissvoice", "static")
         })
     ]
 };

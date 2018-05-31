@@ -128,7 +128,12 @@ export default (() => {
         async uploadSample(blob, textId) {
             textId = textId || currentText.text_id;
             const url = buildUrl("api", "upload", textId);
-            return await $.post(url, blob);
+            return await $.ajax(url, {
+                method: "POST",
+                contentType: blob.type,
+                data: blob,
+                processData: false
+            });
         }
     };
 })();

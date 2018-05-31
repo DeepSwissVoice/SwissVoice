@@ -23,5 +23,5 @@ export async function record() {
     await sleep(3000);
     const result = await audioWeb.stop();
     console.log("recording end", result);
-    window.location.href = result.url;
+    await SwissVoiceAPI.uploadSample(result.blob);
 }

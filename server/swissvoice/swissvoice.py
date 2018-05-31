@@ -1,11 +1,9 @@
-import os
 from datetime import datetime
-from os import path
+from io import BytesIO
 
 from bson.objectid import InvalidId, ObjectId
 from flask import Flask, Response, g, request
 from raven.contrib.flask import Sentry
-from werkzeug.utils import secure_filename
 
 from . import __version__, proxy
 from .utils import Error, cast_type, error_response, response
@@ -58,7 +56,9 @@ def get_voice_sample(region: str) -> Response:
     samples = []
     for sample in voice_cur:
         text_doc = proxy.texts_coll.find_one(sample["text_id"])
-        samples.append(dict(text=text_doc["text"], location=sample["filename"], voice_id=str(sample["_id"])))
+        location = app.config["RECORDING_LOCATION"] + "/" + sample["key"]
+
+        samples.append(dict(text=text_doc["text"], location=location, voice_id=str(sample["_id"])))
     if not samples:
         return error_response(Error.NO_SAMPLE_FOUND, "Couldn't find any voice samples")
     return response(samples=samples)
@@ -107,22 +107,19 @@ def upload_voice_sample(text_id: str) -> Response:
     if not res:
         return error_response(Error.NO_TEXT_FOUND, f"There's no text with that id ({text_id})")
 
-    if "file" not in request.files:
-        return error_response(Error.INVALID_REQUEST, "No file attached!")
-    upload_file = request.files["file"]
-    file_oid = ObjectId()
-    filename = secure_filename(f"{str(file_oid)}.mp3")
-    filedir = app.config["VOICE_SAMPLES_FOLDER"]
-    filepath = path.join(filedir, filename)
+    upload_file = BytesIO(request.data)
 
-    if not path.exists(filedir):
-        os.makedirs(filedir)
+    if not upload_file:
+        return error_response(Error.INVALID_REQUEST, "No data attached!")
 
-    upload_file.save(filepath)
+    recording_id = ObjectId()
+    key = app.config["RECORDING_KEY_PREFIX"] + str(recording_id) + ".mp3"
+
+    proxy.s3_client.upload_fileobj(upload_file, Bucket=app.config["BUCKET_NAME"], Key=key, ExtraArgs={"ACL": "public-read"})
 
     proxy.audio_samples_coll.insert_one({
-        "_id": file_oid,
-        "filename": filename,
+        "_id": recording_id,
+        "key": key,
         "text_id": text_oid,
         "region": res["region"],
         "votes": 0,

@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
+const fs = require("fs");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const SentryPlugin = require("@sentry/webpack-plugin");
 
@@ -35,10 +36,18 @@ module.exports = {
         }),
         new webpack.SourceMapDevToolPlugin({
             filename: "[name]-bundle.js.map"
-        }),
+        })
+    ]
+};
+
+if (fs.existsSync(".sentryclirc")) {
+    console.info("SentryPlugin enabled");
+    module.exports.plugins.push(
         new SentryPlugin({
             release: swissvoice.version,
             include: path.resolve("server", "swissvoice", "static")
         })
-    ]
-};
+    );
+} else {
+    console.warn("No .sentryclirc file found. Not uploading source maps!")
+}

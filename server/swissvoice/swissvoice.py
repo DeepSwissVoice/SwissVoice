@@ -49,6 +49,9 @@ def propose_text(region: str):
     if not texts:
         return error_response(Error.INVALID_REQUEST, "Empty list of texts")
 
+    if len(texts) > app.config["MAX_PROPOSE_COUNT"]:
+        return error_response(Error.INVALID_REQUEST, "Too many texts proposed! The max is " + str(app.config["MAX_PROPOSE_COUNT"]))
+
     documents = (dict(region=region, text=text) for text in texts)
 
     try:
@@ -60,7 +63,8 @@ def propose_text(region: str):
     else:
         failed_indices = []
         num_succeeded = len(result.inserted_ids)
-        
+
+    log.debug(f"proposed {num_succeeded} texts, {len(failed_indices)} failed")
     return response(succeeded=num_succeeded, failed=failed_indices)
 
 

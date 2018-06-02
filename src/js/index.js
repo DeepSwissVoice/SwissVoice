@@ -48,6 +48,13 @@ function displayCantonFlag() {
     elements.cantonDisplay.show();
 }
 
+async function proposeTexts() {
+    const content = elements.proposeTextsInput.val();
+    const texts = content.split(";").map(s => s.trim());
+    const result = await SwissVoiceAPI.proposeTexts(...texts);
+    console.log(result);
+}
+
 
 const btnMapping = {
     "show-overlay-btn": toggleOverlay,
@@ -55,7 +62,8 @@ const btnMapping = {
     "toggle-play-btn": togglePlay,
     "vote-sample-true-btn": () => voteSample(true),
     "vote-sample-false-btn": () => voteSample(false),
-    "record-btn": record
+    "record-btn": record,
+    "submit-proposed-texts": proposeTexts
 };
 
 const elQueryMapping = {
@@ -63,7 +71,8 @@ const elQueryMapping = {
     "cantonDisplay": "#current-canton-image",
     "textRecordDisplay": "#text-record-display",
     "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn",
-    "textSampleDisplay": "#text-sample-display"
+    "textSampleDisplay": "#text-sample-display",
+    "proposeTextsInput": "#propose-texts-input"
 };
 
 function setupPage() {

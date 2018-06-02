@@ -37,6 +37,7 @@ def get_mongo_collection(name) -> Collection:
 
 mongo_client: MongoClient = LocalProxy(get_mongo)
 mongo_database: Database = LocalProxy(get_mongo_database)
+proposed_texts_coll: Collection = LocalProxy(partial(get_mongo_collection, "proposed_texts"))
 texts_coll: Collection = LocalProxy(partial(get_mongo_collection, "texts"))
 audio_samples_coll: Collection = LocalProxy(partial(get_mongo_collection, "audio_samples"))
 regions_coll: Collection = LocalProxy(partial(get_mongo_collection, "regions"))

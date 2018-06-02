@@ -26,7 +26,7 @@ def get_regions() -> Response:
     return response(regions=regions)
 
 
-@app.route("/api/text/<region>")
+@app.route("/api/text/<region>", methods=["GET"])
 def get_text(region: str) -> Response:
     count = cast_type(int, request.args.get("count"), 3)
     if not 0 < count <= app.config["MAX_REQUEST_COUNT"]:
@@ -37,6 +37,21 @@ def get_text(region: str) -> Response:
     if not texts:
         return error_response(Error.NO_TEXT_FOUND, "Couldn't find any texts")
     return response(texts=texts)
+
+
+@app.route("/api/text/<region>", methods=["PUT", "POST"])
+def propose_text(region: str):
+    data = request.json
+    if not data:
+        return error_response(Error.INVALID_REQUEST, "No JSON body data")
+    texts = data.get("texts")
+    if not texts:
+        return error_response(Error.INVALID_REQUEST, "Empty list of texts")
+
+    documents = (dict(region=region, text=text) for text in texts)
+
+    proxy.proposed_texts_coll.insert_many(documents, ordered=False)
+    return response()
 
 
 @app.route("/api/voice/<region>")

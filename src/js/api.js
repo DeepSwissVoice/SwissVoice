@@ -116,6 +116,15 @@ export default (() => {
             currentSample = item;
             return item;
         },
+        async proposeTexts(...texts) {
+            const payload = {texts: texts};
+            const url = buildUrl("api", "text", regionId);
+            return await $.ajax(url, {
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload)
+            });
+        },
         async approveSample(opinion, voiceId) {
             opinion = Boolean(opinion);
             voiceId = voiceId || currentSample.voice_id;

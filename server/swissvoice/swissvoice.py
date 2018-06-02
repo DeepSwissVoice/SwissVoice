@@ -4,6 +4,7 @@ from io import BytesIO
 
 from bson.objectid import InvalidId, ObjectId
 from flask import Response, request
+from pymongo.errors import BulkWriteError
 
 from . import proxy, transcoder
 from .factory import get_app
@@ -50,8 +51,17 @@ def propose_text(region: str):
 
     documents = (dict(region=region, text=text) for text in texts)
 
-    proxy.proposed_texts_coll.insert_many(documents, ordered=False)
-    return response()
+    try:
+        result = proxy.proposed_texts_coll.insert_many(documents, ordered=False)
+    except BulkWriteError as error:
+        write_errors = error.details["writeErrors"]
+        failed_indices = [err["index"] for err in write_errors]
+        num_succeeded = error.details["nInserted"]
+    else:
+        failed_indices = []
+        num_succeeded = len(result.inserted_ids)
+        
+    return response(succeeded=num_succeeded, failed=failed_indices)
 
 
 @app.route("/api/voice/<region>")

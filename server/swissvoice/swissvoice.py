@@ -5,7 +5,7 @@ from io import BytesIO
 from bson.objectid import InvalidId, ObjectId
 from flask import Response, request
 
-from . import proxy
+from . import proxy, transcoder
 from .factory import get_app
 from .utils import Error, cast_type, error_response, response
 
@@ -101,7 +101,10 @@ def upload_voice_sample(text_id: str) -> Response:
     if not res:
         return error_response(Error.NO_TEXT_FOUND, f"There's no text with that id ({text_id})")
 
-    upload_file = BytesIO(request.data)
+    log.debug("transcoding upload")
+    transcoded_file = transcoder.transcode(request.data, "mp3", "mp3")
+    upload_file = BytesIO(transcoded_file)
+
     if not upload_file:
         return error_response(Error.INVALID_REQUEST, "No data attached!")
 
@@ -109,7 +112,8 @@ def upload_voice_sample(text_id: str) -> Response:
     key = app.config["RECORDING_KEY_PREFIX"] + str(recording_id) + ".mp3"
 
     log.debug(f"uploading recording \"{key}\"")
-    proxy.s3_client.upload_fileobj(upload_file, Bucket=app.config["BUCKET_NAME"], Key=key, ExtraArgs={"ACL": "public-read"})
+    proxy.s3_client.upload_fileobj(upload_file, Bucket=app.config["BUCKET_NAME"], Key=key,
+                                   ExtraArgs={"ACL": "public-read", "ContentType": "audio/mpeg"})
 
     proxy.audio_samples_coll.insert_one({
         "_id": recording_id,

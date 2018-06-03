@@ -46,10 +46,11 @@ body {
 }
 
 .main-text {
-    font-size: 25px;
+    font-size: 2rem;
 }
 
-@media (max-width: 1000px) {
+/* Large devices (desktops, less than 1200px)*/
+@media (max-width: 1199.98px) {
     img.canton-image {
         width: 25vw;
     }
@@ -71,6 +72,27 @@ body {
         margin: 1vw;
     }
 }
+
+/* Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) {
+  .main-text {
+      font-size: 1.5rem;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+  .main-text {
+      font-size: 1.2rem;
+  }
+}
+
+
 
 span.navbar-brand {
     padding-right: 25px;

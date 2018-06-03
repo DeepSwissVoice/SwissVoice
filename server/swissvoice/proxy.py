@@ -41,6 +41,7 @@ proposed_texts_coll: Collection = LocalProxy(partial(get_mongo_collection, "prop
 texts_coll: Collection = LocalProxy(partial(get_mongo_collection, "texts"))
 audio_samples_coll: Collection = LocalProxy(partial(get_mongo_collection, "audio_samples"))
 regions_coll: Collection = LocalProxy(partial(get_mongo_collection, "regions"))
+statistics_coll: Collection = LocalProxy(partial(get_mongo_collection, "statistics"))
 
 
 def get_s3() -> BaseClient:

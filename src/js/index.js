@@ -44,7 +44,7 @@ function selectCanton(selectedCanton) {
 }
 
 function displayCantonFlag() {
-    document.getElementById("show-overlay-btn").style.display = "none";
+    $("#show-overlay-btn").hide();
     elements.cantonDisplay.attr("src", currentCanton.image);
     elements.cantonDisplay.show();
 }

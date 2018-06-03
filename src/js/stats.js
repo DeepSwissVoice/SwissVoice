@@ -13,7 +13,8 @@ const elements = {};
 
 function buildColourMap(spec, nshades, shuffleColours = true) {
     if (!spec) {
-        spec = Object.keys(colorScale)[Math.floor(Math.random() * items.length)];
+        const choices = Object.keys(colorScale);
+        spec = choices[Math.floor(Math.random() * choices.length)];
     }
     const minShades = colorScale[spec].length;
     const shades = Math.max(minShades + 1, nshades);
@@ -38,7 +39,7 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of texts",
                 data: data.regions.map(el => el.total_texts),
-                backgroundColor: buildColourMap("jet", data.regions.length)
+                backgroundColor: buildColourMap(null, data.regions.length)
             }]
         }
     });
@@ -50,7 +51,7 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of voice samples",
                 data: data.regions.map(el => el.total_samples),
-                backgroundColor: buildColourMap("jet", data.regions.length)
+                backgroundColor: buildColourMap(null, data.regions.length)
             }]
         }
     });

@@ -53,6 +53,17 @@ body {
   font-size: 1rem;
 }
 
+.text-gross-info{
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.text-box{
+  line-height: 150%;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199.98px) {
     img.canton-image {

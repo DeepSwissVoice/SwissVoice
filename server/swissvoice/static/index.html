@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/index.css">
     <script src="js/index-bundle.js"></script>
 </head>
-<body>
+<body class="d-flex flex-column">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">Swiss Voice</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-supported-content"
@@ -86,7 +86,7 @@
 
 </div>
 
-<div id="schreiben" class="container">
+<div id="schreiben" class="container flex-fill">
     <div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Provide a Semicolon Seperated List of texts to submit</span>
@@ -98,13 +98,15 @@
     </div>
 </div>
 
-<footer class="footer footer-light bg-light fixed-bottom">
+<footer class="footer footer-light bg-light">
     <div class="container">
         <span class="text-muted">
             <button id="show-overlay-btn" class="btn btn-secondary" type="button">Sprachregion</button>
         </span>
     </div>
 </footer>
+
+<!-- Sprachregion-Auswahl-Popup -->
 <div id="popup" class="popup">
     Wähle Deine Sprachregion aus.
     <div id="image-view"></div>

@@ -44,11 +44,7 @@ function selectCanton(selectedCanton) {
 }
 
 function displayCantonFlag() {
-    var overlayTogglers = document.getElementsByClassName("overlay-button-toggler");
-    for (var i = 0; i < overlayTogglers.length; i++) {
-      overlayTogglers[i].style.display = "none";
-    }
-    $("#show-overlay-btn").hide();
+    elements.overlayButtonTogglers.hide();
     elements.cantonDisplay.attr("src", currentCanton.image);
     elements.cantonDisplay.show();
 }
@@ -62,16 +58,12 @@ async function proposeTexts() {
 
 
 const btnMapping = {
-    "show-overlay-btn": toggleOverlay,
-    "current-canton-image": toggleOverlay,
-    "record-show-overlay-btn": toggleOverlay,
-    "play-show-overlay-btn": toggleOverlay,
-    "cover": toggleOverlay,
-    "toggle-play-btn": togglePlay,
-    "vote-sample-true-btn": () => voteSample(true),
-    "vote-sample-false-btn": () => voteSample(false),
-    "record-btn": record,
-    "submit-proposed-texts": proposeTexts
+    "#toggle-play-btn": togglePlay,
+    "#vote-sample-true-btn": () => voteSample(true),
+    "#vote-sample-false-btn": () => voteSample(false),
+    "#record-btn": record,
+    "#submit-proposed-texts": proposeTexts,
+    ".overlay-button-toggler": toggleOverlay
 };
 
 const elQueryMapping = {
@@ -80,14 +72,14 @@ const elQueryMapping = {
     "textRecordDisplay": "#text-record-display",
     "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn",
     "textSampleDisplay": "#text-sample-display",
-    "proposeTextsInput": "#propose-texts-input"
+    "proposeTextsInput": "#propose-texts-input",
+    "overlayButtonTogglers": ".overlay-button-toggler"
 };
 
 function setupPage() {
-    for (const [id, listener] of Object.entries(btnMapping)) {
-        document.getElementById(id).addEventListener("click", listener);
+    for (const [selector, listener] of Object.entries(btnMapping)) {
+        $(selector).click(listener);
     }
-
 
 
     for (const [id, selector] of Object.entries(elQueryMapping)) {

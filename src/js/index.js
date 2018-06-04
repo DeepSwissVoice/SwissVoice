@@ -45,6 +45,8 @@ function selectCanton(selectedCanton) {
 
 function displayCantonFlag() {
     document.getElementById("show-overlay-btn").style.display = "none";
+    document.getElementById("record-show-overlay-btn").style.display = "none";
+    document.getElementById("play-show-overlay-btn").style.display = "none";
     elements.cantonDisplay.attr("src", currentCanton.image);
     elements.cantonDisplay.show();
 }
@@ -60,6 +62,7 @@ async function proposeTexts() {
 const btnMapping = {
     "show-overlay-btn": toggleOverlay,
     "current-canton-image": toggleOverlay,
+    "special-show-overlay-btn": toggleOverlay,
     "cover": toggleOverlay,
     "toggle-play-btn": togglePlay,
     "vote-sample-true-btn": () => voteSample(true),

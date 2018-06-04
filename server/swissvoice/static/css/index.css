@@ -49,6 +49,16 @@ body {
     font-size: 2rem;
 }
 
+.normal-button {
+  position: absolute;
+  z.index:1000;
+}
+
+.no-region-button {
+  position: absolute;
+  z-index: 1001;
+}
+
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199.98px) {
     img.canton-image {

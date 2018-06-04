@@ -5,14 +5,25 @@ export function randomOffset(num, percentage) {
     return num + off;
 }
 
-export function animateCountUp(targets, end, dur, start) {
+export function animateCountUp(targets, end, options) {
+    options = options || {};
+    const counterStart = options.start || 0;
+    const animDuration = options.duration || randomOffset(2500, 10);
+    const animEasing = options.easing || "swing";
+
     $(targets).each(function () {
         const $this = $(this);
-        $({Counter: start || 0}).animate({Counter: end || $this.text()}, {
-            duration: dur || randomOffset(1500, 10),
-            easing: "swing",
+        $({Counter: counterStart}).animate({Counter: end || $this.text()}, {
+            duration: animDuration,
+            easing: animEasing,
             step: function () {
-                $this.text(Math.ceil(this.Counter));
+                let value;
+                if (options.callback) {
+                    value = options.callback(this.Counter, this, $this);
+                } else {
+                    value = Math.ceil(this.Counter);
+                }
+                $this.text(value);
             }
         });
     });

@@ -67,13 +67,13 @@ const btnMapping = {
 };
 
 const elQueryMapping = {
-    "cantonContainer": "#image-view",
-    "cantonDisplay": "#current-canton-image",
-    "textRecordDisplay": "#text-record-display",
-    "voteSampleButtons": "#vote-sample-true-btn, #vote-sample-false-btn",
-    "textSampleDisplay": "#text-sample-display",
-    "proposeTextsInput": "#propose-texts-input",
-    "overlayButtonTogglers": ".overlay-button-toggler"
+    cantonContainer: "#image-view",
+    cantonDisplay: "#current-canton-image",
+    textRecordDisplay: "#text-record-display",
+    voteSampleButtons: "#vote-sample-true-btn, #vote-sample-false-btn",
+    textSampleDisplay: "#text-sample-display",
+    proposeTextsInput: "#propose-texts-input",
+    overlayButtonTogglers: ".overlay-button-toggler"
 };
 
 function setupPage() {

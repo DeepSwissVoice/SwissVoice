@@ -9,12 +9,18 @@ import SwissVoiceAPI from "./api";
 import {animateCountUp} from "./visuals";
 import {shuffle} from "./utils";
 
+const avgDurAudioSample = 3;
+
 const elements = {};
+
+function randomColourMap() {
+    const choices = Object.keys(colorScale);
+    return choices[Math.floor(Math.random() * choices.length)];
+}
 
 function buildColourMap(spec, nshades, shuffleColours = true) {
     if (!spec) {
-        const choices = Object.keys(colorScale);
-        spec = choices[Math.floor(Math.random() * choices.length)];
+        spec = randomColourMap();
     }
     const minShades = colorScale[spec].length;
     const shades = Math.max(minShades + 1, nshades);
@@ -26,11 +32,24 @@ function buildColourMap(spec, nshades, shuffleColours = true) {
     return colours;
 }
 
+function formatTime(seconds) {
+    const min = Math.round(seconds / 60);
+    const hours = Math.round(min / 60);
+    if (hours > 5) {
+        return hours + " hours";
+    } else {
+        return min + " minutes";
+    }
+}
+
 
 function displayStatistics(data) {
     animateCountUp(elements.totalVotesDisplay, data.total_votes);
     animateCountUp(elements.totalTextsDisplay, data.total_texts);
     animateCountUp(elements.totalSamplesDisplay, data.total_samples);
+    animateCountUp(elements.totalSamplesDurationDisplay, data.total_samples * avgDurAudioSample, {callback: formatTime});
+
+    let spec = randomColourMap();
 
     new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
@@ -39,7 +58,7 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of texts",
                 data: data.regions.map(el => el.total_texts),
-                backgroundColor: buildColourMap(null, data.regions.length)
+                backgroundColor: buildColourMap(spec, data.regions.length, false)
             }]
         }
     });
@@ -51,18 +70,52 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of voice samples",
                 data: data.regions.map(el => el.total_samples),
-                backgroundColor: buildColourMap(null, data.regions.length)
+                backgroundColor: buildColourMap(spec, data.regions.length, false)
             }]
         }
     });
+
+    const history = data.history.reverse();
+    const colours = buildColourMap(null, 3);
+    new Chart(elements.interactionTimeline, {
+        type: "line",
+        data: {
+            labels: history.map(el => el.iso_week),
+            datasets: [{
+                label: "# of texts",
+                data: history.map(el => el.total_texts),
+                borderColor: colours[0]
+            }, {
+                label: "# of samples",
+                data: history.map(el => el.total_samples),
+                borderColor: colours[1]
+            }, {
+                label: "# of votes",
+                data: history.map(el => el.total_votes),
+                borderColor: colours[2]
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+
+    elements.contentMain.removeClass("loading");
 }
 
 const elQueryMapping = {
-    "totalVotesDisplay": "#total-votes-display",
-    "totalTextsDisplay": "#total-texts-display",
-    "totalSamplesDisplay": "#total-samples-display",
-    "regionTextsDistributionDoughnut": "#region-texts-distribution-doughnut",
-    "regionSamplesDistributionDoughnut": "#region-samples-distribution-doughnut"
+    contentMain: "#content",
+    totalVotesDisplay: "#total-votes-display",
+    totalTextsDisplay: "#total-texts-display",
+    totalSamplesDisplay: "#total-samples-display",
+    totalSamplesDurationDisplay: "#total-samples-duration-display",
+    regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
+    regionSamplesDistributionDoughnut: "#region-samples-distribution-doughnut",
+    interactionTimeline: "#interaction-timeline"
 };
 
 function setupPage() {

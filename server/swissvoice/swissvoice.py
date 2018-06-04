@@ -167,6 +167,7 @@ def upload_voice_sample(text_id: str) -> Response:
 @app.route("/api/stats")
 def get_statistics() -> Response:
     iso_year, iso_week, _ = datetime.today().isocalendar()
+
     result = proxy.statistics_coll.find_one({"iso_year": iso_year, "iso_week": iso_week})
     if result:
         stats = result["stats"]
@@ -186,12 +187,26 @@ def get_statistics() -> Response:
             "total_votes": total_votes_aggr.next()["sum"],
             "regions": list(regions_aggr)
         }
-        
+
         proxy.statistics_coll.insert_one({
             "stats": stats,
             "iso_year": iso_year,
             "iso_week": iso_week
         })
         log.info("Statistics done!")
+
+    log.debug("getting older stats")
+    history_aggr = proxy.statistics_coll.aggregate([
+        {"$match": {"iso_week": {"$lte": iso_week}, "iso_year": {"$lte": iso_year}}},
+        {"$limit": app.config["STATISTICS_HISTORY_POINTS"]},
+        {"$project": {"_id": False,
+                      "iso_week": True,
+                      "iso_year": True,
+                      "total_texts": "$stats.total_texts",
+                      "total_samples": "$stats.total_samples",
+                      "total_votes": "$stats.total_votes"}}
+    ])
+
+    stats["history"] = list(history_aggr)
 
     return response(data=stats)

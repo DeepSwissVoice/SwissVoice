@@ -1,0 +1,35 @@
+/*This file is meant for general adjustments which aren't specific to one particular site!*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+span.navbar-brand {
+    padding-right: 25px;
+}
+
+div.container {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+span.text-muted {
+    line-height: 60px;
+}
+
+div.container > div.row {
+    min-height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+div.col-6 {
+    border-style: solid;
+}
+
+hr.hz-line {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    border-top: 2px solid rgba(0, 0, 0, 0.6);
+}

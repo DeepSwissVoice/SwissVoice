@@ -44,9 +44,10 @@ function selectCanton(selectedCanton) {
 }
 
 function displayCantonFlag() {
-    document.getElementById("show-overlay-btn").style.display = "none";
-    document.getElementById("record-show-overlay-btn").style.display = "none";
-    document.getElementById("play-show-overlay-btn").style.display = "none";
+    var overlayTogglers = document.getElementsByClassName("overlay-button-toggler");
+    for (var i = 0; i < overlayTogglers.length; i++) {
+      overlayTogglers[i].style.display = "none";
+    }
     $("#show-overlay-btn").hide();
     elements.cantonDisplay.attr("src", currentCanton.image);
     elements.cantonDisplay.show();
@@ -86,6 +87,8 @@ function setupPage() {
     for (const [id, listener] of Object.entries(btnMapping)) {
         document.getElementById(id).addEventListener("click", listener);
     }
+
+
 
     for (const [id, selector] of Object.entries(elQueryMapping)) {
         elements[id] = $(selector);

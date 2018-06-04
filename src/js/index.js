@@ -63,7 +63,8 @@ async function proposeTexts() {
 const btnMapping = {
     "show-overlay-btn": toggleOverlay,
     "current-canton-image": toggleOverlay,
-    "special-show-overlay-btn": toggleOverlay,
+    "record-show-overlay-btn": toggleOverlay,
+    "play-show-overlay-btn": toggleOverlay,
     "cover": toggleOverlay,
     "toggle-play-btn": togglePlay,
     "vote-sample-true-btn": () => voteSample(true),

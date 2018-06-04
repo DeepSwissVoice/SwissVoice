@@ -49,6 +49,7 @@ body {
     font-size: 2rem;
 }
 
+<<<<<<< HEAD
 .normal-button {
   position: absolute;
   z.index:1000;
@@ -59,6 +60,23 @@ body {
   z-index: 1001;
 }
 
+=======
+.text-normal{
+  font-size: 1rem;
+}
+
+.text-gross-info{
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.text-box{
+  line-height: 150%;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+
+>>>>>>> c31770da055f02ceba13ea723267fc56e6e68edc
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199.98px) {
     img.canton-image {
@@ -81,17 +99,26 @@ body {
         width: 15vw;
         margin: 1vw;
     }
+    .text-normal{
+      font-size: 0.9rem;
+    }
 }
 
 /* Medium devices (tablets, less than 992px)*/
 @media (max-width: 991.98px) {
-
+  .text-normal{
+    font-size: 0.8rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767.98px) {
   .main-text {
       font-size: 1.5rem;
+  }
+
+  .text-normal{
+    font-size: 0.7rem;
   }
 }
 

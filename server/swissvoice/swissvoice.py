@@ -1,3 +1,4 @@
+import datetime
 import logging.config
 from datetime import datetime
 from io import BytesIO
@@ -161,3 +162,36 @@ def upload_voice_sample(text_id: str) -> Response:
         }
     })
     return response()
+
+
+@app.route("/api/stats")
+def get_statistics() -> Response:
+    iso_year, iso_week, _ = datetime.today().isocalendar()
+    result = proxy.statistics_coll.find_one({"iso_year": iso_year, "iso_week": iso_week})
+    if result:
+        stats = result["stats"]
+    else:
+        log.info(f"Counting statistics for week {iso_year}-{iso_week}")
+
+        total_votes_aggr = proxy.audio_samples_coll.aggregate([{"$group": {"_id": None, "sum": {"$sum": "$votes"}}}])
+        regions_aggr = proxy.regions_coll.aggregate([
+            {"$lookup": {"from": "texts", "localField": "_id", "foreignField": "region", "as": "texts"}},
+            {"$lookup": {"from": "audio_samples", "localField": "_id", "foreignField": "region", "as": "audio_samples"}},
+            {"$project": {"_id": "$_id", "total_texts": {"$size": "$texts"}, "total_samples": {"$size": "$audio_samples"}}}
+        ])
+
+        stats = {
+            "total_texts": proxy.texts_coll.count(),
+            "total_samples": proxy.audio_samples_coll.count(),
+            "total_votes": total_votes_aggr.next()["sum"],
+            "regions": list(regions_aggr)
+        }
+        
+        proxy.statistics_coll.insert_one({
+            "stats": stats,
+            "iso_year": iso_year,
+            "iso_week": iso_week
+        })
+        log.info("Statistics done!")
+
+    return response(data=stats)

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Swiss Voice</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/stats-bundle.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Swiss Voice</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-supported-content"
+            aria-controls="navbar-supported-content"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-supported-ontent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="about">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Statistics</h1>
+    <!--German plz-->
+    <div>There have been a total of <span id="total-votes-display">0</span> votes cast!</div>
+    <div>We collected a total of <span id="total-samples-display">0</span> recodings over <span id="total-texts-display">0</span> sentences.</div>
+</div>
+
+<div class="container">
+    <div class="row">
+    <div class="chart-container col">
+        <canvas id="region-texts-distribution-doughnut"></canvas>
+    </div>
+    <div class="chart-container col">
+        <canvas id="region-samples-distribution-doughnut"></canvas>
+    </div>
+    </div>
+</div>
+
+<footer class="footer footer-light bg-light navbar-fixed-bottom">
+    <div class="container">
+        <span class="text-muted">Footer</span>
+    </div>
+</footer>
+</body>
+</html>

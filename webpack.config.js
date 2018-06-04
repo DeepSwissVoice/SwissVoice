@@ -10,7 +10,8 @@ module.exports = {
     mode: "production",
     entry: {
         index: path.resolve("src", "js", "index.js"),
-        about: path.resolve("src", "js", "about.js")
+        about: path.resolve("src", "js", "about.js"),
+        stats: path.resolve("src", "js", "stats.js")
     },
     output: {
         filename: "[name]-bundle.js",

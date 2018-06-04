@@ -44,9 +44,13 @@ function selectCanton(selectedCanton) {
 }
 
 function displayCantonFlag() {
+<<<<<<< HEAD
     document.getElementById("show-overlay-btn").style.display = "none";
     document.getElementById("record-show-overlay-btn").style.display = "none";
     document.getElementById("play-show-overlay-btn").style.display = "none";
+=======
+    $("#show-overlay-btn").hide();
+>>>>>>> c31770da055f02ceba13ea723267fc56e6e68edc
     elements.cantonDisplay.attr("src", currentCanton.image);
     elements.cantonDisplay.show();
 }

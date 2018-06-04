@@ -143,6 +143,11 @@ export default (() => {
                 data: blob,
                 processData: false
             });
+        },
+        async getStatistics() {
+            const url = buildUrl("api", "stats");
+            const result = await $.getJSON(url);
+            return result.data;
         }
     };
 })();

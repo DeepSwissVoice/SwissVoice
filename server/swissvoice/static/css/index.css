@@ -53,11 +53,17 @@ body {
 .normal-button {
   position: absolute;
   z.index:1000;
+  left: 10%;
+  top: -2000%;
+  font-size: 100%;
 }
 
 .no-region-button {
   position: absolute;
   z-index: 1001;
+  left: 10%;
+  top: -2000%;
+  font-size: 100%;
 }
 
 

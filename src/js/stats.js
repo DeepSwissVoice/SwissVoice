@@ -2,33 +2,22 @@ import "bootstrap";
 import $ from "jquery";
 import colormap from "colormap";
 import colorScale from "colormap/colorScale";
+import moment from "moment";
 import Raven from "raven-js";
 import Chart from "chart.js";
 
 import SwissVoiceAPI from "./api";
 import {animateCountUp} from "./visuals";
-import {shuffle} from "./utils";
 
 const avgDurAudioSample = 3;
 
 const elements = {};
 
-function randomColourMap() {
-    const choices = Object.keys(colorScale);
-    return choices[Math.floor(Math.random() * choices.length)];
-}
-
-function buildColourMap(spec, nshades, shuffleColours = true) {
-    if (!spec) {
-        spec = randomColourMap();
-    }
+function buildColourMap(spec, nshades) {
     const minShades = colorScale[spec].length;
     const shades = Math.max(minShades + 1, nshades);
     const _colours = colormap({colormap: spec, nshades: shades});
     const colours = _colours.slice(0, nshades);
-    if (shuffleColours) {
-        return shuffle(colours);
-    }
     return colours;
 }
 
@@ -44,12 +33,16 @@ function formatTime(seconds) {
 
 
 function displayStatistics(data) {
+    let colours;
+
+    Chart.defaults.global.animation.duration = 2500;
     animateCountUp(elements.totalVotesDisplay, data.total_votes);
     animateCountUp(elements.totalTextsDisplay, data.total_texts);
     animateCountUp(elements.totalSamplesDisplay, data.total_samples);
     animateCountUp(elements.totalSamplesDurationDisplay, data.total_samples * avgDurAudioSample, {callback: formatTime});
 
-    let spec = randomColourMap();
+    // Distribution doughnuts
+    colours = buildColourMap("earth", data.regions.length);
 
     new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
@@ -58,7 +51,9 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of texts",
                 data: data.regions.map(el => el.total_texts),
-                backgroundColor: buildColourMap(spec, data.regions.length, false)
+                backgroundColor: colours,
+                borderColor: colours,
+                borderWidth: 0
             }]
         }
     });
@@ -70,33 +65,42 @@ function displayStatistics(data) {
             datasets: [{
                 label: "# of voice samples",
                 data: data.regions.map(el => el.total_samples),
-                backgroundColor: buildColourMap(spec, data.regions.length, false)
+                backgroundColor: colours,
+                borderColor: colours,
+                borderWidth: 0
             }]
         }
     });
 
+    // Timeline
+
     const history = data.history.reverse();
-    const colours = buildColourMap(null, 3);
+    colours = ["#58A8D9", "#1D628C", "#D9A358"];
+
     new Chart(elements.interactionTimeline, {
         type: "line",
         data: {
-            labels: history.map(el => el.iso_week),
-            datasets: [{
-                label: "# of texts",
-                data: history.map(el => el.total_texts),
-                borderColor: colours[0]
-            }, {
-                label: "# of samples",
-                data: history.map(el => el.total_samples),
-                borderColor: colours[1]
-            }, {
-                label: "# of votes",
-                data: history.map(el => el.total_votes),
-                borderColor: colours[2]
-            }]
+            datasets: [["Texts", "total_texts"], ["Samples", "total_samples"], ["Votes", "total_votes"]].map(
+                ([label, dataLabel], idx) => ({
+                    label: label,
+                    data: history.map(el => ({t: moment().year(el.iso_year).isoWeek(el.iso_week), y: el[dataLabel]})),
+                    cubicInterpolationMode: "monotone",
+                    backgroundColor: colours[idx],
+                    borderColor: colours[idx],
+                    borderWidth: 5,
+                    fill: false,
+                    pointHitRadius: 10
+                })
+            )
         },
         options: {
             scales: {
+                xAxes: [{
+                    type: "time",
+                    gridLines: {
+                        display: false
+                    }
+                }],
                 yAxes: [{
                     stacked: true
                 }]

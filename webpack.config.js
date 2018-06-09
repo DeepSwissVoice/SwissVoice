@@ -10,6 +10,7 @@ module.exports = {
     mode: "production",
     entry: {
         index: path.resolve("src", "js", "index.js"),
+        "landing-page": path.resolve("src", "js", "landing-page.js"),
         about: path.resolve("src", "js", "about.js"),
         stats: path.resolve("src", "js", "stats.js")
     },

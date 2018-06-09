@@ -14,12 +14,12 @@ function _init() {
 
 
 function loadingAnimation() {
-    setTimeout(function() {$('fly-text').removeClass('hidden')}, 500);
-    setTimeout(function() {
-    $('.loading-screen').addClass('loaded');
-    $('.fly-text').addClass('loaded')}, 2800);
+    setTimeout(() => $(".fly-text").removeClass("hidden"), 500);
+    setTimeout(() => {
+        $(".loading-screen").addClass("loaded");
+        $(".fly-text").addClass("loaded");
+    }, 2800);
 }
-
 
 
 Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {

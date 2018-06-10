@@ -11,21 +11,26 @@
 
 .fly-text{
   padding-left: 0;
+  width: auto;
   color: black;
   list-style: none;
   position: absolute;
   left: 50%;
   top: 50%;
+  white-space: nowrap;
   transform: translate(-50%, -50%);
   opacity: 1;
-  transition: all 2.5s ease-out;
+  transition: all 1.5s ease-out;
   z-index: 1001;
 }
+
 .fly-text li {
   display: inline-block;
   margin-right: 1.5vw;
   font-size: 5vw;
   font-weight: 300;
+  transform: translate(0, 0);
+  transition: all 1.5s ease-out;
 }
 
 .fly-text li:last-child {
@@ -36,25 +41,26 @@
   margin-left: 0;
 }
 
-.fly-text.hidden {
+.fly-text.off {
   opacity: 0;
 }
-.fly-text.hidden li:nth-child(1) {transform: translate(-20vw, 8vh);}
-.fly-text.hidden li:nth-child(2) {transform: translate(-18vw, -35vh);}
-.fly-text.hidden li:nth-child(3) {transform: translate(25vw, 20vh);}
-.fly-text.hidden li:nth-child(4) {transform: translate(12vw, -15vh);}
-.fly-text.hidden li:nth-child(5) {transform: translate(-6vw, 10vh);}
-.fly-text.hidden li:nth-child(6) {transform: translate(-3vw, 4vh);}
-.fly-text.hidden li:nth-child(7) {transform: translate(6vw, -4vh);}
-.fly-text.hidden li:nth-child(8) {transform: translate(-8vw, 20vh);}
-.fly-text.hidden li:nth-child(9) {transform: translate(-13vw, 30vh);}
-.fly-text.hidden li:nth-child(10) {transform: translate(16vw, 45vh);}
 
-.loaded ul {
+.fly-text.off li:nth-child(1) {transform: translate(-20vw, 8vh);}
+.fly-text.off li:nth-child(2) {transform: translate(-18vw, -35vh);}
+.fly-text.off li:nth-child(3) {transform: translate(25vw, 20vh);}
+.fly-text.off li:nth-child(4) {transform: translate(12vw, -15vh);}
+.fly-text.off li:nth-child(5) {transform: translate(-6vw, 10vh);}
+.fly-text.off li:nth-child(6) {transform: translate(-3vw, 4vh);}
+.fly-text.off li:nth-child(7) {transform: translate(6vw, -4vh);}
+.fly-text.off li:nth-child(8) {transform: translate(-8vw, 20vh);}
+.fly-text.off li:nth-child(9) {transform: translate(-13vw, 30vh);}
+.fly-text.off li:nth-child(10) {transform: translate(16vw, 45vh);}
+
+.loaded li {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: all 0.8s ease;
 }
 
-.loaded.loading-screen {
+.logo-screen.loaded {
   display: none;
 }

@@ -14,11 +14,12 @@ function _init() {
 
 
 function loadingAnimation() {
-    setTimeout(() => $(".fly-text").removeClass("hidden"), 500);
+    setTimeout(() => $(".fly-text").removeClass("off"), 500);
     setTimeout(() => {
-        $(".loading-screen").addClass("loaded");
-        $(".fly-text").addClass("loaded");
-    }, 2800);
+        $(".fly-text li").addClass("loaded");
+        setTimeout(() => $('.logo-screen').fadeOut(1000),1000);
+        setTimeout(() => $(".logo-screen").addClass("loaded"),1000);
+    }, 3000);
 }
 
 

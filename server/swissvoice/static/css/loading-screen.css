@@ -27,6 +27,7 @@
 }
 
 .fly-text li {
+  opacity: 1;
   display: inline-block;
   margin-right: 1.5vw;
   font-size: 5vw;
@@ -47,20 +48,25 @@
   opacity: 0;
 }
 
-.fly-text.off li:nth-child(1) {transform: translate(-20vw, 8vh);}
-.fly-text.off li:nth-child(2) {transform: translate(-18vw, -35vh);}
-.fly-text.off li:nth-child(3) {transform: translate(25vw, 20vh);}
+.fly-text.off li:nth-child(1) {transform: translate(-10vw, 8vh);}
+.fly-text.off li:nth-child(2) {transform: translate(-5vw, -30vh);}
+.fly-text.off li:nth-child(3) {transform: translate(8vw, 20vh);}
 .fly-text.off li:nth-child(4) {transform: translate(12vw, -15vh);}
 .fly-text.off li:nth-child(5) {transform: translate(-6vw, 10vh);}
 .fly-text.off li:nth-child(6) {transform: translate(-3vw, 4vh);}
 .fly-text.off li:nth-child(7) {transform: translate(6vw, -4vh);}
 .fly-text.off li:nth-child(8) {transform: translate(-8vw, 20vh);}
 .fly-text.off li:nth-child(9) {transform: translate(-13vw, 30vh);}
-.fly-text.off li:nth-child(10) {transform: translate(16vw, 45vh);}
+.fly-text.off li:nth-child(10) {transform: translate(15vw, 10vh);}
 
-.loaded li {
+.fade-out li {
   opacity: 0;
   transition: all 0.8s ease;
+}
+
+.logo-screen.fade-out {
+  opacity: 0;
+  transition: all 1s ease-in;
 }
 
 .logo-screen.loaded {

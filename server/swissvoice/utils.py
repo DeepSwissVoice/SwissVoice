@@ -1,11 +1,20 @@
-__all__ = ["Error", "response", "error_response", "cast_type"]
+__all__ = ["SwissJsonEncoder", "Error", "response", "error_response", "cast_type"]
 
 from enum import IntEnum
 from typing import Any, Callable, TypeVar
 
+from bson import ObjectId
 from flask import Response, jsonify
+from flask.json import JSONEncoder
 
 _DEFAULT = object()
+
+
+class SwissJsonEncoder(JSONEncoder):
+    def default(self, o: Any) -> Any:
+        if isinstance(o, ObjectId):
+            return str(o)
+        return super().default(o)
 
 
 class Error(IntEnum):

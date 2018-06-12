@@ -7,6 +7,8 @@ from raven.contrib.flask import Sentry
 from raven.handlers.logging import SentryHandler
 
 from . import __version__, config
+from .converters import register_converters
+from .utils import SwissJsonEncoder
 
 log = logging.getLogger(__name__)
 
@@ -23,6 +25,9 @@ def get_app():
     sentry_handler = SentryHandler(sentry_client)
     sentry_handler.setLevel(logging.ERROR)
     setup_logging(sentry_handler)
+
+    register_converters(app)
+    app.json_encoder = SwissJsonEncoder
 
     log.info("app setup!")
 

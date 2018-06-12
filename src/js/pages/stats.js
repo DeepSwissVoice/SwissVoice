@@ -20,8 +20,8 @@ const avgDurAudioSample = 3;
 
 
 async function buildColourMap(spec, nshades) {
-    const colormap = await import(/* webpackChunkName: "colormap" */ "colormap");
-    const colorScale = await import(/* webpackChunkName: "colormap" */ "colormap/colorScale");
+    const colormap = (await import(/* webpackChunkName: "colormap" */ "colormap")).default;
+    const colorScale = (await import(/* webpackChunkName: "colormap" */ "colormap/colorScale")).default;
 
     const minShades = colorScale[spec].length;
     const shades = Math.max(minShades + 1, nshades);
@@ -41,8 +41,8 @@ function formatTime(seconds) {
 
 
 async function displayStatistics(data) {
-    const Chart = await import(/* webpackChunkName: "chart.js" */ "chart.js");
-    const moment = await import(/* webpackChunkName: "moment" */ "moment");
+    const Chart = (await import(/* webpackChunkName: "chart.js" */ "chart.js")).Chart;
+    const moment = (await import(/* webpackChunkName: "moment" */ "moment")).default;
     let colours, chart;
 
     Chart.defaults.global.animation.duration = 2500;
@@ -52,12 +52,12 @@ async function displayStatistics(data) {
     animateCountUp(elements.totalSamplesDurationDisplay, data.total_samples * avgDurAudioSample, {callback: formatTime});
 
     // Distribution doughnuts
-    colours = buildColourMap("earth", data.regions.length);
+    colours = await buildColourMap("earth", data.regions.length);
 
     chart = new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el._id),
+            labels: data.regions.map((el) => el.name),
             datasets: [{
                 label: "# of texts",
                 data: data.regions.map((el) => el.total_texts),
@@ -71,7 +71,7 @@ async function displayStatistics(data) {
     chart = new Chart(elements.regionSamplesDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el._id),
+            labels: data.regions.map((el) => el.name),
             datasets: [{
                 label: "# of voice samples",
                 data: data.regions.map((el) => el.total_samples),

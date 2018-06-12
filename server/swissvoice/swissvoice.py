@@ -3,7 +3,7 @@ import logging.config
 from datetime import datetime
 from io import BytesIO
 
-from bson.objectid import InvalidId, ObjectId
+from bson.objectid import ObjectId
 from flask import Response, request
 from pymongo.errors import BulkWriteError
 
@@ -23,13 +23,21 @@ def get_regions() -> Response:
         {"$lookup": {"from": "cantons", "localField": "cantons", "foreignField": "_id", "as": "cantons"}}
     ]
     raw_regions = proxy.regions_coll.aggregate(pipeline)
-    regions = [{"_id": str(region["_id"]), "cantons": [{"name": canton["_id"], "image": canton["image"]} for canton in region["cantons"]]} for region
-               in raw_regions]
+    regions = [
+        {"_id": region["_id"],
+         "cantons": [
+             {
+                 "name": canton["_id"],
+                 "image": canton["image"]
+             } for canton in region["cantons"]
+         ]
+         } for region in raw_regions
+    ]
     return response(regions=regions)
 
 
-@app.route("/api/text/<region>", methods=["GET"])
-def get_text(region: str) -> Response:
+@app.route("/api/text/<oid:region>", methods=["GET"])
+def get_text(region: ObjectId) -> Response:
     count = cast_type(int, request.args.get("count"), 3)
     if not 0 < count <= app.config["MAX_REQUEST_COUNT"]:
         return error_response(Error.INVALID_REQUEST, f"Invalid amount of samples requested! ({count})")
@@ -41,8 +49,8 @@ def get_text(region: str) -> Response:
     return response(texts=texts)
 
 
-@app.route("/api/text/<region>", methods=["PUT", "POST"])
-def propose_text(region: str):
+@app.route("/api/text/<oid:region>", methods=["PUT", "POST"])
+def propose_text(region: ObjectId):
     data = request.json
     if not data:
         return error_response(Error.INVALID_REQUEST, "No JSON body data")
@@ -69,8 +77,8 @@ def propose_text(region: str):
     return response(succeeded=num_succeeded, failed=failed_indices)
 
 
-@app.route("/api/voice/<region>")
-def get_voice_sample(region: str) -> Response:
+@app.route("/api/voice/<oid:region>")
+def get_voice_sample(region: ObjectId) -> Response:
     count = cast_type(int, request.args.get("count"), 3)
     if not 0 < count <= app.config["MAX_REQUEST_COUNT"]:
         return error_response(Error.INVALID_REQUEST, f"Invalid amount of samples requested! ({count})")
@@ -87,8 +95,8 @@ def get_voice_sample(region: str) -> Response:
     return response(samples=samples)
 
 
-@app.route("/api/vote/<sample_id>")
-def vote_voice_sample(sample_id: str) -> Response:
+@app.route("/api/vote/<oid:sample_id>")
+def vote_voice_sample(sample_id: ObjectId) -> Response:
     def conv(val):
         val = val.lower()
         return (
@@ -101,10 +109,6 @@ def vote_voice_sample(sample_id: str) -> Response:
     vote = cast_type(conv, raw_vote, None)
     if vote is None:
         return error_response(Error.INVALID_REQUEST, f"Can't tell what you're trying to vote. ({raw_vote})")
-    try:
-        sample_id = ObjectId(sample_id)
-    except InvalidId:
-        return error_response(Error.INVALID_REQUEST, f"The provided sample_id is not a valid id. ({sample_id})")
     voice_coll = proxy.audio_samples_coll.find_one(sample_id)
     if not voice_coll:
         return error_response(Error.NO_SAMPLE_FOUND, f"No sample found with this id. ({sample_id})")
@@ -120,16 +124,11 @@ def vote_voice_sample(sample_id: str) -> Response:
     return response()
 
 
-@app.route("/api/upload/<text_id>", methods=["PUT", "POST"])
-def upload_voice_sample(text_id: str) -> Response:
-    try:
-        text_oid = ObjectId(text_id)
-    except InvalidId:
-        return error_response(Error.INVALID_REQUEST, f"The provided text id is not a valid id ({text_id})")
-
+@app.route("/api/upload/<oid:text_oid>", methods=["PUT", "POST"])
+def upload_voice_sample(text_oid: ObjectId) -> Response:
     res = proxy.texts_coll.find_one(text_oid)
     if not res:
-        return error_response(Error.NO_TEXT_FOUND, f"There's no text with that id ({text_id})")
+        return error_response(Error.NO_TEXT_FOUND, f"There's no text with that id ({text_oid})")
 
     log.debug("transcoding upload")
     transcoded_file = transcoder.transcode(request.data, "mp3", "mp3")
@@ -169,7 +168,7 @@ def get_statistics() -> Response:
     iso_year, iso_week, _ = datetime.today().isocalendar()
 
     result = proxy.statistics_coll.find_one({"iso_year": iso_year, "iso_week": iso_week})
-    if result:
+    if False:
         stats = result["stats"]
     else:
         log.info(f"Counting statistics for week {iso_year}-{iso_week}")
@@ -178,33 +177,54 @@ def get_statistics() -> Response:
         regions_aggr = proxy.regions_coll.aggregate([
             {"$lookup": {"from": "texts", "localField": "_id", "foreignField": "region", "as": "texts"}},
             {"$lookup": {"from": "audio_samples", "localField": "_id", "foreignField": "region", "as": "audio_samples"}},
-            {"$project": {"_id": "$_id", "total_texts": {"$size": "$texts"}, "total_samples": {"$size": "$audio_samples"}}}
+            {"$unwind": "$cantons"},
+            {"$lookup": {"from": "cantons", "localField": "cantons", "foreignField": "_id", "as": "cantons"}},
+            {"$group": {
+                "_id": "$_id",
+                "cantons": {"$push": "$cantons._id"},
+                "texts": {"$first": "$texts"},
+                "audio_samples": {"$first": "$audio_samples"}
+            }},
+            {"$unwind": "$cantons"},
+            {"$project": {
+                "_id": "$_id",
+                "cantons": "$cantons",
+                "total_texts": {"$size": "$texts"},
+                "total_samples": {"$size": "$audio_samples"}
+            }}
         ])
+
+        regions = []
+        for region in regions_aggr:
+            region["name"] = "/".join(region["cantons"])
+            regions.append(region)
 
         stats = {
             "total_texts": proxy.texts_coll.count(),
             "total_samples": proxy.audio_samples_coll.count(),
             "total_votes": total_votes_aggr.next()["sum"],
-            "regions": list(regions_aggr)
+            "regions": regions
         }
 
-        proxy.statistics_coll.insert_one({
-            "stats": stats,
-            "iso_year": iso_year,
-            "iso_week": iso_week
-        })
+        # proxy.statistics_coll.insert_one({
+        #     "stats": stats,
+        #     "iso_year": iso_year,
+        #     "iso_week": iso_week
+        # })
         log.info("Statistics done!")
 
     log.debug("getting older stats")
     history_aggr = proxy.statistics_coll.aggregate([
         {"$match": {"iso_week": {"$lte": iso_week}, "iso_year": {"$lte": iso_year}}},
         {"$limit": app.config["STATISTICS_HISTORY_POINTS"]},
-        {"$project": {"_id": False,
-                      "iso_week": True,
-                      "iso_year": True,
-                      "total_texts": "$stats.total_texts",
-                      "total_samples": "$stats.total_samples",
-                      "total_votes": "$stats.total_votes"}}
+        {"$project": {
+            "_id": False,
+            "iso_week": True,
+            "iso_year": True,
+            "total_texts": "$stats.total_texts",
+            "total_samples": "$stats.total_samples",
+            "total_votes": "$stats.total_votes"
+        }}
     ])
 
     stats["history"] = list(history_aggr)

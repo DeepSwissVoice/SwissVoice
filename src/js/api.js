@@ -50,6 +50,15 @@ export default (() => {
         }
     }
 
+    function extractCantons() {
+        for (const region of regions) {
+            for (const canton of region.cantons) {
+                canton.region = region._id;
+                cantons.push(canton);
+            }
+        }
+    }
+
     async function fetchRegions() {
         if (regions.length > 0) {
             return false;
@@ -61,13 +70,7 @@ export default (() => {
             throw new Error("Couldn't fetch any regions!");
         }
         regions.push(...resp.regions);
-
-        for (const region of regions) {
-            for (const canton of region.cantons) {
-                canton.region = region._id;
-                cantons.push(canton);
-            }
-        }
+        extractCantons();
     }
 
     async function setup(region, apiDomain) {

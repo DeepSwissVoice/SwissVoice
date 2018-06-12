@@ -177,8 +177,7 @@ export default class AudioWeb {
 
     stop() {
         if (!this.isReady()) {
-            console.error("Cannot stop audio before microhphone is ready.");
-            return Promise.resolve({});
+            throw new Error("Cannot stop audio before microhphone is ready.");
         }
 
         return new Promise(res => {
@@ -188,7 +187,7 @@ export default class AudioWeb {
                 let blob = new Blob(this.chunks, {type: AUDIO_TYPE});
                 this.last = {
                     url: URL.createObjectURL(blob),
-                    blob: blob,
+                    blob
                 };
                 res(this.last);
             };

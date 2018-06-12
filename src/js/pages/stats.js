@@ -8,6 +8,20 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {animateCountUp} from "../visuals";
 
+const {elements} = setup({
+    onReady: init,
+    elements: {
+        contentMain: "#content",
+        totalVotesDisplay: "#total-votes-display",
+        totalTextsDisplay: "#total-texts-display",
+        totalSamplesDisplay: "#total-samples-display",
+        totalSamplesDurationDisplay: "#total-samples-duration-display",
+        regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
+        regionSamplesDistributionDoughnut: "#region-samples-distribution-doughnut",
+        interactionTimeline: "#interaction-timeline"
+    }
+});
+
 const avgDurAudioSample = 3;
 
 
@@ -30,7 +44,7 @@ function formatTime(seconds) {
 
 
 function displayStatistics(data) {
-    let colours;
+    let colours, chart;
 
     Chart.defaults.global.animation.duration = 2500;
     animateCountUp(elements.totalVotesDisplay, data.total_votes);
@@ -41,7 +55,7 @@ function displayStatistics(data) {
     // Distribution doughnuts
     colours = buildColourMap("earth", data.regions.length);
 
-    Chart(elements.regionTextsDistributionDoughnut, {
+    chart = new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
         data: {
             labels: data.regions.map((el) => el._id),
@@ -55,7 +69,7 @@ function displayStatistics(data) {
         }
     });
 
-    Chart(elements.regionSamplesDistributionDoughnut, {
+    chart = new Chart(elements.regionSamplesDistributionDoughnut, {
         type: "doughnut",
         data: {
             labels: data.regions.map((el) => el._id),
@@ -74,12 +88,12 @@ function displayStatistics(data) {
     const history = data.history.reverse();
     colours = ["#58A8D9", "#1D628C", "#D9A358"];
 
-    Chart(elements.interactionTimeline, {
+    chart = new Chart(elements.interactionTimeline, {
         type: "line",
         data: {
             datasets: [["Texts", "total_texts"], ["Samples", "total_samples"], ["Votes", "total_votes"]].map(
                 ([label, dataLabel], idx) => ({
-                    label: label,
+                    label,
                     data: history.map((el) => ({t: moment().year(el.iso_year).isoWeek(el.iso_week), y: el[dataLabel]})),
                     cubicInterpolationMode: "monotone",
                     backgroundColor: colours[idx],
@@ -112,17 +126,3 @@ async function init() {
     const stats = await SwissVoiceAPI.getStatistics();
     displayStatistics(stats);
 }
-
-const {elements} = setup({
-    onReady: init,
-    elements: {
-        contentMain: "#content",
-        totalVotesDisplay: "#total-votes-display",
-        totalTextsDisplay: "#total-texts-display",
-        totalSamplesDisplay: "#total-samples-display",
-        totalSamplesDurationDisplay: "#total-samples-duration-display",
-        regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
-        regionSamplesDistributionDoughnut: "#region-samples-distribution-doughnut",
-        interactionTimeline: "#interaction-timeline"
-    }
-});

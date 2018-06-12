@@ -9,6 +9,29 @@ import {nextSample, togglePlay, voteSample} from "../vote";
 let currentCanton;
 let cantonsOverlayVisible = false;
 
+const {elements} = setup({
+    onReady: init,
+    elements: {
+        cantonContainer: "#image-view",
+        cantonDisplay: "#current-canton-image",
+        textRecordDisplay: "#text-record-display",
+        voteSampleButtons: "#vote-sample-true-btn, #vote-sample-false-btn",
+        textSampleDisplay: "#text-sample-display",
+        proposeTextsInput: "#propose-texts-input",
+        overlayButtonTogglers: ".overlay-button-toggler"
+    },
+    buttons: {
+        "#toggle-play-btn": togglePlay,
+        "#vote-sample-true-btn": () => voteSample(true),
+        "#vote-sample-false-btn": () => voteSample(false),
+        "#record-btn": record,
+        "#submit-proposed-texts": proposeTexts,
+        ".overlay-button-toggler": toggleOverlay
+    }
+});
+
+export {elements};
+
 function toggleOverlay() {
     if (cantonsOverlayVisible) {
         document.body.style.overflow = "";
@@ -65,26 +88,3 @@ async function init() {
     await SwissVoiceAPI.getRegions();
     displayCantons();
 }
-
-const {elements} = setup({
-    onReady: init,
-    elements: {
-        cantonContainer: "#image-view",
-        cantonDisplay: "#current-canton-image",
-        textRecordDisplay: "#text-record-display",
-        voteSampleButtons: "#vote-sample-true-btn, #vote-sample-false-btn",
-        textSampleDisplay: "#text-sample-display",
-        proposeTextsInput: "#propose-texts-input",
-        overlayButtonTogglers: ".overlay-button-toggler"
-    },
-    buttons: {
-        "#toggle-play-btn": togglePlay,
-        "#vote-sample-true-btn": () => voteSample(true),
-        "#vote-sample-false-btn": () => voteSample(false),
-        "#record-btn": record,
-        "#submit-proposed-texts": proposeTexts,
-        ".overlay-button-toggler": toggleOverlay
-    }
-});
-
-export {elements};

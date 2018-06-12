@@ -1,6 +1,17 @@
 import setup from "../page-setup";
 import {sleep} from "../utils";
 
+const {elements} = setup({
+    onReady: init,
+    elements: {
+        flyText: ".fly-text",
+        flyTextLi: ".fly-text li",
+        logoScreen: ".logo-screen",
+        svInfo1: "#sv-info-tx1",
+        svInfo2: "#sv-info-tx2"
+    }
+});
+
 function setInfoTextHeight() {
     // TODO: Css
     if (window.innerWidth > 575) {
@@ -24,14 +35,3 @@ async function init() {
     setInfoTextHeight();
     await loadingAnimation();
 }
-
-const {elements} = setup({
-    onReady: init,
-    elements: {
-        flyText: ".fly-text",
-        flyTextLi: ".fly-text li",
-        logoScreen: ".logo-screen",
-        svInfo1: "#sv-info-tx1",
-        svInfo2: "#sv-info-tx2"
-    }
-});

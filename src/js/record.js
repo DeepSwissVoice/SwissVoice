@@ -1,6 +1,8 @@
-import AudioWeb from "./audio-web";
-import {elements} from "./index";
+import AudioWeb from "./lib/audio-web";
+import {elements} from "./pages/index";
 import SwissVoiceAPI from "./api";
+
+import {sleep} from "./utils";
 
 const audioWeb = new AudioWeb();
 let currentRecordText;
@@ -14,14 +16,10 @@ export function nextRecordText() {
     elements.textRecordDisplay.text(currentRecordText.text);
 }
 
-function sleep(timeout) {
-    return new Promise(res => setTimeout(res, timeout));
-}
-
 export async function record() {
     await audioWeb.init();
     const visualiser = $("#record-visualiser");
-    audioWeb.setVolumeCallback(volume => requestAnimationFrame(() => visualiser.height(volume)));
+    audioWeb.setVolumeCallback((volume) => requestAnimationFrame(() => visualiser.height(volume)));
     audioWeb.start();
     console.log("recording start");
     await sleep(3000);

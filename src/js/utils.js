@@ -16,3 +16,7 @@ export function shuffle(array) {
 
     return array;
 }
+
+export function sleep(timeout) {
+    return new Promise((res) => setTimeout(res, timeout));
+}

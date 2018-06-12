@@ -117,7 +117,7 @@ export default (() => {
             return item;
         },
         async proposeTexts(...texts) {
-            const payload = {texts: texts};
+            const payload = {texts};
             const url = buildUrl("api", "text", regionId);
             return await $.ajax(url, {
                 type: "POST",

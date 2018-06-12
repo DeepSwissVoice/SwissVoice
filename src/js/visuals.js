@@ -16,7 +16,7 @@ export function animateCountUp(targets, end, options) {
         $({Counter: counterStart}).animate({Counter: end || $this.text()}, {
             duration: animDuration,
             easing: animEasing,
-            step: function () {
+            step() {
                 let value;
                 if (options.callback) {
                     value = options.callback(this.Counter, this, $this);

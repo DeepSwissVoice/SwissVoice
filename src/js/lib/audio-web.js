@@ -62,7 +62,7 @@ export default class AudioWeb {
 
     // Check if audio recording is supported
     isAudioRecordingSupported() {
-        return typeof MediaRecorder !== 'undefined';
+        return typeof MediaRecorder !== "undefined";
     }
 
     visualize() {
@@ -153,8 +153,7 @@ export default class AudioWeb {
 
     start() {
         if (!this.isReady()) {
-            console.error("Cannot record audio before microhphone is ready.");
-            return Promise.resolve();
+            throw new Error("Cannot record audio before microhphone is ready.");
         }
 
         return new Promise(res => {

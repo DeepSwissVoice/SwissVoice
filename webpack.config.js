@@ -1,36 +1,48 @@
 const webpack = require("webpack");
 const path = require("path");
+const glob = require("glob");
 const fs = require("fs");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const SentryPlugin = require("@sentry/webpack-plugin");
+const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
+const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 
-const swissvoice = require("./package.json");
+const SwissVoice = require("./package.json");
+
+const entryPoints = {};
+for (const file of glob.sync("src/js/pages/*.js")) {
+    entryPoints[path.parse(file).name] = path.resolve(file);
+}
 
 module.exports = {
     mode: "production",
-    entry: {
-        index: path.resolve("src", "js", "index.js"),
-        "landing-page": path.resolve("src", "js", "landing-page.js"),
-        about: path.resolve("src", "js", "about.js"),
-        stats: path.resolve("src", "js", "stats.js")
-    },
+    entry: entryPoints,
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve("server", "swissvoice", "static", "js")
+        path: path.resolve("server/swissvoice/static/js")
     },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
+                cache: true,
                 sourceMap: true,
+                parallel: true,
                 uglifyOptions: {
                     inline: false
                 }
             })
-        ]
+        ],
+        splitChunks: {
+            chunks: "all",
+            minSize: 10000
+
+        }
     },
     plugins: [
+        new HardSourceWebpackPlugin(),
+        new WebpackCleanupPlugin(),
         new webpack.DefinePlugin({
-            VERSION: JSON.stringify(swissvoice.version)
+            VERSION: JSON.stringify(SwissVoice.version)
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -46,8 +58,8 @@ if (fs.existsSync(".sentryclirc")) {
     console.info("SentryPlugin enabled");
     module.exports.plugins.push(
         new SentryPlugin({
-            release: swissvoice.version,
-            include: path.resolve("server", "swissvoice", "static")
+            release: SwissVoice.version,
+            include: path.resolve("server/swissvoice/static")
         })
     );
 } else {

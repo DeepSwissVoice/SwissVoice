@@ -1,4 +1,4 @@
-import {elements} from "./index";
+import {elements} from "./pages/index";
 import SwissVoiceAPI from "./api";
 
 let player;

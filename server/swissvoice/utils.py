@@ -43,5 +43,4 @@ def cast_type(cls: Callable[[T1], T2], val: T2, default: Any = _DEFAULT) -> T2:
         if default is _DEFAULT:
             raise
         val = default
-    finally:
-        return val
+    return val

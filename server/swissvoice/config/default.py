@@ -3,7 +3,7 @@ ENVVARKEY = "SWISSVOICE_SETTINGS"
 # GENERAL
 MAX_REQUEST_COUNT = 50
 MAX_PROPOSE_COUNT = 1000
-STATISTICS_HISTORY_POINTS = 10 # the amount of history entries to return
+STATISTICS_HISTORY_POINTS = 10  # the amount of history entries to return for stats
 
 # LOGGING
 SENTRY_DSN = None

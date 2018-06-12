@@ -12,6 +12,13 @@ services:
       - backend
     depends_on:
       - database
+    environment:
+      - SW_MONGODB_URI="mongodb://database:27017"
+      - SW_SENTRY_DSN
+      - SW_S3_ENDPOINT_URL
+      - SW_S3_ACCESS_KEY
+      - SW_S3_SECRET_ACCESS_KEY
+      - SW_RECORDING_LOCATION
   database:
     container_name: SwissVoice_MongoDB
     image: mongo

@@ -19,6 +19,7 @@ def get_app():
         app.config.from_envvar(app.config["ENVVARKEY"])
     except FileNotFoundError:
         log.warning("Couldn't find config file...")
+    app.config.from_object(config.environment)
 
     log.debug("setting up Sentry...")
     sentry_client = raven.Client(app.config["SENTRY_DSN"], release=__version__)

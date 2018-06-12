@@ -63,5 +63,5 @@ if (fs.existsSync(".sentryclirc")) {
         })
     );
 } else {
-    console.warn("No .sentryclirc file found. Not uploading source maps!")
+    console.warn("No .sentryclirc file found. Not uploading source maps!");
 }

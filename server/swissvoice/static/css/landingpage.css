@@ -1,6 +1,7 @@
 /*here is all the CSS for the actual landingpage*/
 
 #action-section{
+  max-width: 700px;
 
 }
 
@@ -19,21 +20,37 @@
 }
 
 #sv-info-text-card {
-  background-color: #baeeff; /*color SwissVoice-info-text section*/
 }
 
-#sv-info-header {
+.sv-info-header {
   background-color: transparent;
 }
 
 #sv-info-text-title{
-  background-color: #baeeff; /*color SwissVoice-info-text-title section*/
   border-color: transparent;
   font-weight: 400;
 }
 
-#sv-info-tx {
+#sv-info-tx1 {
   text-align: left;
+  line-height: normal;
+  height: 300px; /*fallback*/
+  overflow-y: scroll;
+  /*box-shadow: 0 4rem 3px 3px rgba(213, 236, 237, 0.5) inset;*/
+}
+
+#sv-info-tx2 {
+  text-align: left;
+  line-height: normal;
+}
+
+.bg-color-inf {
+  background-color: #d5eced; /*color SwissVoice-info-text-title section*/
+}
+
+.link{
+  font-style: italic;
+  color: grey;
 }
 
 
@@ -52,10 +69,14 @@
 /* Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767.98px) {
   #main-schreiben-btn {
-    font-size: 1.0rem;
+    font-size: 1.1rem;
   }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
+  #main-schreiben-btn {
+    font-size: 0.9rem;
+  }
+
 }

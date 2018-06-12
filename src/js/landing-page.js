@@ -9,6 +9,7 @@ async function init() {
 
 function _init() {
     // If you need to do any initialisation before the page has been properly loaded, put the code in here
+    setInfoTextHeight()
     $(init);
 }
 
@@ -24,8 +25,15 @@ function loadingAnimation() {
         },1000);
     }, 3000);
 }
-
-
+/* something breaks everything here... someone help plz?
+function setInfoTextHeight() {
+  if (window.innerWidth > 575) {
+    $('#sv-info-tx1').height($('#sv-info-tx2').height());
+  } else {
+    $('#sv-info-tx1').height(300));
+  }
+}
+*/
 Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {
     release: VERSION
 }).install();

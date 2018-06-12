@@ -57,7 +57,7 @@ async function displayStatistics(data) {
     chart = new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el.name),
+            labels: data.regions.map((el) => el.name || el._id),
             datasets: [{
                 label: "# of texts",
                 data: data.regions.map((el) => el.total_texts),
@@ -71,7 +71,7 @@ async function displayStatistics(data) {
     chart = new Chart(elements.regionSamplesDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el.name),
+            labels: data.regions.map((el) => el.name || el._id),
             datasets: [{
                 label: "# of voice samples",
                 data: data.regions.map((el) => el.total_samples),

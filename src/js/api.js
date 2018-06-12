@@ -1,12 +1,11 @@
-import $ from "jquery";
-import Raven from "raven-js";
-
 export default (() => {
     const settings = {
         domain: "/",
         minCacheSize: 5,
         cacheRestockCount: 10
     };
+
+    let currentCanton;
 
     let readyPromise;
     let regionId;
@@ -29,6 +28,7 @@ export default (() => {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
+                const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
                 Raven.captureBreadcrumb({data: resp});
                 throw new Error("Couldn't get any texts");
             }
@@ -43,6 +43,7 @@ export default (() => {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
+                const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
                 Raven.captureBreadcrumb({data: resp});
                 throw new Error("Couldn't get any samples");
             }
@@ -66,6 +67,7 @@ export default (() => {
         const url = buildUrl("api", "regions");
         const resp = await $.getJSON(url);
         if (!resp.success) {
+            const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
             Raven.captureBreadcrumb({data: resp});
             throw new Error("Couldn't fetch any regions!");
         }
@@ -73,9 +75,13 @@ export default (() => {
         extractCantons();
     }
 
-    async function setup(region, apiDomain) {
-        if (region) {
-            regionId = region;
+    async function setup(canton, apiDomain) {
+        if (!canton) {
+            canton = JSON.parse(localStorage.getItem("canton"));
+        }
+        if (canton) {
+            currentCanton = canton;
+            regionId = canton.region;
 
             await ensureTextCache();
             await ensureSampleCache();
@@ -88,14 +94,16 @@ export default (() => {
     }
 
     return {
-        region(region) {
-            if (region) {
-                regionId = region;
+        canton(newCanton) {
+            if (newCanton) {
+                currentCanton = newCanton;
+                regionId = newCanton.region;
+                localStorage.setItem("canton", JSON.stringify(newCanton));
             }
-            return regionId;
+            return currentCanton;
         },
-        setup(region, apiDomain) {
-            readyPromise = setup(region, apiDomain);
+        setup(canton, apiDomain) {
+            readyPromise = setup(canton, apiDomain);
             return readyPromise;
         },
         get ready() {

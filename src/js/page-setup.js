@@ -1,48 +1,56 @@
-import $ from "jquery";
 import SwissVoiceAPI from "./api";
-import Raven from "raven-js";
 
 export default function setup(options) {
     options = Object.assign({setupAPI: true}, options);
+
     const elements = {};
 
-    function setupPage(elements, buttons) {
-        if (elements) {
-            for (const [id, selector] of Object.entries(elements)) {
+    async function setupPage() {
+        if (options.elements) {
+            for (const [id, selector] of Object.entries(options.elements)) {
                 elements[id] = $(selector);
             }
         }
-        if (buttons) {
-            for (const [selector, listener] of Object.entries(buttons)) {
+        if (options.buttons) {
+            for (const [selector, listener] of Object.entries(options.buttons)) {
                 $(selector).click(listener);
             }
         }
     }
 
-    async function init() {
-        setupPage(options.elements, options.buttons);
+    async function ready() {
+        if (options.elements || options.buttons) {
+            await setupPage();
+        }
         if (options.setupAPI) {
             await SwissVoiceAPI.ready;
         }
+
         if (options.onReady) {
             options.onReady();
         }
     }
 
-    function _init() {
+    function preLoad() {
         if (options.setupAPI) {
             SwissVoiceAPI.setup();
         }
         if (options.onBeforeLoad) {
             options.onBeforeLoad();
         }
-        $(init);
+
+        $(ready);
     }
 
-    Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {
-        release: VERSION
-    }).install();
-    Raven.context(_init);
+    async function setupRaven() {
+        const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
+        Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {
+            release: VERSION
+        }).install();
+        Raven.context(preLoad);
+    }
+
+    setupRaven();
 
     return {elements};
 }

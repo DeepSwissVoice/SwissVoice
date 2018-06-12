@@ -1,9 +1,3 @@
-import "bootstrap";
-import colormap from "colormap";
-import colorScale from "colormap/colorScale";
-import moment from "moment";
-import Chart from "../../../node_modules/chart.js/src/chart";
-
 import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {animateCountUp} from "../visuals";
@@ -25,7 +19,10 @@ const {elements} = setup({
 const avgDurAudioSample = 3;
 
 
-function buildColourMap(spec, nshades) {
+async function buildColourMap(spec, nshades) {
+    const colormap = await import(/* webpackChunkName: "colormap" */ "colormap");
+    const colorScale = await import(/* webpackChunkName: "colormap" */ "colormap/colorScale");
+
     const minShades = colorScale[spec].length;
     const shades = Math.max(minShades + 1, nshades);
     const _colours = colormap({colormap: spec, nshades: shades});
@@ -43,7 +40,9 @@ function formatTime(seconds) {
 }
 
 
-function displayStatistics(data) {
+async function displayStatistics(data) {
+    const Chart = await import(/* webpackChunkName: "chart.js" */ "chart.js");
+    const moment = await import(/* webpackChunkName: "moment" */ "moment");
     let colours, chart;
 
     Chart.defaults.global.animation.duration = 2500;
@@ -124,5 +123,5 @@ function displayStatistics(data) {
 
 async function init() {
     const stats = await SwissVoiceAPI.getStatistics();
-    displayStatistics(stats);
+    await displayStatistics(stats);
 }

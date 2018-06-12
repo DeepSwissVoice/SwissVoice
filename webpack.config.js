@@ -4,7 +4,6 @@ const glob = require("glob");
 const fs = require("fs");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const SentryPlugin = require("@sentry/webpack-plugin");
-const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 
 const SwissVoice = require("./package.json");
@@ -19,7 +18,8 @@ module.exports = {
     entry: entryPoints,
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve("server/swissvoice/static/js")
+        path: path.resolve("server/swissvoice/static/js"),
+        publicPath: "/js/"
     },
     optimization: {
         minimizer: [
@@ -31,21 +31,16 @@ module.exports = {
                     inline: false
                 }
             })
-        ],
-        splitChunks: {
-            chunks: "all",
-            minSize: 10000
-
-        }
+        ]
     },
     plugins: [
         new HardSourceWebpackPlugin(),
-        new WebpackCleanupPlugin(),
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(SwissVoice.version)
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
+            jQuery: "jquery",
             Popper: ["popper.js", "default"]
         }),
         new webpack.SourceMapDevToolPlugin({

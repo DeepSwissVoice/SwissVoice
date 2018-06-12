@@ -1,12 +1,10 @@
-import "bootstrap";
-import $ from "jquery";
+import(/* webpackChunkName: "bootstrap" */ "bootstrap");
 
 import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {nextRecordText, record} from "../record";
 import {nextSample, togglePlay, voteSample} from "../vote";
 
-let currentCanton;
 let cantonsOverlayVisible = false;
 
 const {elements} = setup({
@@ -48,13 +46,12 @@ function toggleOverlay() {
 
 function displayCantonFlag() {
     elements.overlayButtonTogglers.hide();
-    elements.cantonDisplay.attr("src", currentCanton.image);
+    elements.cantonDisplay.attr("src", SwissVoiceAPI.canton().image);
     elements.cantonDisplay.show();
 }
 
 function selectCanton(selectedCanton) {
-    currentCanton = selectedCanton;
-    localStorage.setItem("canton", JSON.stringify(currentCanton));
+    SwissVoiceAPI.canton(selectedCanton);
     displayCantonFlag();
     toggleOverlay();
 }
@@ -78,13 +75,12 @@ async function proposeTexts() {
 }
 
 async function init() {
-    if (SwissVoiceAPI.region()) {
+    if (SwissVoiceAPI.canton()) {
         displayCantonFlag();
         nextSample();
         nextRecordText();
     } else {
         alert("Api isn't setup yet...");
     }
-    await SwissVoiceAPI.getRegions();
     displayCantons();
 }

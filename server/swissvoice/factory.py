@@ -15,10 +15,6 @@ def get_app():
     app = Flask("SwissVoice")
     log.debug("Loading config")
     app.config.from_object(config.default)
-    try:
-        app.config.from_envvar(app.config["ENVVARKEY"])
-    except FileNotFoundError:
-        log.warning("Couldn't find config file...")
     app.config.from_object(config.environment)
 
     log.debug("setting up Sentry...")

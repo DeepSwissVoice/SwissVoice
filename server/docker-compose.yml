@@ -13,7 +13,7 @@ services:
     depends_on:
       - database
     environment:
-      - SW_MONGODB_URI="mongodb://database:27017"
+      - SW_MONGODB_URI
       - SW_SENTRY_DSN
       - SW_S3_ENDPOINT_URL
       - SW_S3_ACCESS_KEY

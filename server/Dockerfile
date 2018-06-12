@@ -17,6 +17,5 @@ RUN rm -rf /var/lib/apt/lists/*
 COPY ./swissvoice /app/swissvoice
 COPY ./.docker/uwsgi.ini /app/
 COPY ./.docker/_swissvoice.conf /etc/nginx/conf.d/
-COPY ./.docker/config.cfg /app/
 
 ENV SWISSVOICE_SETTINGS /app/config.cfg

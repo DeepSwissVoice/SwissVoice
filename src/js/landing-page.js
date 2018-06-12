@@ -14,11 +14,15 @@ function _init() {
 
 
 function loadingAnimation() {
-    setTimeout(() => $(".fly-text").removeClass("hidden"), 500);
+    setTimeout(() => $(".fly-text").removeClass("off"), 500);
     setTimeout(() => {
-        $(".loading-screen").addClass("loaded");
-        $(".fly-text").addClass("loaded");
-    }, 2800);
+        setTimeout(() => $(".fly-text li").addClass("fade-out"), 1000);
+        $('.logo-screen').addClass('fade-out');
+        setTimeout(() => {
+          $('.logo-screen').removeClass('fade-out');
+          $('.logo-screen').addClass('loaded');
+        },1000);
+    }, 3000);
 }
 
 

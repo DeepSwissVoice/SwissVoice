@@ -3,20 +3,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Swiss Voice</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/loading-screen.css">
+    <link rel="stylesheet" href="css/landingpage.css">
     <script src="js/landing-page-bundle.js"></script>
 </head>
 <body>
 <!-- "loading screen" -->
 <div id="loading-screeen" class='logo-screen'>
-    <ul class="fly-text hidden">
+    <ul class="fly-text off">
         <li>S</li>
         <li>w</li>
         <li>i</li>
         <li>s</li>
         <li>s</li>
-
         <li>V</li>
         <li>o</li>
         <li>i</li>
@@ -25,9 +26,76 @@
     </ul>
 </div>
 
-<div id="content">
+<!--navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Swiss Voice</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-supported-content"
+            aria-controls="navbar-supported-content"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-supported-content">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/#sprechen">Sprich!</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/#hören">Hör!</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/#schreiben">Schreib!</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about">About</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <button id="show-overlay-btn" class="btn btn-secondary overlay-button-toggler" type="button">Sprachregion</button>
+          </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- sites conten -->
+<div id="content" class='container'>
     <!-- here will all the content of the landingpage go -->
-    <h1>Just to show that the content goes here.</h1>
+    <div class="container">
+      <p class="main-text">
+          Willkommen bei <b>Swiss Voice</b>.<br>
+      </p>
+      <p class='text-gross-info'>
+          Teile <b>dein bezauberndes Schweizerdeutsch</b> mit uns, damit wir dich mit einer schweizerdeutschen <b>Spracherkennung</b> beglücken können.
+      </p>
+    </div>
+
+    <div id="action-section" class="card card-body jumbotron my-5 py-3">
+      <h5 class="card-title mb-4"><b>Sätze</b>; und davon viele</h5>
+      <p class="card-text text-normal action-text">Versuche ein Satz mit Wötern zu schreiben, welche wir noch nicht kennen!</p>
+      <a id="main-schreiben-btn" href="/#schreiben" class="btn btn-secondary">Schreib uns dein Schweizerdeutsch!</a>
+    </div>
+
+    <div id="sv-info-text-card" class="card card-body">
+      <div id="sv-info-header" class="card-header"><h5 id="sv-info-text-title"class='card title'>Wieso SwissVoice?</h5></div>
+      <p id="sv-info-tx" class="card-text">
+        Eine akkurate Spracherkennung ist in vielen Teilen der Welt schon so guet wie selbstverständlich geworden.
+        In der Deutschschweiz ist es aber so, dass wegen der vielen Dialekte, solch eine Sprachererkennungssoftware nicht zu finden ist.
+        Wir, von SwissVoice, haben uns deshalb vorgenommen, dieses Ziel in möglichst kurzer Zeit zu erreichen.
+        Dazu benötigen wir zuerst viele Sätze die in Schweizerdeutsch geschrieben sind.
+        Diese sollten möglichst aus allen Lebenssituationen sein, damit unser neuronales Netz später auch alle Wörter kennt.
+        Die Sätze die SwissVoice sammelt müssen dann später in einer 2ten Phase auch gesprochen werden.
+        Dieser Bereich wird aufgeschaltet sobald wir Ihnen genügend Sätze zur verfügung stellen können.
+        Wenn es dann soweit ist, dass genügend aufnahmen gesamelt wurden, werden wir ein neuronales Netz damit trainieren.
+        Sobald das Netz dann genügend gelernt hat, werden wir allen schweizerdeutschsprechenden Menschen dieser Welt damit helfen, gesprochenes Schweizerdeutsch in geschriebenes Schweizerdeutsch zu verwandeln.
+      </p>
+    </div>
+
+</div>
+
+<!-- Sprachregion-Auswahl-Popup -->
+<div id="popup" class="popup text-normal" style="visibility: hidden">
+    Wähle Deine Sprachregion aus.
+    <div id="image-view"></div>
 </div>
 
 </body>

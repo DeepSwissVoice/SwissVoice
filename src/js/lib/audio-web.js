@@ -156,7 +156,7 @@ export default class AudioWeb {
             throw new Error("Cannot record audio before microhphone is ready.");
         }
 
-        return new Promise(res => {
+        return new Promise((res) => {
             this.chunks = [];
             this.recorder.ondataavailable = (e) => {
                 this.chunks.push(e.data);

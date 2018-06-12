@@ -44,7 +44,5 @@ export default function setup(options) {
     }).install();
     Raven.context(_init);
 
-    return {
-        elements: elements
-    }
+    return {elements};
 }

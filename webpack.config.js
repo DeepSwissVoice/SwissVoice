@@ -15,7 +15,7 @@ module.exports = {
         stats: path.resolve("src", "js", "stats.js")
     },
     output: {
-        filename: "[name]-bundle.js",
+        filename: "[name].bundle.js",
         path: path.resolve("server", "swissvoice", "static", "js")
     },
     optimization: {
@@ -37,7 +37,7 @@ module.exports = {
             Popper: ["popper.js", "default"]
         }),
         new webpack.SourceMapDevToolPlugin({
-            filename: "[name]-bundle.js.map"
+            filename: "[name].bundle.js.map"
         })
     ]
 };

@@ -15,7 +15,7 @@ class ObjectIdConverter(BaseConverter):
         except InvalidId:
             raise ValidationError()
 
-    def to_url(self, oid: ObjectId) -> str:
+    def to_url(self, value: ObjectId) -> str:
         return str(ObjectId)
 
 

@@ -168,7 +168,7 @@ def get_statistics() -> Response:
     iso_year, iso_week, _ = datetime.today().isocalendar()
 
     result = proxy.statistics_coll.find_one({"iso_year": iso_year, "iso_week": iso_week})
-    if False:
+    if result:
         stats = result["stats"]
     else:
         log.info(f"Counting statistics for week {iso_year}-{iso_week}")
@@ -206,11 +206,11 @@ def get_statistics() -> Response:
             "regions": regions
         }
 
-        # proxy.statistics_coll.insert_one({
-        #     "stats": stats,
-        #     "iso_year": iso_year,
-        #     "iso_week": iso_week
-        # })
+        proxy.statistics_coll.insert_one({
+            "stats": stats,
+            "iso_year": iso_year,
+            "iso_week": iso_week
+        })
         log.info("Statistics done!")
 
     log.debug("getting older stats")

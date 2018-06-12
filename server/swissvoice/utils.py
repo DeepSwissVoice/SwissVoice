@@ -11,6 +11,7 @@ _DEFAULT = object()
 
 
 class SwissJsonEncoder(JSONEncoder):
+    # pylint: disable=E0202
     def default(self, o: Any) -> Any:
         if isinstance(o, ObjectId):
             return str(o)

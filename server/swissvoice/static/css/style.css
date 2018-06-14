@@ -4,6 +4,13 @@ body {
     padding: 0;
 }
 
+body img #bg-bubble {
+  opacity: 0.7;
+  width: 100%;
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+}
+
 span.navbar-brand {
     padding-right: 25px;
 }
@@ -50,7 +57,7 @@ hr.hz-line {
 
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199.98px) {
-  
+
 }
 
 /* Medium devices (tablets, less than 992px)*/

@@ -44,7 +44,7 @@ export default function setup(options) {
 
     async function setupRaven() {
         const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
-        Raven.config("https://23dcfd51df56440486089720f7184663@sentry.io/1214965", {
+        Raven.config("https://a77ca179811843448e922378bad5d3b2@sentry.io/1223488", {
             release: VERSION
         }).install();
         Raven.context(preLoad);

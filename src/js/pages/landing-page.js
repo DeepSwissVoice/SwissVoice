@@ -7,6 +7,7 @@ const {elements} = setup({
         flyText: ".fly-text",
         flyTextLi: ".fly-text li",
         logoScreen: ".logo-screen",
+        bgLogoScreen: "#bg-loading-screen",
         svInfo1: "#sv-info-tx1",
         svInfo2: "#sv-info-tx2"
     }
@@ -22,6 +23,7 @@ function setInfoTextHeight() {
 }
 
 async function loadingAnimation() {
+    elements.bgLogoScreen.addClass("animate-bg");
     await sleep(500);
     elements.flyText.removeClass("off");
     await sleep(3000);

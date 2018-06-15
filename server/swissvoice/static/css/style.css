@@ -16,8 +16,7 @@ body {
   height: 60rem;
 /*image modifications*/
   opacity: 0.2;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
+
 }
 
 #bg-gradient {

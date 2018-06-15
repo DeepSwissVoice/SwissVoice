@@ -10,12 +10,12 @@
 }
 
 .jumbotron {
-  background-color: #baeeff; /*color action-section*/
+  background-color: #c0caff; /*color action-section*/
 }
 
 #main-schreiben-btn {
   font-size: 1.5rem;
-  background-color:  #007fff; /*color of button in action-section*/
+  background-color:  #0b95db; /*color of button in action-section*/
   border-color: transparent;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .bg-color-inf {
-  background-color: #d5eced; /*color SwissVoice-info-text-title section*/
+  background-color: #d0ecef; /*color SwissVoice-info-text-title section*/
 }
 
 .link{

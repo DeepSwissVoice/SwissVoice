@@ -7,19 +7,20 @@ const {elements} = setup({
         flyText: ".fly-text",
         flyTextLi: ".fly-text li",
         logoScreen: ".logo-screen",
-        bgLogoScreen: "#bg-loading-screen",
-        svInfo1: "#sv-info-tx1",
-        svInfo2: "#sv-info-tx2"
+        bgLogoScreen: "#bg-loading-screen"
+    },
+    buttons: {
+        ".teaser-trigger": (event) => $(event.delegateTarget).prev().toggleClass("teaser")
     }
 });
 
 function setInfoTextHeight() {
     // TODO: Css
-    if (window.innerWidth > 575) {
-        elements.svInfo1.height(elements.svInfo2.height());
-    } else {
-        elements.svInfo1.height(300);
-    }
+    // if (window.innerWidth > 575) {
+    //     elements.svInfo1.height(elements.svInfo2.height());
+    // } else {
+    //     elements.svInfo1.height(300);
+    // }
 }
 
 async function loadingAnimation() {

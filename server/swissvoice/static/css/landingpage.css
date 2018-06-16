@@ -36,17 +36,47 @@
     font-weight: 400;
 }
 
-#sv-info-tx1 {
-    text-align: left;
-    line-height: normal;
-    height: 300px; /*fallback*/
-    overflow-y: scroll;
-    /*box-shadow: 0 4rem 3px 3px rgba(213, 236, 237, 0.5) inset;*/
+.sv-info-text:first-of-type {
+    margin-top: 1rem;
 }
 
-#sv-info-tx2 {
+.sv-info-text {
     text-align: left;
     line-height: normal;
+    margin-bottom: 0;
+}
+
+.teaser {
+    position: relative;
+    height: 3rem;
+    overflow: hidden;
+}
+
+.teaser::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #d6f1ff);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#d6f1ff));
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), #d6f1ff);
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0), #d6f1ff);
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0), #d6f1ff);
+    background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0), #d6f1ff);
+}
+
+.teaser + .teaser-trigger::after {
+    content: "Weiterlesen";
+}
+
+:not(.teaser) + .teaser-trigger {
+    margin-top: 1rem;
+}
+
+:not(.teaser) + .teaser-trigger::after {
+    content: "Nicht mehr Weiterlesen?? Plz improve";
 }
 
 .bg-color-inf {

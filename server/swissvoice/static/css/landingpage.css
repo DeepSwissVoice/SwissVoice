@@ -9,6 +9,10 @@
     line-height: normal;
 }
 
+.card-body.fixed-size {
+    align-self: start;
+}
+
 .jumbotron {
     background-color: #d6f1ff; /*color action-section*/
 }
@@ -44,11 +48,12 @@
     text-align: left;
     line-height: normal;
     margin-bottom: 0;
+    transition: height 1s;
+    overflow: hidden;
 }
 
 .teaser {
     position: relative;
-    height: 3rem;
     overflow: hidden;
 }
 

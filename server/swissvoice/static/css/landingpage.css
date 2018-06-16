@@ -81,7 +81,7 @@
 }
 
 :not(.teaser) + .teaser-trigger::after {
-    content: "Nicht mehr Weiterlesen?? Plz improve";
+    content: "Verringern";
 }
 
 .bg-color-inf {

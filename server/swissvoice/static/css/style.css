@@ -5,7 +5,7 @@ body {
 }
 
 #bg-bubble {
-  background-image: url(../images/background/sprechblase.svg);
+  background-image: url(/images/background/speechbubble.svg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: fixed;
@@ -26,6 +26,7 @@ body {
   height: 100%;
   z-index: -1;
   background: -webkit-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(rgba(29, 236, 197, 0.4)), color-stop(rgba(45, 0, 136, 0.4)));
   background: linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
   background: -o-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
   background: -ms-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
@@ -115,7 +116,7 @@ hr.hz-line {
 
 
 /*--------------------------------------------------*/
-/*medis querry for background-image*/
+/*media query for background-image*/
 @media (max-height: 660px) {
   #bg-bubble {
     top: 30vh;

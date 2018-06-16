@@ -1,5 +1,28 @@
 /*here is the CSS !only! for the loading animation*/
 
+.bg-logo-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+
+  background: -moz-linear-gradient(-45deg,  rgba(29, 236, 197, 0.4) 0%, rgba(45, 0, 136, 0.4) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(29, 236, 197, 0.4)), color-stop(100%, rgba(45, 0, 136, 0.4)));
+  background: linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
+  background: -o-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
+  opacity: 1;
+}
+
+.bg-logo-screen .animate-bg {
+  /*doesnt work, don't know why not --> .bg-logo-screen: opacity: 0*/
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
 .logo-screen {
   position: fixed;
   top: 0;
@@ -23,7 +46,7 @@
   transform: translate(-50%, -50%);
   opacity: 1;
   transition: all 1.5s ease-out;
-  z-index: 1001;
+  z-index: 1002;
 }
 
 .fly-text li {
@@ -71,4 +94,12 @@
 
 .logo-screen.loaded {
   display: none;
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) {
+  .fly-text li {
+    font-size: 10vw;
+  }
+
 }

@@ -1,68 +1,67 @@
 /*here is all the CSS for the actual landingpage*/
 
-#action-section{
-  max-width: 700px;
+#action-section {
+    max-width: 700px;
 
 }
 
-.action-text{
-  line-height: normal;
+.action-text {
+    line-height: normal;
 }
 
 .jumbotron {
-  background-color: #d6f1ff; /*color action-section*/
+    background-color: #d6f1ff; /*color action-section*/
 }
 
 #main-schreiben-btn {
-  font-size: 1.5rem;
-  background-color:  #63aeff; /*color of button in action-section*/
-  border-color: transparent;
+    font-size: 1.5rem;
+    background-color: #63aeff; /*color of button in action-section*/
+    border-color: transparent;
 }
 
 #main-schreiben-btn:hover {
-  background-color:  #a2a0ff;
-  transition: all 0.5 ease;
+    background-color: #a2a0ff;
+    transition: all 0.5s ease;
 }
 
 #sv-info-text-card {
 }
 
 .sv-info-header {
-  background-color: transparent;
+    background-color: transparent;
 }
 
-#sv-info-text-title{
-  border-color: transparent;
-  font-weight: 400;
+.sv-info-text-title {
+    border-color: transparent;
+    font-weight: 400;
 }
 
 #sv-info-tx1 {
-  text-align: left;
-  line-height: normal;
-  height: 300px; /*fallback*/
-  overflow-y: scroll;
-  /*box-shadow: 0 4rem 3px 3px rgba(213, 236, 237, 0.5) inset;*/
+    text-align: left;
+    line-height: normal;
+    height: 300px; /*fallback*/
+    overflow-y: scroll;
+    /*box-shadow: 0 4rem 3px 3px rgba(213, 236, 237, 0.5) inset;*/
 }
 
 #sv-info-tx2 {
-  text-align: left;
-  line-height: normal;
+    text-align: left;
+    line-height: normal;
 }
 
 .bg-color-inf {
-  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+    background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }
 
-.link{
-  font-style: italic;
-  color: grey;
+.link {
+    font-style: italic;
+    color: grey;
 }
 
 #subtitle {
-  max-width: 700px;
-  font-weight: 400;
+    max-width: 700px;
+    font-weight: 400;
 }
-
 
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199.98px) {
@@ -70,23 +69,23 @@
 
 /* Medium devices (tablets, less than 992px)*/
 @media (max-width: 991.98px) {
-  #main-schreiben-btn {
-    font-size: 1.2rem;
-  }
+    #main-schreiben-btn {
+        font-size: 1.2rem;
+    }
 
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767.98px) {
-  #main-schreiben-btn {
-    font-size: 1.1rem;
-  }
+    #main-schreiben-btn {
+        font-size: 1.1rem;
+    }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
-  #main-schreiben-btn {
-    font-size: 0.9rem;
-  }
+    #main-schreiben-btn {
+        font-size: 0.9rem;
+    }
 
 }

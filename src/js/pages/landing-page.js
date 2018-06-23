@@ -7,20 +7,21 @@ const {elements} = setup({
         flyText: ".fly-text",
         flyTextLi: ".fly-text li",
         logoScreen: ".logo-screen",
-        bgLogoScreen: "#bg-loading-screen",
-        svInfo1: "#sv-info-tx1",
-        svInfo2: "#sv-info-tx2"
+        bgLogoScreen: "#bg-loading-screen"
+    },
+    buttons: {
+        ".teaser-trigger": (event) => {
+            const target = $(event.delegateTarget).prev();
+            if (target.hasClass("teaser")) {
+                target.attr("data-height", target.height());
+                target.height(target.prop("scrollHeight"));
+            } else {
+                target.height(target.attr("data-height"));
+            }
+            target.toggleClass("teaser");
+        }
     }
 });
-
-function setInfoTextHeight() {
-    // TODO: Css
-    if (window.innerWidth > 575) {
-        elements.svInfo1.height(elements.svInfo2.height());
-    } else {
-        elements.svInfo1.height(300);
-    }
-}
 
 async function loadingAnimation() {
     elements.bgLogoScreen.addClass("animate-bg");
@@ -34,6 +35,5 @@ async function loadingAnimation() {
 }
 
 async function init() {
-    setInfoTextHeight();
     await loadingAnimation();
 }

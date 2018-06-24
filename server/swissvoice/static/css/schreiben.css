@@ -1,0 +1,22 @@
+#propose-text {
+  text-align: left;
+}
+
+#vote-text {
+  text-align: left;
+}
+
+.rules li {
+  text-align: left;
+}
+
+#text-inputarea {
+  min-height: 52px;
+}
+
+.send-btn {
+  font-size: 200%;
+  background-color: white;
+  padding-top: 0;
+  padding-bottom: 5%;
+}

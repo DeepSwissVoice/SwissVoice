@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Swiss Voice</title>
+    <title>SwissVoice</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/schreiben.css">
 </head>
 <body>
 
-<!--background image and gradien -->
+<!--background image and gradient -->
 <div id="bg-bubble"></div>
 <div id="bg-gradient"></div>
 
 <!--navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Swiss Voice</span>
+    <span class="navbar-brand mb-0 h1">SwissVoice</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-supported-content"
             aria-controls="navbar-supported-content"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -46,34 +46,41 @@
 </nav>
 
 <!-- page content-->
-<div>
-  <span class="main-text"><b>Swissvoice - Schreiben</b></span>
+<div class="container">
+  <div class="my-5"><span class="main-text">Swissvoice - Schreiben</span></div>
 
   <!-- section for writing new sentences -->
-  <div id="propose-text" class="mt-5">
+  <div id="propose-text" class="card card-body mt-4 bg-color-inf">
     <div id=instructions-propose-text>
       <p>Versuchen Sie einen Satz zu schreiben mit Wörtern die wir noch nicht registriert haben.
-        Aber Achtung! Alle Sätze werden von Menschen überprüft werden. Dazu folgende Regeln:</p>
-      <ul>
+        Aber Achtung! Alle Sätze müssen folgende Regeln befolgen:</p>
+      <ul class="rules">
         <li>Ganze Sätze schreiben und diese gross beginnen!</li>
         <li>Auf GROSS/klein-Schreibung achten!</li>
         <li>Satzzeichen am Ende des Satzes setzen!</li>
       </ul>
       <p>Ansonsten schreiben Sie bitte möglichst so, wie sie einen Text in ihrem Dialekt lesen möchten.</p>
     </div>
-
-    <div id="write-area" class="mt-3">
+    <hr class="card-divider my-1">
+    <div id="write-area" class="input-group row mt-3 mx-1">
+      <label for="text-input">Tipp: Mehrere Sätze müssen durch ein Semikolon(;) gtrennt werden!</label>
+      <div id="text-input" class="input-group col-12 mx-0 px-0">
+        <textarea id="text-inputarea" class="form-control"></textarea>
+        <div class="input-group-append">
+          <button id="send-text" class="btn btn-outline-secondary send-btn" type="button">></button>
+        </div>
+      </div>
 
     </div>
   </div>
 
-  <hr class="hz-line">
+  <hr class="hz-line my-5">
 
   <!-- section for voting the sentences -->
-  <div id="vote-text">
+  <div id="vote-text" class="card card-body bg-color-inf">
     <div id="instructions-vote-text">
       <p>Beachten Sie bitte folgende Punkte:</p>
-      <ul>
+      <ul class="rules">
         <li>Sätze müssen gross beginnen!</li>
         <li>GROSS/klein-Schreibung muss beachtet werden!</li>
         <li>Am Ende eines Satzes muss ein Satzzeichen stehen!</li>

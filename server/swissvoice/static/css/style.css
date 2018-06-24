@@ -4,6 +4,10 @@ body {
     padding: 0;
 }
 
+.bg-color-inf {
+  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+}
+
 #bg-bubble {
   background-image: url(/images/background/speechbubble.svg);
   background-repeat: no-repeat;
@@ -32,6 +36,11 @@ body {
   background: -o-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
   background: -ms-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
 
+}
+
+.card-divider {
+  width: 100%;
+  color: grey;
 }
 
 span.navbar-brand {
@@ -111,7 +120,7 @@ hr.hz-line {
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
     .main-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 }
 

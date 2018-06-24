@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/schreiben.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 
@@ -47,14 +48,14 @@
 
 <!-- page content-->
 <div class="container">
-  <div class="my-5"><span class="main-text">Swissvoice - Schreiben</span></div>
+  <div class="my-5"><span class="main-text">SwissVoice - Schreiben</span></div>
 
   <!-- section for writing new sentences -->
   <div id="propose-text" class="card card-body mt-4 bg-color-inf">
     <div id=instructions-propose-text>
-      <p>Versuchen Sie einen Satz zu schreiben mit Wörtern die wir noch nicht registriert haben.
+      <p class="mb-1">Versuchen Sie einen Satz zu schreiben mit Wörtern die wir noch nicht registriert haben.
         Aber Achtung! Alle Sätze müssen folgende Regeln befolgen:</p>
-      <ul class="rules">
+      <ul class="rules mb-1">
         <li>Ganze Sätze schreiben und diese gross beginnen!</li>
         <li>Auf GROSS/klein-Schreibung achten!</li>
         <li>Satzzeichen am Ende des Satzes setzen!</li>
@@ -64,16 +65,16 @@
 
     <hr class="card-divider my-1">
 
-    <div id="write-area" class="input-group row mt-3 mx-1">
-      <label for="text-input">Tipp: Mehrere Sätze müssen durch ein Semikolon(;) gtrennt werden!</label>
+    <div id="write-area" class="input-group row mx-1">
+      <label id="text-tipp" for="text-input">Tipp: Mehrere Sätze müssen durch ein Semikolon(;) gtrennt werden!</label>
       <div id="text-input" class="input-group col-12 mx-0 px-0">
-        <textarea id="text-inputarea" class="form-control"></textarea>
+        <textarea id="textarea-input" class="form-control textarea"></textarea>
         <div class="input-group-append">
           <button id="send-text" class="btn btn-outline-secondary send-btn" type="button">></button>
         </div>
       </div>
       <div class="row col-12 pr-0 mt-3">
-        <div id="new-words" class="col-11 px-2">Hier stehen alle Wörter die neue in unser System aufgenommen wurden.</div>
+        <div id="new-words" class="col-11 px-2 my-auto">Hier stehen alle Wörter die neue in unser System aufgenommen wurden.(Dies muss für jede Sprachregion seperat geprüft werden!)</div>
         <div id="words-score" class="col px-0 my-auto text-center text-normal">0</div>
       </div>
     </div>
@@ -84,7 +85,8 @@
   <!-- section for voting the sentences -->
   <div id="vote-text" class="card card-body bg-color-inf">
     <div id="instructions-vote-text">
-      <p>Beachten Sie bitte folgende Punkte:</p>
+      <p class="h5">Ist dieser Satz korrekt?</p>
+      <p class="mb-0">Beachten Sie bitte folgende Punkte:</p>
       <ul class="rules">
         <li>Sätze müssen gross beginnen!</li>
         <li>GROSS/klein-Schreibung muss beachtet werden!</li>
@@ -92,8 +94,18 @@
       </ul>
     </div>
 
-    <div id="vote-system">
+    <hr class="card-divider my-1">
 
+    <div id="vote-system" class="row d-flex mt-2">
+      <div class="textarea-vote col center-text mb-2 mb-sm-0">Text wird geladen...</div>
+      <div class="vote-btns col-12 col-sm-3 col-md-2 col-lg-1 col d-flex mr-sm-0 ml-sm-2 px-0">
+        <button id="vote-text-true" class="btn btn-outline-secondary center-text btn-true mr-1 px-0" type="button">
+          <i class="material-icons">done</i>
+        </button>
+        <button id="vote-text-false" class="btn btn-outline-secondary center-text btn-false px-0" type="button">
+          <i class="material-icons">clear</i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -29,7 +29,7 @@ export default function setup(options) {
             await SwissVoiceAPI.ready;
 
             if (!SwissVoiceAPI.canton()) {
-                await SwissVoiceAPI.setup(await promptCanton(false));
+                await SwissVoiceAPI.canton(await promptCanton(false));
             }
         }
 

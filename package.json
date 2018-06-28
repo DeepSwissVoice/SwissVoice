@@ -1,5 +1,5 @@
 {
-  "version": "1.4.2",
+  "version": "1.4.3",
   "dependencies": {
     "@sentry/webpack-plugin": "^1.5.2",
     "bootstrap": "^4.1.1",

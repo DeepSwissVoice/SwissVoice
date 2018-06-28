@@ -52,8 +52,12 @@ function buildPopup(cancelable, cb) {
             <div class='cover'></div>\
         </div>"
     );
-    const cantonContainer = popup.find("div.image-view");
 
+    if (cancelable) {
+        popup.find(".cover").click(callback);
+    }
+
+    const cantonContainer = popup.find("div.image-view");
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         $("<img>")

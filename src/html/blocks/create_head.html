@@ -1,0 +1,9 @@
+{% macro create_head(name) %}
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    {% include "blocks/default_head.html" %}
+    <link rel="stylesheet" href="css/{{ name }}.css">
+    <script src="js/{{ name }}.bundle.js"></script>
+</head>
+{% endmacro %}

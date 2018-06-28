@@ -77,6 +77,20 @@ def propose_text(region: ObjectId):
     return response(succeeded=num_succeeded, failed=failed_indices)
 
 
+@app.route("/api/propose_/<oid:region>", methods=["GET"])
+def get_proposed_text(region: ObjectId) -> Response:
+    count = cast_type(int, request.args.get("count"), 3)
+    if not 0 < count <= app.config["MAX_REQUEST_COUNT"]:
+        return error_response(Error.INVALID_REQUEST, f"Invalid amount of samples requested! ({count})")
+
+    res = proxy.texts_coll.find({"region": region}, sort=[("voice_samples", 1)], limit=count)
+    texts = [dict(text=doc["text"], text_id=str(doc["_id"])) for doc in res]
+    if not texts:
+        return error_response(Error.NO_TEXT_FOUND, "Couldn't find any texts")
+    return response(texts=texts)
+
+
+
 @app.route("/api/voice/<oid:region>")
 def get_voice_sample(region: ObjectId) -> Response:
     count = cast_type(int, request.args.get("count"), 3)

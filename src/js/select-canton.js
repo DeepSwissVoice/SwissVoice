@@ -36,7 +36,9 @@ export async function toggleCantonPopup() {
 }
 
 function selectCanton(selectedCanton) {
-    SwissVoiceAPI.canton(selectedCanton);
+    if (selectedCanton) {
+        SwissVoiceAPI.canton(selectedCanton);
+    }
     toggleCantonPopup();
 }
 
@@ -54,7 +56,7 @@ function buildPopup(cancelable, cb) {
     );
 
     if (cancelable) {
-        popup.find(".cover").click(callback);
+        popup.find(".cover").click(() => callback());
     }
 
     const cantonContainer = popup.find("div.image-view");

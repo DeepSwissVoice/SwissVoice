@@ -2,7 +2,6 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 
 const {elements} = setup({
-    onReady: init,
     elements: {
         proposeTextsInput: "#propose-texts-input",
     },

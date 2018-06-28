@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/schreiben.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/schreiben.bundle.js"></script>
 </head>
 <body>
 
@@ -66,9 +67,8 @@
     <hr class="card-divider my-1">
 
     <div id="write-area" class="input-group row mx-1">
-      <label id="text-tip" for="text-input">Tipp: Mehrere Sätze müssen durch ein Semikolon(;) gtrennt werden!</label>
       <div id="text-input" class="input-group col-12 mx-0 px-0">
-        <input id="textarea-input" class="form-control"></input>
+        <input type="text" id="textarea-input" class="form-control">
         <div class="input-group-append">
           <button id="send-text" class="btn btn-outline-secondary send-btn" type="button">></button>
         </div>

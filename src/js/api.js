@@ -113,6 +113,9 @@ export default (() => {
             return readyPromise;
         },
         get ready() {
+            if (!readyPromise) {
+                setup();
+            }
             return readyPromise;
         },
         getRegions() {

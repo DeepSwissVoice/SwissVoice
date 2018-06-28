@@ -2,6 +2,15 @@ import SwissVoiceAPI from "./api";
 
 let currentPopup;
 
+function showPopup(popup, display, cb) {
+    if (display) {
+        $("#popup").fadeIn("slow", cb);
+    } else {
+        $("#popup").fadeOut("slow", cb);
+    }
+    $(document.body).toggleClass("disable-scroll");
+}
+
 export function promptCanton(cancelable) {
     return new Promise((res) => {
         let popup;
@@ -13,19 +22,9 @@ export function promptCanton(cancelable) {
     });
 }
 
-
-function showPopup(popup, display, cb) {
-    if (display) {
-        $("#popup").fadeIn("slow", cb);
-    } else {
-        $("#popup").fadeOut("slow", cb);
-    }
-    $(document.body).toggleClass("disable-scroll");
-}
-
-
-export function toggleCantonPopup() {
+export async function toggleCantonPopup() {
     if (!currentPopup) {
+        await SwissVoiceAPI.ready;
         currentPopup = buildPopup(true);
     }
 

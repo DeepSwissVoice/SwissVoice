@@ -1,14 +1,21 @@
 import(/* webpackChunkName: "bootstrap" */ "bootstrap");
 
 import SwissVoiceAPI from "./api";
-import {promptCanton} from "./select-canton";
+import {promptCanton, toggleCantonPopup} from "./select-canton";
 
 export default function setup(options) {
-    options = Object.assign({setupAPI: true}, options);
+    options = Object.assign({
+        setupAPI: true,
+        toggleCantonsPopupBtn: true
+    }, options);
 
     const elements = {};
 
     async function setupPage() {
+        if (options.toggleCantonsPopupBtn) {
+            $("#toggle-cantons-popup").click(toggleCantonPopup);
+        }
+
         if (options.elements) {
             for (const [id, selector] of Object.entries(options.elements)) {
                 elements[id] = $(selector);

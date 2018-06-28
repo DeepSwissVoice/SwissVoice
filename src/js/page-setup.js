@@ -1,4 +1,7 @@
+import(/* webpackChunkName: "bootstrap" */ "bootstrap");
+
 import SwissVoiceAPI from "./api";
+import {promptCanton} from "./select-canton";
 
 export default function setup(options) {
     options = Object.assign({setupAPI: true}, options);
@@ -24,6 +27,10 @@ export default function setup(options) {
         }
         if (options.setupAPI) {
             await SwissVoiceAPI.ready;
+
+            if (!SwissVoiceAPI.canton()) {
+                await SwissVoiceAPI.setup(await promptCanton(false));
+            }
         }
 
         if (options.onReady) {

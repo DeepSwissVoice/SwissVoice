@@ -1,50 +1,50 @@
-#propose-text   {
+#propose-text {
     text-align: left;
 }
 
-#vote-text  {
+#vote-text {
     text-align: left;
 }
 
-.rules li   {
+.rules li {
     text-align: left;
 }
 
-#text-tipp  {
+#text-tip {
     font-size: 0.9em;
     font-style: italic;
     color: grey;
 }
 
-.textarea   {
+.textarea {
 
 }
 
-.send-btn   {
+.send-btn {
     font-size: 200%;
     background-color: white;
     padding-top: 0;
     padding-bottom: 5%;
 }
 
-#new-words  {
+#new-words {
     font-style: italic;
     border-left: 2px solid black;
     border-right: 2px solid black;
     border-radius: 5px;
 }
 
-#words-score    {
+#words-score {
     font-size: 1.5em;
 }
 
-.center-text    {
+.center-text {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.textarea-vote  {
+.textarea-vote {
     min-height: 50px;
     background-color: white;
     border: solid 1px grey;
@@ -53,7 +53,7 @@
     padding-right: 1rem;
 }
 
-.btn-true   {
+.btn-true {
     background-color: white;
     min-width: 20px;
     min-height: 50px;
@@ -61,7 +61,7 @@
     flex-grow: 1;
 }
 
-.btn-false  {
+.btn-false {
     background-color: white;
     min-width: 20px;
     min-height: 50px;
@@ -70,7 +70,7 @@
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px)    {
+@media (max-width: 575.98px) {
     .vote-btns {
         justify-content: space-between;
     }

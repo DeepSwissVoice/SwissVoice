@@ -2,6 +2,7 @@ import setup from "../page-setup";
 import {sleep} from "../utils";
 
 const {elements} = setup({
+    setupAPI: false,
     onReady: init,
     elements: {
         flyText: ".fly-text",

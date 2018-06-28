@@ -51,6 +51,11 @@ export default (() => {
         }
     }
 
+    async function ensureCaches() {
+        await ensureTextCache();
+        await ensureSampleCache();
+    }
+
     function extractCantons() {
         for (const region of regions) {
             for (const canton of region.cantons) {
@@ -83,8 +88,7 @@ export default (() => {
             currentCanton = canton;
             regionId = canton.region;
 
-            await ensureTextCache();
-            await ensureSampleCache();
+            await ensureCaches();
         }
         if (apiDomain) {
             settings.domain = apiDomain;
@@ -98,7 +102,9 @@ export default (() => {
             if (newCanton) {
                 currentCanton = newCanton;
                 regionId = newCanton.region;
+
                 localStorage.setItem("canton", JSON.stringify(newCanton));
+                return ensureCaches();
             }
             return currentCanton;
         },

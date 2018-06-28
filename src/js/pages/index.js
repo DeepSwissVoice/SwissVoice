@@ -1,5 +1,3 @@
-import(/* webpackChunkName: "bootstrap" */ "bootstrap");
-
 import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {nextRecordText, record} from "../record";

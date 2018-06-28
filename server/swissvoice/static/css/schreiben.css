@@ -1,77 +1,77 @@
-#propose-text {
-  text-align: left;
+#propose-text   {
+    text-align: left;
 }
 
-#vote-text {
-  text-align: left;
+#vote-text  {
+    text-align: left;
 }
 
-.rules li {
-  text-align: left;
+.rules li   {
+    text-align: left;
 }
 
-#text-tipp {
-  font-size: 0.9em;
-  font-style: italic;
-  color: grey;
+#text-tipp  {
+    font-size: 0.9em;
+    font-style: italic;
+    color: grey;
 }
 
-.textarea {
-  min-height: 52px;
+.textarea   {
+
 }
 
-.send-btn {
-  font-size: 200%;
-  background-color: white;
-  padding-top: 0;
-  padding-bottom: 5%;
+.send-btn   {
+    font-size: 200%;
+    background-color: white;
+    padding-top: 0;
+    padding-bottom: 5%;
 }
 
-#new-words {
-  font-style: italic;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-radius: 5px;
+#new-words  {
+    font-style: italic;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-radius: 5px;
 }
 
-#words-score {
-  font-size: 1.5em;
+#words-score    {
+    font-size: 1.5em;
 }
 
-.center-text {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.center-text    {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.textarea-vote {
-  min-height: 50px;
-  background-color: white;
-  border: solid 1px grey;
-  border-radius: 5px;
-  padding-left: 1rem;
-  padding-right: 1rem;
+.textarea-vote  {
+    min-height: 50px;
+    background-color: white;
+    border: solid 1px grey;
+    border-radius: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-.btn-true {
-  background-color: white;
-  min-width: 20px;
-  min-height: 50px;
-  text-align: center;
-  flex-grow: 1;
+.btn-true   {
+    background-color: white;
+    min-width: 20px;
+    min-height: 50px;
+    text-align: center;
+    flex-grow: 1;
 }
 
-.btn-false {
-  background-color: white;
-  min-width: 20px;
-  min-height: 50px;
-  text-align: center;
-  flex-grow: 1;
+.btn-false  {
+    background-color: white;
+    min-width: 20px;
+    min-height: 50px;
+    text-align: center;
+    flex-grow: 1;
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px) {
-  .vote-btns {
-    justify-content: space-between;
-  }
+@media (max-width: 575.98px)    {
+    .vote-btns {
+        justify-content: space-between;
+    }
 }

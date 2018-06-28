@@ -179,13 +179,13 @@ def get_statistics() -> Response:
             {"$lookup": {"from": "audio_samples", "localField": "_id", "foreignField": "region", "as": "audio_samples"}},
             {"$unwind": "$cantons"},
             {"$lookup": {"from": "cantons", "localField": "cantons", "foreignField": "_id", "as": "cantons"}},
+            {"$unwind": "$cantons"},
             {"$group": {
                 "_id": "$_id",
                 "cantons": {"$push": "$cantons._id"},
                 "texts": {"$first": "$texts"},
                 "audio_samples": {"$first": "$audio_samples"}
             }},
-            {"$unwind": "$cantons"},
             {"$project": {
                 "_id": "$_id",
                 "cantons": "$cantons",

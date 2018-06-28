@@ -23,7 +23,8 @@ async function proposeTexts() {
             return;
         }
     }
+    
     const result = await SwissVoiceAPI.proposeTexts(...texts);
-    elements.proposeTextsInput.val('');
+    elements.proposeTextsInput.val("");
     console.log(result);
 }

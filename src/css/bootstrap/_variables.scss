@@ -3,6 +3,7 @@
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
+
 //
 // Color system
 //
@@ -106,6 +107,7 @@ $enable-hover-media-query: false !default; // Deprecated, no longer affects any 
 $enable-grid-classes: true !default;
 $enable-print-styles: true !default;
 
+
 // Spacing
 //
 // Control the default styling of most Bootstrap elements by modifying these
@@ -130,7 +132,8 @@ $sizes: map-merge((
         25: 25%,
         50: 50%,
         75: 75%,
-        100: 100%
+        100: 100%,
+        auto: auto
 ), $sizes);
 // stylelint-enable
 
@@ -156,6 +159,7 @@ $link-hover-decoration: underline !default;
 
 $paragraph-margin-bottom: 1rem !default;
 
+
 // Grid breakpoints
 //
 // Define the minimum dimensions at which your layout will change,
@@ -172,6 +176,7 @@ $grid-breakpoints: (
 @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
 @include _assert-starts-at-zero($grid-breakpoints);
 
+
 // Grid containers
 //
 // Define the maximum width of `.container` for different screen sizes.
@@ -184,6 +189,7 @@ $container-max-widths: (
 ) !default;
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
+
 
 // Grid columns
 //
@@ -206,6 +212,10 @@ $border-radius: .25rem !default;
 $border-radius-lg: .3rem !default;
 $border-radius-sm: .2rem !default;
 
+$box-shadow-sm: 0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow: 0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
+
 $component-active-color: $white !default;
 $component-active-bg: theme-color("primary") !default;
 
@@ -214,6 +224,7 @@ $caret-width: .3em !default;
 $transition-base: all .2s ease-in-out !default;
 $transition-fade: opacity .15s linear !default;
 $transition-collapse: height .35s ease !default;
+
 
 // Fonts
 //
@@ -286,6 +297,7 @@ $mark-bg: #fcf8e3 !default;
 
 $hr-margin-y: $spacer !default;
 
+
 // Tables
 //
 // Customizes the `.table` component with basic values, each used across all table variations.
@@ -310,6 +322,10 @@ $table-dark-hover-bg: rgba($white, .075) !default;
 $table-dark-border-color: lighten($gray-900, 7.5%) !default;
 $table-dark-color: $body-bg !default;
 
+$table-striped-order: odd !default;
+
+$table-caption-color: $text-muted !default;
+
 // Buttons + Forms
 //
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
@@ -331,6 +347,7 @@ $input-btn-padding-x-lg: 1rem !default;
 $input-btn-line-height-lg: $line-height-lg !default;
 
 $input-btn-border-width: $border-width !default;
+
 
 // Buttons
 //
@@ -368,7 +385,10 @@ $btn-border-radius-sm: $border-radius-sm !default;
 
 $btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
 
+
 // Forms
+
+$label-margin-bottom: .5rem !default;
 
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x: $input-btn-padding-x !default;
@@ -401,6 +421,7 @@ $input-focus-width: $input-btn-focus-width !default;
 $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 
 $input-placeholder-color: $gray-600 !default;
+$input-plaintext-color: $body-color !default;
 
 $input-height-border: $input-border-width * 2 !default;
 
@@ -470,7 +491,7 @@ $custom-select-indicator-padding: 1rem !default; // Extra padding to account for
 $custom-select-line-height: $input-btn-line-height !default;
 $custom-select-color: $input-color !default;
 $custom-select-disabled-color: $gray-600 !default;
-$custom-select-bg: $white !default;
+$custom-select-bg: $input-bg !default;
 $custom-select-disabled-bg: $gray-200 !default;
 $custom-select-bg-size: 8px 10px !default; // In pixels because image dimensions
 $custom-select-indicator-color: $gray-800 !default;
@@ -488,7 +509,24 @@ $custom-select-height-sm: $input-height-sm !default;
 $custom-select-font-size-lg: 125% !default;
 $custom-select-height-lg: $input-height-lg !default;
 
+$custom-range-track-width: 100% !default;
+$custom-range-track-height: .5rem !default;
+$custom-range-track-cursor: pointer !default;
+$custom-range-track-bg: $gray-300 !default;
+$custom-range-track-border-radius: 1rem !default;
+$custom-range-track-box-shadow: inset 0 .25rem .25rem rgba($black, .1) !default;
+
+$custom-range-thumb-width: 1rem !default;
+$custom-range-thumb-height: $custom-range-thumb-width !default;
+$custom-range-thumb-bg: $component-active-bg !default;
+$custom-range-thumb-border: 0 !default;
+$custom-range-thumb-border-radius: 1rem !default;
+$custom-range-thumb-box-shadow: 0 .1rem .25rem rgba($black, .1) !default;
+$custom-range-thumb-focus-box-shadow: 0 0 0 1px $body-bg, $input-btn-focus-box-shadow !default;
+$custom-range-thumb-active-bg: lighten($component-active-bg, 35%) !default;
+
 $custom-file-height: $input-height !default;
+$custom-file-height-inner: $input-height-inner !default;
 $custom-file-focus-border-color: $input-focus-border-color !default;
 $custom-file-focus-box-shadow: $input-btn-focus-box-shadow !default;
 
@@ -572,6 +610,9 @@ $nav-pills-border-radius: $border-radius !default;
 $nav-pills-link-active-color: $component-active-color !default;
 $nav-pills-link-active-bg: $component-active-bg !default;
 
+$nav-divider-color: $gray-200 !default;
+$nav-divider-margin-y: ($spacer / 2) !default;
+
 // Navbar
 
 $navbar-padding-y: ($spacer / 2) !default;
@@ -620,6 +661,7 @@ $pagination-border-width: $border-width !default;
 $pagination-border-color: $gray-300 !default;
 
 $pagination-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$pagination-focus-outline: 0 !default;
 
 $pagination-hover-color: $link-hover-color !default;
 $pagination-hover-bg: $gray-200 !default;
@@ -725,6 +767,7 @@ $modal-title-line-height: $line-height-base !default;
 $modal-content-bg: $white !default;
 $modal-content-border-color: rgba($black, .2) !default;
 $modal-content-border-width: $border-width !default;
+$modal-content-border-radius: $border-radius-lg !default;
 $modal-content-box-shadow-xs: 0 .25rem .5rem rgba($black, .5) !default;
 $modal-content-box-shadow-sm-up: 0 .5rem 1rem rgba($black, .5) !default;
 
@@ -818,7 +861,10 @@ $breadcrumb-margin-bottom: 1rem !default;
 $breadcrumb-bg: $gray-200 !default;
 $breadcrumb-divider-color: $gray-600 !default;
 $breadcrumb-active-color: $gray-600 !default;
-$breadcrumb-divider: "/" !default;
+$breadcrumb-divider: quote("/") !default;
+
+$breadcrumb-border-radius: $border-radius !default;
+
 
 // Carousel
 
@@ -839,7 +885,8 @@ $carousel-control-icon-width: 20px !default;
 $carousel-control-prev-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#{$carousel-control-color}' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"), "#", "%23") !default;
 $carousel-control-next-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#{$carousel-control-color}' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"), "#", "%23") !default;
 
-$carousel-transition: transform .6s ease !default;
+$carousel-transition: transform .6s ease !default; // Define transform transition first if using multiple transitions (e.g., `transform 2s ease, opacity .5s ease-out`)
+
 
 // Close
 

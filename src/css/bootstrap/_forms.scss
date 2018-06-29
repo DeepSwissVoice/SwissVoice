@@ -79,6 +79,7 @@ select.form-control {
   width: 100%;
 }
 
+
 //
 // Labels
 //
@@ -107,6 +108,7 @@ select.form-control {
   line-height: $input-line-height-sm;
 }
 
+
 // Readonly controls as plain text
 //
 // Apply class to a readonly input to make it appear like regular plain
@@ -119,6 +121,7 @@ select.form-control {
   padding-bottom: $input-padding-y;
   margin-bottom: 0; // match inputs if this class comes on inputs with default margins
   line-height: $input-line-height;
+  color: $input-plaintext-color;
   background-color: transparent;
   border: solid transparent;
   border-width: $input-border-width 0;
@@ -295,7 +298,8 @@ select.form-control-lg {
       display: inline-block;
     }
 
-    .input-group {
+    .input-group,
+    .custom-select {
       width: auto;
     }
 

@@ -98,27 +98,26 @@
   font-weight: 400;
 }
 
-/* Large devices (desktops, less than 1200px)*/
-@media (max-width: 1200px) {
-}
+@import "bootstrap/functions"; // required for variables
+@import "bootstrap/variables"; // required for breakpoints to work
+@import "bootstrap/mixins/breakpoints";
 
 /* Medium devices (tablets, less than 992px)*/
-@media (max-width: 992px) {
+@include media-breakpoint-down(md) {
   #main-schreiben-btn {
     font-size: 1.2rem;
   }
-
 }
 
 /* Small devices (landscape phones, less than 768px)*/
-@media (max-width: 768px) {
+@include media-breakpoint-down(sm) {
   #main-schreiben-btn {
     font-size: 1.1rem;
   }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 576px) {
+@include media-breakpoint-down(xs) {
   #main-schreiben-btn {
     font-size: 0.9rem;
   }

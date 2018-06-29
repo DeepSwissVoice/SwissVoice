@@ -50,11 +50,10 @@
     align-items: center;
 
     &:not(:last-child) .custom-file-label,
-    &:not(:last-child) .custom-file-label::before {
+    &:not(:last-child) .custom-file-label::after {
       @include border-right-radius(0);
     }
-    &:not(:first-child) .custom-file-label,
-    &:not(:first-child) .custom-file-label::before {
+    &:not(:first-child) .custom-file-label {
       @include border-left-radius(0);
     }
   }

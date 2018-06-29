@@ -2,3 +2,4 @@ exclude_paths:
   - "**.bundle.*"
   - "**.min.*"
   - "src/js/lib/*"
+  - "server/swissvoice/static/*.html"

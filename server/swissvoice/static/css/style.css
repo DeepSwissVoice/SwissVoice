@@ -136,9 +136,10 @@ hr.hz-line {
 
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1200px) {
-  .main-text{
-    font-size: 2rem;
-  }
+    .main-text {
+        font-size: 2rem;
+    }
+}
 
 /* Medium devices (tablets, less than 992px)*/
 @media (max-width: 992px) {

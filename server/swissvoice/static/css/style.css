@@ -135,21 +135,20 @@ hr.hz-line {
 }
 
 /* Large devices (desktops, less than 1200px)*/
-@media (max-width: 1199.98px) {
-    .main-text {
-        font-size: 2rem;
-    }
-}
+@media (max-width: 1200px) {
+  .main-text{
+    font-size: 2rem;
+  }
 
 /* Medium devices (tablets, less than 992px)*/
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .text-normal {
         font-size: 1rem;
     }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .main-text {
         font-size: 1.5rem;
     }
@@ -165,7 +164,7 @@ hr.hz-line {
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .main-text {
         font-size: 1.3rem;
     }

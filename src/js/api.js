@@ -114,7 +114,7 @@ export default (() => {
         },
         get ready() {
             if (!readyPromise) {
-                setup();
+                this.setup();
             }
             return readyPromise;
         },

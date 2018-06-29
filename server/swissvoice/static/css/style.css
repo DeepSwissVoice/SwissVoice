@@ -2,6 +2,8 @@
 body {
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .disable-scroll {
@@ -54,6 +56,31 @@ body {
     background: -o-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
     background: -ms-linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4) 100%);
 
+}
+
+/*general link style*/
+.link-style  {
+    color: #63aeff;
+}
+
+.link-style:visited  {
+    color: #63aeff;
+}
+
+.link-style:hover {
+    color: #a2a0ff;
+    text-decoration: none;
+}
+
+
+#footer-area    {
+    background-color: white;
+    z-index: 1000;
+    opacity: 1;
+}
+
+#footer-text    {
+    line-height: normal;
 }
 
 .card-divider {
@@ -147,6 +174,7 @@ hr.hz-line {
     width: 25%;
     padding: 1%;
 }
+
 
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1200px) {

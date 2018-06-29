@@ -16,15 +16,20 @@
 }
 
 #main-schreiben-btn {
-    font-size: 1.5rem;
-    background-color: #63aeff; /*color of button in action-section*/
     border-color: transparent;
+    font-size: 1.5rem;
+
 }
 
-#main-schreiben-btn:hover {
-    background-color: #a2a0ff;
-    transition: all 0.5s ease;
+/* styling the bootstrap p-btn*/
+.btn-primary {
+    background-color: #63aeff;
 }
+
+.btn-primary:hover {
+    background-color: #a2a0ff;
+}
+
 
 #sv-info-text-card {
 }

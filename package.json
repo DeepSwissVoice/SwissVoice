@@ -1,5 +1,5 @@
 {
-  "version": "1.4.6",
+  "version": "2.0.0",
   "dependencies": {
     "@sentry/webpack-plugin": "^1.5.2",
     "autoprefixer": "^8.6.4",
@@ -14,7 +14,7 @@
     "postcss-cli": "^5.0.1",
     "raven-js": "^3.26.3",
     "sass": "^1.7.3",
-    "webpack": "^4.13.0",
+    "webpack": "^4.14.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^2.1.5"
   },

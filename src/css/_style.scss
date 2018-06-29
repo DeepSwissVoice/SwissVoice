@@ -1,0 +1,212 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.disable-scroll {
+  overflow-y: hidden;
+}
+
+#nav-logo {
+  color: black;
+}
+
+#nav-logo:visited {
+  color: black;
+}
+
+#nav-logo:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bg-color-inf {
+  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+}
+
+#bg-bubble {
+  background: url(/images/background/speechbubble.svg) no-repeat;
+  background-size: 100% 100%;
+  position: fixed;
+  /* positioning*/
+  bottom: -50vh;
+  right: 0;
+  width: 50rem;
+  height: 60rem;
+  /*image modifications*/
+  opacity: 0.2;
+
+}
+
+#bg-gradient {
+  /*background-gradient*/
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(-45deg, rgba(29, 236, 197, 0.4), rgba(45, 0, 136, 0.4));
+}
+
+/*general link style*/
+.link-style {
+  color: #63aeff;
+}
+
+.link-style:visited {
+  color: #63aeff;
+}
+
+.link-style:hover {
+  color: #a2a0ff;
+  text-decoration: none;
+}
+
+#footer-area {
+  background-color: white;
+  z-index: 1000;
+  opacity: 1;
+}
+
+#footer-text {
+  line-height: normal;
+}
+
+.card-divider {
+  width: 100%;
+  color: grey;
+}
+
+span.navbar-brand {
+  padding-right: 25px;
+}
+
+div.container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+span.text-muted {
+  line-height: 60px;
+}
+
+div.container > div.row {
+  min-height: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+div.col-6 {
+  border-style: solid;
+}
+
+hr.hz-line {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  border-top: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+.main-text {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+.text-normal {
+  font-size: 1rem;
+}
+
+.text-gross-info {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+#popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.popup-container {
+  width: 40%;
+  background-color: white;
+  border-radius: 4px;
+  margin: auto;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  bottom: 5%;
+  right: 0;
+  z-index: 2001;
+  font-family: Oxygen, "Open-Sans", Helvetica, sans-serif;
+  font-size: 2vw;
+  line-height: 100px;
+  text-align: center;
+  box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
+  overflow-y: scroll;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+}
+
+.canton-image {
+  cursor: pointer;
+  width: 25%;
+  padding: 1%;
+}
+
+/* Large devices (desktops, less than 1200px)*/
+@media (max-width: 1200px) {
+  .main-text {
+    font-size: 2rem;
+  }
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@media (max-width: 992px) {
+  .text-normal {
+    font-size: 1rem;
+  }
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 768px) {
+  .main-text {
+    font-size: 1.5rem;
+  }
+
+  .text-gross-info {
+    font-size: 1.0em;
+  }
+
+  .text-normal {
+    font-size: 0.8rem;
+  }
+
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 576px) {
+  .main-text {
+    font-size: 1.3rem;
+  }
+}
+
+/*--------------------------------------------------*/
+/*media query for background-image*/
+@media (max-height: 660px) {
+  #bg-bubble {
+    top: 30vh;
+    right: -5rem;
+    width: 50rem;
+    height: 60rem;
+  }
+}

@@ -2,6 +2,7 @@
   "version": "1.4.6",
   "dependencies": {
     "@sentry/webpack-plugin": "^1.5.2",
+    "autoprefixer": "^8.6.4",
     "bootstrap": "^4.1.1",
     "chart.js": "^2.7.2",
     "colormap": "^2.3.0",
@@ -10,13 +11,17 @@
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "popper.js": "^1.14.3",
+    "postcss-cli": "^5.0.1",
     "raven-js": "^3.26.3",
+    "sass": "^1.7.3",
     "webpack": "^4.13.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^2.1.5"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "sass": "sass",
+    "postcss": "postcss"
   },
   "devDependencies": {}
 }

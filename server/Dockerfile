@@ -18,4 +18,6 @@ COPY ./swissvoice /app/swissvoice
 COPY ./.docker/uwsgi.ini /app/
 COPY ./.docker/_swissvoice.conf /etc/nginx/conf.d/
 
+VOLUME /app/swissvoice/static
+
 ENV SWISSVOICE_SETTINGS /app/config.cfg

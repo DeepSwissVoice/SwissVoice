@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - 80:80
+    volumes:
+      - ./swissvoice/static:/app/swissvoice/static
     networks:
       - backend
     depends_on:

@@ -27,6 +27,11 @@
     padding-bottom: 5%;
 }
 
+/*hiding the score-board*/
+#score-board {
+    display: none;
+}
+
 #new-words {
     font-style: italic;
     border-left: 2px solid black;

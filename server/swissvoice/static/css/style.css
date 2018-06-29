@@ -8,6 +8,20 @@ body {
     overflow-y: hidden;
 }
 
+#nav-logo   {
+    color: black;
+}
+
+#nav-logo:visited   {
+    color: black;
+}
+
+#nav-logo:hover   {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .bg-color-inf {
     background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }

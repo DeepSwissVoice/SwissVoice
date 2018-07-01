@@ -1,16 +1,10 @@
-{% from "blocks/create_head.html" import create_head %}
-{{ create_head("about") }}
+{% extends "base.html" %}
 
-<body>
-{% include "blocks/nav.html" %}
-
-<div class="container">
-    <p id="main-text">
-        <b>SwissVoice</b><br>
-        This is the wonderful part of the stuff which does the stuff that helps making the stuff appear in the stuff.
-    </p>
-</div>
-
-{% include "blocks/footer.html" %}
-</body>
-</html>
+{% block body_content %}
+    <div class="container">
+        <p id="main-text">
+            <b>SwissVoice</b><br>
+            This is the wonderful part of the stuff which does the stuff that helps making the stuff appear in the stuff.
+        </p>
+    </div>
+{% endblock %}

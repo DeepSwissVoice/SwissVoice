@@ -1,20 +1,25 @@
+{% set navigation = [
+    ("Schreib!", "/schreiben"),
+    ("Stats!", "/stats"),
+    ("About", "/about")
+] %}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a id="nav-logo" href="/" class="navbar-brand mb-0 mx-3 h1">SwissVoice</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-supported-content"
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse"
+            data-target="#navbar-supported-content"
             aria-controls="navbar-supported-content"
-            aria-expanded="false" aria-label="Toggle navigation">
+            aria-expanded="false"
+            aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar-supported-content">
         <ul class="navbar-nav mr-auto">
-            {% for name, href in [
-            ("Schreib!", "/schreiben"),
-            ("Stats!", "/stats"),
-            ("About", "/about")
-            ] %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ href }}"> {{ name }}</a>
-            </li>
+            {% for name, href in navigation %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ href }}"> {{ name }}</a>
+                </li>
             {% endfor %}
         </ul>
         <ul class="navbar-nav">

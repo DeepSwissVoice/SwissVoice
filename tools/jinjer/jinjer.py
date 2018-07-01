@@ -1,8 +1,9 @@
 __author__ = "Simon (siku2)"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 import errno
 import os.path
+from pathlib import Path
 from typing import Dict, List
 
 import htmlmin
@@ -14,8 +15,9 @@ PAGES_DIR = "pages/"
 def render_templates(env: Environment, names: List[str]) -> Dict[str, str]:
     output = {}
     for template_name in names:
+        template_path = Path(template_name)
         template = env.get_template(template_name)
-        rendered = template.render()
+        rendered = template.render(page_name=template_path.stem)
         output_name = template_name[len(PAGES_DIR):]
         output[output_name] = rendered
     return output

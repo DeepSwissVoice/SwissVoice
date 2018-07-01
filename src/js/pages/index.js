@@ -7,7 +7,8 @@ const {elements} = setup({
         flyText: ".fly-text",
         flyTextLi: ".fly-text li",
         logoScreen: ".logo-screen",
-        bgLogoScreen: "#bg-loading-screen"
+        bgLogoScreen: "#bg-loading-screen",
+        footerArea: "#footer-area"
     },
     buttons: {
         ".teaser-trigger": (event) => {
@@ -24,6 +25,7 @@ const {elements} = setup({
 });
 
 async function loadingAnimation() {
+    elements.footerArea.addClass("footer-off")
     elements.bgLogoScreen.addClass("animate-bg");
     await sleep(500);
     elements.flyText.removeClass("off");
@@ -32,6 +34,7 @@ async function loadingAnimation() {
     await sleep(1000);
     elements.flyTextLi.addClass("fade-out");
     elements.logoScreen.toggleClass("fade-out loaded");
+    elements.footerArea.removeClass("footer-off")
 }
 
 async function init() {

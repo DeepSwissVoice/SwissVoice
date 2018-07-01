@@ -25,7 +25,7 @@ const {elements} = setup({
 });
 
 async function loadingAnimation() {
-    elements.footerArea.addClass("footer-off")
+    elements.footerArea.addClass("footer-off");
     elements.bgLogoScreen.addClass("animate-bg");
     await sleep(500);
     elements.flyText.removeClass("off");
@@ -34,7 +34,7 @@ async function loadingAnimation() {
     await sleep(1000);
     elements.flyTextLi.addClass("fade-out");
     elements.logoScreen.toggleClass("fade-out loaded");
-    elements.footerArea.removeClass("footer-off")
+    elements.footerArea.removeClass("footer-off");
 }
 
 async function init() {

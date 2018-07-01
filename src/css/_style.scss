@@ -1,3 +1,27 @@
+/*these are requierd by bootsrap on every page*/
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+/*optional but also used on every page*/
+@import "bootstrap/bootstrap-reboot";
+@import "bootstrap/type";
+@import "bootstrap/utilities";
+@import "bootstrap/bootstrap-grid";
+/*used in navbar*/
+@import "bootstrap/buttons";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/dropdown";
+@import "bootstrap/alert";
+
+/*
+@import "bootstrap/card";
+@import "bootstrap/button-group";
+@import "bootstrap/input-group";
+@import "bootstrap/transitions";
+@import "bootstrap/forms";*/
+
+
 body {
   margin: 0;
   padding: 0;

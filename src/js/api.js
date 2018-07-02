@@ -9,11 +9,18 @@ export default (() => {
 
     let readyPromise;
     let regionId;
-    let currentText;
-    let currentSample;
 
-    const textCache = [];
-    const sampleCache = [];
+    const currentItems = {
+        text: null,
+        proposed: null,
+        voice: null
+    };
+    const cache = {
+        text: [],
+        proposed: [],
+        voice: []
+    };
+
     const regions = [];
     const cantons = [];
 
@@ -21,39 +28,30 @@ export default (() => {
         return settings.domain + endpoint.join("/");
     }
 
-    async function ensureTextCache() {
-        if (textCache.length < settings.minCacheSize) {
-            const url = buildUrl("api", "text", regionId);
+    async function ensureCache(name) {
+        if (cache[name].length < settings.minCacheSize) {
+            const url = buildUrl("api", name, regionId);
             const resp = await $.getJSON(url, {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
                 const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
                 Raven.captureBreadcrumb({data: resp});
-                throw new Error("Couldn't get any texts");
+                throw new Error("Unsuccessful request to retrieve items for \"" + name + "\" cache");
             }
-            textCache.push(...resp.texts);
+            cache[name].push(...resp.items);
         }
     }
 
-    async function ensureSampleCache() {
-        if (sampleCache.length < settings.minCacheSize) {
-            const url = buildUrl("api", "voice", regionId);
-            const resp = await $.getJSON(url, {
-                count: settings.cacheRestockCount
-            });
-            if (!resp.success) {
-                const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
-                Raven.captureBreadcrumb({data: resp});
-                throw new Error("Couldn't get any samples");
-            }
-            sampleCache.push(...resp.samples);
-        }
+    function getItemFromCache(name) {
+        ensureCache(name);
+        const item = cache[name].shift();
+        currentItems[name] = item;
+        return item;
     }
 
     async function ensureCaches() {
-        await ensureTextCache();
-        await ensureSampleCache();
+        await Promise.all(Object.keys(cache).map(ensureCache));
     }
 
     function extractCantons() {
@@ -125,16 +123,13 @@ export default (() => {
             return cantons;
         },
         getText() {
-            ensureTextCache();
-            const item = textCache.shift();
-            currentText = item;
-            return item;
+            return getItemFromCache("text");
+        },
+        getProposedText() {
+            return getItemFromCache("proposed");
         },
         getSample() {
-            ensureSampleCache();
-            const item = sampleCache.shift();
-            currentSample = item;
-            return item;
+            return getItemFromCache("voice");
         },
         async proposeTexts(...texts) {
             const payload = {texts};
@@ -147,15 +142,24 @@ export default (() => {
         },
         async approveSample(opinion, voiceId) {
             opinion = Boolean(opinion);
-            voiceId = voiceId || currentSample.voice_id;
-            const url = buildUrl("api", "vote", voiceId);
+            voiceId = voiceId || currentItems.voice.voice_id;
+            const url = buildUrl("api", "voice", "vote", voiceId);
+            const resp = await $.getJSON(url, {
+                "vote": opinion
+            });
+            return resp.success;
+        },
+        async voteProposed(opinion, id) {
+            opinion = Boolean(opinion);
+            id = id || currentItems.proposed.id;
+            const url = buildUrl("api", "proposed", "vote", id);
             const resp = await $.getJSON(url, {
                 "vote": opinion
             });
             return resp.success;
         },
         async uploadSample(blob, textId) {
-            textId = textId || currentText.text_id;
+            textId = textId || currentItems.text.text_id;
             const url = buildUrl("api", "upload", textId);
             return await $.ajax(url, {
                 method: "POST",

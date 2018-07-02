@@ -3,11 +3,15 @@ import setup from "../page-setup";
 import {sleep} from "../utils";
 
 const {elements} = setup({
+    onReady: showProposedText,
     elements: {
         proposeTextsInput: "#textarea-input",
+        proposedTextDisplay: "#proposed-text-display"
     },
     buttons: {
-        "#send-text": proposeTexts
+        "#send-text": proposeTexts,
+        "#vote-text-true-btn": () => voteText(true),
+        "#vote-text-false-btn": () => voteText(false)
     }
 });
 
@@ -27,4 +31,14 @@ async function proposeTexts() {
     const result = await SwissVoiceAPI.proposeTexts(...texts);
     elements.proposeTextsInput.val("");
     console.log(result);
+}
+
+async function voteText(isCorrect) {
+    await SwissVoiceAPI.voteProposed(isCorrect);
+    showProposedText();
+}
+
+function showProposedText() {
+    const text = SwissVoiceAPI.getProposedText().text;
+    elements.proposedTextDisplay.text(text);
 }

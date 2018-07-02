@@ -9,7 +9,7 @@ from pymongo.errors import BulkWriteError
 
 from . import proxy, transcoder
 from .factory import get_app
-from .utils import Error, cast_type, error_response, response
+from .utils import Error, bool_param, cast_type, error_response, response
 
 log = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ def get_text(region: ObjectId) -> Response:
     texts = [dict(text=doc["text"], text_id=str(doc["_id"])) for doc in res]
     if not texts:
         return error_response(Error.NO_TEXT_FOUND, "Couldn't find any texts")
-    return response(texts=texts)
+    return response(items=texts)
 
 
 @app.route("/api/text/<oid:region>", methods=["PUT", "POST"])
@@ -61,7 +61,7 @@ def propose_text(region: ObjectId):
     if len(texts) > app.config["MAX_PROPOSE_COUNT"]:
         return error_response(Error.INVALID_REQUEST, "Too many texts proposed! The max is " + str(app.config["MAX_PROPOSE_COUNT"]))
 
-    documents = (dict(region=region, text=text) for text in texts)
+    documents = (dict(region=region, text=text, votes=0, balance=0, created_at=datetime.utcnow(), edited_at=datetime.utcnow()) for text in texts)
 
     try:
         result = proxy.proposed_texts_coll.insert_many(documents, ordered=False)
@@ -75,6 +75,41 @@ def propose_text(region: ObjectId):
 
     log.debug(f"proposed {num_succeeded} texts, {len(failed_indices)} failed")
     return response(succeeded=num_succeeded, failed=failed_indices)
+
+
+@app.route("/api/proposed/<oid:region>")
+def get_proposed(region: ObjectId) -> Response:
+    count = cast_type(int, request.args.get("count"), 3)
+    if not 0 < count <= app.config["MAX_REQUEST_COUNT"]:
+        return error_response(Error.INVALID_REQUEST, f"Invalid amount of items requested! ({count})")
+
+    res = proxy.proposed_texts_coll.find({"region": region}, sort=[("votes", 1)], limit=count)
+    texts = [dict(text=doc["text"], id=str(doc["_id"])) for doc in res]
+    if not texts:
+        return error_response(Error.NO_TEXT_FOUND, "Couldn't find any proposed texts")
+    return response(items=texts)
+
+
+@app.route("/api/proposed/vote/<oid:_id>")
+def vote_proposed(_id: ObjectId) -> Response:
+    raw_vote = request.args.get("vote")
+    vote = bool_param(raw_vote)
+    if vote is None:
+        return error_response(Error.INVALID_REQUEST, f"Can't tell what you're trying to vote. ({raw_vote})")
+
+    proposed = proxy.proposed_texts_coll.find_one(_id)
+    if not proposed:
+        return error_response(Error.NO_SAMPLE_FOUND, f"No proposed text found with this id. ({_id})")
+    proxy.proposed_texts_coll.update_one({"_id": _id}, {
+        "$currentDate": {
+            "edited_at": True
+        },
+        "$inc": {
+            "votes": 1,
+            "balance": int(vote)
+        }
+    })
+    return response()
 
 
 @app.route("/api/voice/<oid:region>")
@@ -92,25 +127,17 @@ def get_voice_sample(region: ObjectId) -> Response:
         samples.append(dict(text=text_doc["text"], location=location, voice_id=str(sample["_id"])))
     if not samples:
         return error_response(Error.NO_SAMPLE_FOUND, "Couldn't find any voice samples")
-    return response(samples=samples)
+    return response(items=samples)
 
 
-@app.route("/api/vote/<oid:sample_id>")
+@app.route("/api/voice/vote/<oid:sample_id>")
 def vote_voice_sample(sample_id: ObjectId) -> Response:
-    def conv(val):
-        val = val.lower()
-        return (
-            True if val in {"u", "up", "y", "yes", "true", "t"} else
-            False if val in {"d", "down", "n", "no", "false", "f"} else
-            None
-        )
-
     raw_vote = request.args.get("vote")
-    vote = cast_type(conv, raw_vote, None)
+    vote = bool_param(raw_vote)
     if vote is None:
         return error_response(Error.INVALID_REQUEST, f"Can't tell what you're trying to vote. ({raw_vote})")
-    voice_coll = proxy.audio_samples_coll.find_one(sample_id)
-    if not voice_coll:
+    voice_sample = proxy.audio_samples_coll.find_one(sample_id)
+    if not voice_sample:
         return error_response(Error.NO_SAMPLE_FOUND, f"No sample found with this id. ({sample_id})")
     proxy.audio_samples_coll.update_one({"_id": sample_id}, {
         "$currentDate": {

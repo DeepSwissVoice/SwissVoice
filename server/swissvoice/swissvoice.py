@@ -203,6 +203,7 @@ def get_statistics() -> Response:
         total_votes_aggr = proxy.audio_samples_coll.aggregate([{"$group": {"_id": None, "sum": {"$sum": "$votes"}}}])
         regions_aggr = proxy.regions_coll.aggregate([
             {"$lookup": {"from": "texts", "localField": "_id", "foreignField": "region", "as": "texts"}},
+            {"$lookup": {"from": "proposed_texts", "localField": "_id", "foreignField": "region", "as": "proposed"}},
             {"$lookup": {"from": "audio_samples", "localField": "_id", "foreignField": "region", "as": "audio_samples"}},
             {"$unwind": "$cantons"},
             {"$lookup": {"from": "cantons", "localField": "cantons", "foreignField": "_id", "as": "cantons"}},
@@ -211,12 +212,14 @@ def get_statistics() -> Response:
                 "_id": "$_id",
                 "cantons": {"$push": "$cantons._id"},
                 "texts": {"$first": "$texts"},
+                "proposed": {"$first": "$proposed"},
                 "audio_samples": {"$first": "$audio_samples"}
             }},
             {"$project": {
                 "_id": "$_id",
                 "cantons": "$cantons",
                 "total_texts": {"$size": "$texts"},
+                "total_proposed": {"$size": "$proposed"},
                 "total_samples": {"$size": "$audio_samples"}
             }}
         ])
@@ -228,6 +231,7 @@ def get_statistics() -> Response:
 
         stats = {
             "total_texts": proxy.texts_coll.count(),
+            "total_proposed": proxy.proposed_texts_coll.count(),
             "total_samples": proxy.audio_samples_coll.count(),
             "total_votes": total_votes_aggr.next()["sum"],
             "regions": regions
@@ -249,6 +253,7 @@ def get_statistics() -> Response:
             "iso_week": True,
             "iso_year": True,
             "total_texts": "$stats.total_texts",
+            "total_proposed": "$stats.total_proposed",
             "total_samples": "$stats.total_samples",
             "total_votes": "$stats.total_votes"
         }}

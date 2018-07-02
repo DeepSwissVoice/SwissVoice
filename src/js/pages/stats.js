@@ -8,6 +8,7 @@ const {elements} = setup({
         contentMain: "#content",
         totalVotesDisplay: "#total-votes-display",
         totalTextsDisplay: "#total-texts-display",
+        totalProposedDisplay: "#total-proposed-display",
         totalSamplesDisplay: "#total-samples-display",
         totalSamplesDurationDisplay: "#total-samples-duration-display",
         regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
@@ -19,14 +20,14 @@ const {elements} = setup({
 const avgDurAudioSample = 3;
 
 
-async function buildColourMap(spec, nshades) {
+async function buildColourMap(spec, nShades) {
     const colormap = (await import(/* webpackChunkName: "colormap" */ "colormap")).default;
     const colorScale = (await import(/* webpackChunkName: "colormap" */ "colormap/colorScale")).default;
 
     const minShades = colorScale[spec].length;
-    const shades = Math.max(minShades + 1, nshades);
+    const shades = Math.max(minShades + 1, nShades);
     const _colours = colormap({colormap: spec, nshades: shades});
-    return _colours.slice(0, nshades);
+    return _colours.slice(0, nShades);
 }
 
 function formatTime(seconds) {
@@ -48,19 +49,21 @@ async function displayStatistics(data) {
     Chart.defaults.global.animation.duration = 2500;
     animateCountUp(elements.totalVotesDisplay, data.total_votes);
     animateCountUp(elements.totalTextsDisplay, data.total_texts);
+    animateCountUp(elements.totalProposedDisplay, data.total_proposed);
     animateCountUp(elements.totalSamplesDisplay, data.total_samples);
     animateCountUp(elements.totalSamplesDurationDisplay, data.total_samples * avgDurAudioSample, {callback: formatTime});
 
     // Distribution doughnuts
     colours = await buildColourMap("earth", data.regions.length);
 
+    const textRegions = data.regions.filter((region) => region.total_texts > 0);
     chart = new Chart(elements.regionTextsDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el.name || el._id),
+            labels: textRegions.map((el) => el.name || el._id),
             datasets: [{
                 label: "# of texts",
-                data: data.regions.map((el) => el.total_texts),
+                data: textRegions.map((el) => el.total_texts),
                 backgroundColor: colours,
                 borderColor: colours,
                 borderWidth: 0
@@ -68,13 +71,14 @@ async function displayStatistics(data) {
         }
     });
 
+    const sampleRegions = data.regions.filter((region) => region.total_samples > 0);
     chart = new Chart(elements.regionSamplesDistributionDoughnut, {
         type: "doughnut",
         data: {
-            labels: data.regions.map((el) => el.name || el._id),
+            labels: sampleRegions.map((el) => el.name || el._id),
             datasets: [{
                 label: "# of voice samples",
-                data: data.regions.map((el) => el.total_samples),
+                data: sampleRegions.map((el) => el.total_samples),
                 backgroundColor: colours,
                 borderColor: colours,
                 borderWidth: 0
@@ -85,12 +89,17 @@ async function displayStatistics(data) {
     // Timeline
 
     const history = data.history.reverse();
-    colours = ["#58A8D9", "#1D628C", "#D9A358"];
+    colours = [
+        "#58A8D9",
+        "#58A810",
+        "#1D628C",
+        "#D9A358"
+    ];
 
     chart = new Chart(elements.interactionTimeline, {
         type: "line",
         data: {
-            datasets: [["Texts", "total_texts"], ["Samples", "total_samples"], ["Votes", "total_votes"]].map(
+            datasets: [["Texts", "total_texts"], ["Proposed Texts", "total_proposed"], ["Samples", "total_samples"], ["Votes", "total_votes"]].map(
                 ([label, dataLabel], idx) => ({
                     label,
                     data: history.map((el) => ({t: moment().year(el.iso_year).isoWeek(el.iso_week), y: el[dataLabel]})),

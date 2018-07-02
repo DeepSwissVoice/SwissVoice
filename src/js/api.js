@@ -35,7 +35,6 @@ export default (() => {
                 count: settings.cacheRestockCount
             });
             if (!resp.success) {
-                const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
                 Raven.captureBreadcrumb({data: resp});
                 throw new Error("Unsuccessful request to retrieve items for \"" + name + "\" cache");
             }
@@ -70,7 +69,6 @@ export default (() => {
         const url = buildUrl("api", "regions");
         const resp = await $.getJSON(url);
         if (!resp.success) {
-            const Raven = await import(/* webpackChunkName: "raven" */ "raven-js");
             Raven.captureBreadcrumb({data: resp});
             throw new Error("Couldn't fetch any regions!");
         }

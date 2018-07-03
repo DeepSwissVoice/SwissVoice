@@ -48,7 +48,7 @@ function buildPopup(cancelable, cb) {
     const popup = $(
         "<div id='popup' class='text-normal' style='display: none;'>\
             <div class='popup-container'>\
-                Wähle Deine Sprachregion aus.\
+                <span class='main-text'>Wähle Deine Sprachregion aus.</span>\
                 <div class='image-view'></div>\
             </div>\
             <div class='cover'></div>\

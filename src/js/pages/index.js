@@ -3,6 +3,7 @@ import {sleep} from "../utils";
 
 const {elements} = setup({
     onReady: init,
+    requireCanton: false,
     elements: {
         flyText: ".fly-text",
         flyTextLi: ".fly-text li",

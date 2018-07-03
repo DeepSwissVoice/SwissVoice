@@ -4,6 +4,7 @@ import {animateCountUp} from "../visuals";
 
 const {elements} = setup({
     onReady: init,
+    requireCanton: false,
     elements: {
         contentMain: "#content",
         totalVotesDisplay: "#total-votes-display",

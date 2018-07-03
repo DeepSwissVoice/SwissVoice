@@ -21,6 +21,7 @@ function ajaxErrorHook() {
 export default function setup(options) {
     options = Object.assign({
         setupAPI: true,
+        requireCanton: true,
         toggleCantonsPopupBtn: true
     }, options);
 
@@ -50,7 +51,7 @@ export default function setup(options) {
         if (options.setupAPI) {
             await SwissVoiceAPI.ready;
 
-            if (!SwissVoiceAPI.canton()) {
+            if (options.requireCanton && !SwissVoiceAPI.canton()) {
                 await SwissVoiceAPI.canton(await promptCanton(false));
             }
         }

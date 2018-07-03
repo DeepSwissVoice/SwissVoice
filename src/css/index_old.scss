@@ -1,0 +1,67 @@
+@import "style";
+
+.current-canton-image {
+  float: right;
+  width: 8vw;
+  margin: 1vw;
+}
+
+.normal-button {
+  position: absolute;
+  z-index: 1000;
+  left: 10%;
+  top: -2000%;
+  font-size: 100%;
+}
+
+.no-region-button {
+  position: absolute;
+  z-index: 1001;
+  left: 10%;
+  top: -2000%;
+  font-size: 100%;
+}
+
+.text-box {
+  line-height: 150%;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+/* Large devices (desktops, less than 1200px)*/
+@media (max-width: 1200px) {
+  img.canton-image {
+    width: 25vw;
+  }
+
+  div.popup {
+    border-radius: 0;
+    font-size: 8vw;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+    width: auto;
+    padding: 10px;
+  }
+
+  img.current-canton-image {
+    width: 15vw;
+    margin: 1vw;
+  }
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@media (max-width: 992px) {
+
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 768px) {
+
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 576px) {
+
+}

@@ -1,7 +1,7 @@
-__all__ = ["SwissJsonEncoder", "Error", "response", "error_response", "cast_type"]
+__all__ = ["SwissJsonEncoder", "Error", "response", "error_response", "bool_param", "cast_type"]
 
 from enum import IntEnum
-from typing import Any, Callable, TypeVar
+from typing import Any, Callable, Optional, TypeVar
 
 from bson import ObjectId
 from flask import Response, jsonify
@@ -44,6 +44,18 @@ def error_response(error: Error, msg: str) -> Response:
 
 T1 = TypeVar("T1")
 T2 = TypeVar("T2")
+
+
+def bool_param(val: str) -> Optional[bool]:
+    if not isinstance(val, str):
+        return None
+
+    val = val.lower()
+    return (
+        True if val in {"u", "up", "y", "yes", "true", "t", "1"} else
+        False if val in {"d", "down", "n", "no", "false", "f", "0"} else
+        None
+    )
 
 
 def cast_type(cls: Callable[[T1], T2], val: T2, default: Any = _DEFAULT) -> T2:

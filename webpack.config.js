@@ -41,6 +41,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
+            Raven: "raven-js",
             Popper: ["popper.js", "default"]
         }),
         new webpack.SourceMapDevToolPlugin({

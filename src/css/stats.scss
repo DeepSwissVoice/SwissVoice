@@ -1,5 +1,6 @@
 @import "style";
 @import "animation/loading-cube";
+@import "bootstrap/jumbotron";
 
 #content {
   position: relative;
@@ -28,4 +29,9 @@
   height: 100%;
   width: 100%;
   background-color: white;
+}
+
+.content-container {
+    width: 95%;
+    background-color: rgba(214, 241, 255, 0.7)
 }

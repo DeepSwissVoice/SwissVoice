@@ -16,6 +16,10 @@ const {elements} = setup({
 });
 
 
+function firstLetterUppercase (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 async function proposeTexts() {
     const content = elements.proposeTextsInput.val();
     const texts = content.split(";").map((s) => s.trim());
@@ -26,6 +30,8 @@ async function proposeTexts() {
             elements.proposeTextsInput.val(texts);
             return;
         }
+
+        text = firstLetterUppercase (text);
     }
 
     const result = await SwissVoiceAPI.proposeTexts(...texts);

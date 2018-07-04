@@ -16,7 +16,7 @@ const {elements} = setup({
 });
 
 
-function firstLetterUppercase (string) {
+function firstLetterUppercase(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -30,7 +30,6 @@ async function proposeTexts() {
             elements.proposeTextsInput.val(texts);
             return;
         }
-
         text = firstLetterUppercase (text);
     }
 

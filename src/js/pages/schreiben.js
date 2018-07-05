@@ -23,7 +23,7 @@ function firstLetterUppercase(string) {
 async function proposeTexts() {
     const content = elements.proposeTextsInput.val();
     const texts = content.split(";").map((s) => s.trim());
-    for (const text of texts) {
+    for (let text of texts) {
         if (!text.match(/\w([?!.])$/g)) {
             elements.proposeTextsInput.val("Bitte das Satzzeichen korrigieren");
             await sleep(500);

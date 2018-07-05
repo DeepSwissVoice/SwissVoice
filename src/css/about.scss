@@ -1,1 +1,13 @@
 @import "style";
+
+@import "bootstrap/card";
+
+
+.card-text  {
+    line-height: normal;
+    text-align: left;
+}
+
+.sub-title  {
+    font-weight: 500;
+}

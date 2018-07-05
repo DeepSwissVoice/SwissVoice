@@ -11,3 +11,39 @@
 .sub-title  {
     font-weight: 500;
 }
+
+
+.info-text {
+  text-align: left;
+  line-height: normal;
+  margin-bottom: 0;
+  transition: height 1s;
+  overflow: hidden;
+}
+
+.teaser {
+  position: relative;
+  overflow: hidden;
+}
+
+.teaser::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #d6f1ff);
+}
+
+.teaser + .teaser-trigger::after {
+  content: "Weiterlesen";
+}
+
+:not(.teaser) + .teaser-trigger {
+  margin-top: 1rem;
+}
+
+:not(.teaser) + .teaser-trigger::after {
+  content: "Verringern";
+}

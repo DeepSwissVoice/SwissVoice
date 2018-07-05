@@ -54,7 +54,7 @@ body {
 }
 
 .bg-color-inf {
-  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+    background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }
 
 .bg-primary  {
@@ -106,6 +106,17 @@ body {
   color: #a2a0ff;
   text-decoration: none;
 }
+
+/* styling the bootstrap p-btn*/
+.btn-primary {
+  background-color: #63aeff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #a2a0ff;
+}
+
 
 #footer-area {
 

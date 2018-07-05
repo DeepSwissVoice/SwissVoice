@@ -1,3 +1,7 @@
+$theme-colors: (
+  "primary": rgba(214, 241, 255, 0.8)
+);
+
 /*these are requierd by bootsrap on every page*/
 @import "bootstrap/functions";
 @import "bootstrap/variables";
@@ -13,13 +17,15 @@
 @import "bootstrap/navbar";
 @import "bootstrap/dropdown";
 @import "bootstrap/alert";
+@import "bootstrap/transitions";
+
 
 /*
 @import "bootstrap/card";
 @import "bootstrap/button-group";
 @import "bootstrap/input-group";
-@import "bootstrap/transitions";
-@import "bootstrap/forms";*/
+@import "bootstrap/forms";
+@import "bootstrap/jumbotron";*/
 
 
 body {
@@ -48,7 +54,15 @@ body {
 }
 
 .bg-color-inf {
-  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+    background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+}
+
+.bg-primary  {
+    border: none;
+}
+
+.bg-transp  {
+    background-color: rgba(214, 241, 255, 0.8);
 }
 
 .bg-light {
@@ -93,10 +107,19 @@ body {
   text-decoration: none;
 }
 
+/* styling the bootstrap p-btn*/
+.btn-primary {
+  background-color: #63aeff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #a2a0ff;
+}
+
+
 #footer-area {
-  background-color: white;
-  z-index: 1000;
-  opacity: 1;
+
 }
 
 #footer-text {
@@ -145,6 +168,7 @@ hr.hz-line {
 
 .text-normal {
   font-size: 1rem;
+  line-height: normal;
 }
 
 .text-gross-info {
@@ -161,8 +185,8 @@ hr.hz-line {
 }
 
 .popup-container {
-  width: 40%;
-  background-color: white;
+  width: 60%;
+  background-color: #f4f4f4;
   border-radius: 4px;
   margin: auto;
   position: absolute;
@@ -180,46 +204,53 @@ hr.hz-line {
 }
 
 .cover {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 2000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
 }
 
 .canton-image {
-  cursor: pointer;
-  width: 25%;
-  padding: 1%;
+    cursor: pointer;
+    width: 25%;
+    padding: 1%;
 }
 
 /* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1200px) {
-  .main-text {
-    font-size: 2rem;
-  }
+    .main-text {
+        font-size: 2rem;
+    }
 }
 
 /* Medium devices (tablets, less than 992px)*/
 @media (max-width: 992px) {
-  .text-normal {
-    font-size: 1rem;
-  }
+    .text-normal {
+        font-size: 1rem;
+    }
+
+    .popup-container {
+        width: 80%
+    }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @media (max-width: 768px) {
-  .main-text {
-    font-size: 1.5rem;
-  }
+    .main-text {
+        font-size: 1.5rem;
+    }
 
-  .text-gross-info {
-    font-size: 1.0em;
-  }
+    .text-gross-info {
+        font-size: 1.0em;
+    }
 
-  .text-normal {
-    font-size: 0.8rem;
-  }
+    .text-normal {
+        font-size: 0.8rem;
+    }
 
+    .popup-container {
+        width: 95%
+    }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/

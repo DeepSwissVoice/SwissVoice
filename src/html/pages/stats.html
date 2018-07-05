@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block body_content %}
-    <div class="container intro">
+    <div class="container intro my-4">
         <h1>Statistics</h1>
     </div>
     <div id="content" class="loading">
-        <div class="content-container">
+        <div class="content-container card card-body bg-primary pt-2 mx-auto">
             <div class="container">
                 <!--German plz-->
                 <div>There have been a total of <span id="total-votes-display"></span> votes cast!</div>
@@ -18,17 +18,17 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="chart-container col">
+                    <div class="chart-container col mt-5">
                         <h3>Distribution of texts over regions</h3>
                         <canvas id="region-texts-distribution-doughnut"></canvas>
                     </div>
-                    <div class="chart-container col">
+                    <div class="chart-container col mt-5">
                         <h3>Distribution of recordings over regions</h3>
                         <canvas id="region-samples-distribution-doughnut"></canvas>
                     </div>
                 </div>
                 <div>
-                    <div class="chart-container col">
+                    <div class="chart-container col mt-5">
                         <h3>Interactions over time</h3>
                         <canvas id="interaction-timeline"></canvas>
                     </div>

@@ -28,15 +28,6 @@
 
 }
 
-/* styling the bootstrap p-btn*/
-.btn-primary {
-  background-color: #63aeff;
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: #a2a0ff;
-}
 
 #sv-info-text-card {
 }
@@ -87,10 +78,6 @@
 
 :not(.teaser) + .teaser-trigger::after {
   content: "Verringern";
-}
-
-.bg-color-inf {
-  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }
 
 .link {

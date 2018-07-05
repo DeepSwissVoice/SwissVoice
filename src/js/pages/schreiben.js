@@ -16,16 +16,21 @@ const {elements} = setup({
 });
 
 
+function firstLetterUppercase(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 async function proposeTexts() {
     const content = elements.proposeTextsInput.val();
     const texts = content.split(";").map((s) => s.trim());
-    for (const text of texts) {
+    for (let text of texts) {
         if (!text.match(/\w([?!.])$/g)) {
             elements.proposeTextsInput.val("Bitte das Satzzeichen korrigieren");
             await sleep(500);
             elements.proposeTextsInput.val(texts);
             return;
         }
+        text = firstLetterUppercase (text);
     }
 
     const result = await SwissVoiceAPI.proposeTexts(...texts);

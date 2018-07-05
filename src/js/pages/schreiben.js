@@ -30,7 +30,7 @@ async function proposeTexts() {
             elements.proposeTextsInput.val(texts);
             return;
         }
-        let text = firstLetterUppercase (text);
+        text = firstLetterUppercase (text);
     }
 
     const result = await SwissVoiceAPI.proposeTexts(...texts);

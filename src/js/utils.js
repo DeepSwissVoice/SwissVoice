@@ -20,3 +20,8 @@ export function shuffle(array) {
 export function sleep(timeout) {
     return new Promise((res) => setTimeout(res, timeout));
 }
+
+
+export function firstCharUpperCase(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}

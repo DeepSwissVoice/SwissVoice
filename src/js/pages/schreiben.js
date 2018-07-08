@@ -1,6 +1,6 @@
 import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
-import {sleep} from "../utils";
+import {firstCharUpperCase, sleep} from "../utils";
 
 const {elements} = setup({
     onReady: showProposedText,
@@ -15,14 +15,9 @@ const {elements} = setup({
     }
 });
 
-
-function firstLetterUppercase(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 async function proposeTexts() {
     const content = elements.proposeTextsInput.val();
-    const texts = content.split(";").map((s) => s.trim());
+    const texts = content.split(";").map((s) => firstCharUpperCase(s.trim()));
     for (let text of texts) {
         if (!text.match(/\w([?!.])$/g)) {
             elements.proposeTextsInput.val("Bitte das Satzzeichen korrigieren");
@@ -30,7 +25,6 @@ async function proposeTexts() {
             elements.proposeTextsInput.val(texts);
             return;
         }
-        text = firstLetterUppercase (text);
     }
 
     const result = await SwissVoiceAPI.proposeTexts(...texts);

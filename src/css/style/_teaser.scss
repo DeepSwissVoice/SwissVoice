@@ -1,0 +1,21 @@
+.teaser {
+  position: relative;
+  overflow: hidden;
+  color: transparent;
+  background: {
+    image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    clip: text;
+  }
+
+  & + .teaser-trigger::after {
+    content: "Weiterlesen";
+  }
+
+  :not(&) + .teaser-trigger {
+    margin-top: 1rem;
+
+    &::after {
+      content: "Verringern";
+    }
+  }
+}

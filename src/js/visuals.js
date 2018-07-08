@@ -28,3 +28,25 @@ export function animateCountUp(targets, end, options) {
         });
     });
 }
+
+export function setupTeaserTriggers() {
+    function handleClick(event) {
+        const target = $(event.delegateTarget).prev();
+
+        if (target.hasClass("teaser")) {
+            if (!target.data("transitioning")) {
+                target.data("height", target.height());
+            }
+            target.height(target.prop("scrollHeight"));
+        } else {
+            target.height(target.data("height"));
+        }
+        target
+            .data("transitioning", true)
+            .toggleClass("teaser");
+    }
+
+    $(".teaser-trigger")
+        .on("transitionend", () => $(this).data("transitioning", false))
+        .click(handleClick);
+}

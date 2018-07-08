@@ -23,7 +23,7 @@ const {elements} = setup({
 
 export {elements};
 
-async function init() {
+function init() {
     nextSample();
     nextRecordText();
 }

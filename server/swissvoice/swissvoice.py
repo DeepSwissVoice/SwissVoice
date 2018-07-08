@@ -44,8 +44,6 @@ def get_text(region: ObjectId) -> Response:
 
     res = proxy.texts_coll.find({"region": region}, sort=[("voice_samples", 1)], limit=count)
     texts = [dict(text=doc["text"], text_id=str(doc["_id"])) for doc in res]
-    if not texts:
-        return error_response(Error.NO_TEXT_FOUND, "Couldn't find any texts")
     return response(items=texts)
 
 
@@ -85,8 +83,6 @@ def get_proposed(region: ObjectId) -> Response:
 
     res = proxy.proposed_texts_coll.find({"region": region}, sort=[("votes", 1)], limit=count)
     texts = [dict(text=doc["text"], id=str(doc["_id"])) for doc in res]
-    if not texts:
-        return error_response(Error.NO_TEXT_FOUND, "Couldn't find any proposed texts")
     return response(items=texts)
 
 
@@ -125,8 +121,6 @@ def get_voice_sample(region: ObjectId) -> Response:
         location = app.config["RECORDING_LOCATION"] + "/" + sample["key"]
 
         samples.append(dict(text=text_doc["text"], location=location, voice_id=str(sample["_id"])))
-    if not samples:
-        return error_response(Error.NO_SAMPLE_FOUND, "Couldn't find any voice samples")
     return response(items=samples)
 
 
@@ -230,9 +224,9 @@ def get_statistics() -> Response:
             regions.append(region)
 
         stats = {
-            "total_texts": proxy.texts_coll.count(),
-            "total_proposed": proxy.proposed_texts_coll.count(),
-            "total_samples": proxy.audio_samples_coll.count(),
+            "total_texts": proxy.texts_coll.count_documents(),
+            "total_proposed": proxy.proposed_texts_coll.count_documents(),
+            "total_samples": proxy.audio_samples_coll.count_documents(),
             "total_votes": total_votes_aggr.next()["sum"],
             "regions": regions
         }

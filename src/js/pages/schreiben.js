@@ -6,7 +6,8 @@ const {elements} = setup({
     onReady: showProposedText,
     elements: {
         proposeTextsInput: "#textarea-input",
-        proposedTextDisplay: "#proposed-text-display"
+        proposedTextDisplay: "#proposed-text-display",
+        voteSystem: "#vote-system"
     },
     buttons: {
         "#send-text": proposeTexts,
@@ -38,6 +39,15 @@ async function voteText(isCorrect) {
 }
 
 function showProposedText() {
-    const text = SwissVoiceAPI.getProposedText().text;
+    const textSample = SwissVoiceAPI.getProposedText();
+    let text;
+    if (textSample) {
+        text = textSample.text;
+    } else {
+        text = "Im Moment keine Texte zum bewerten!";
+        elements.voteSystem.addClass("no-items");
+        elements.voteSystem.find("button").addClass("disabled");
+    }
+
     elements.proposedTextDisplay.text(text);
 }

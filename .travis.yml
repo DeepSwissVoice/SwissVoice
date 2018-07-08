@@ -1,0 +1,29 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - nodejs
+
+before_install:
+  - pip install -r tools/requirements.txt
+  - npm install
+
+install:
+  - tools/jinjer/jinjer.py src/html server/swissvoice/static
+  - tools/sassier/sassier.py src/css server/swissvoice/static/css
+  - npm run-script build
+
+before_deploy:
+  - docker build -t siku2/swissvoice:latest
+
+deploy:
+  provider: script
+  script: bash .travis/docker_push
+  on:
+    branch: master

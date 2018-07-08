@@ -149,7 +149,10 @@ export default (() => {
         },
         async voteProposed(opinion, id) {
             opinion = Boolean(opinion);
-            id = id || currentItems.proposed.id;
+            id = id || (currentItems.proposed ? currentItems.proposed.id : null);
+            if (!id) {
+                return false;
+            }
             const url = buildUrl("api", "proposed", "vote", id);
             const resp = await $.getJSON(url, {
                 "vote": opinion

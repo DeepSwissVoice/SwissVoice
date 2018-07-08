@@ -1,7 +1,7 @@
 .idea/
-build/
 venv/
 node_modules/
+tools/**/build/
 server/swissvoice/static/css/
 server/swissvoice/static/js/
 server/swissvoice/static/*.html

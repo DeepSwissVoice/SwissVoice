@@ -18,11 +18,15 @@ before_install:
   - npm install
 
 install:
+  - echo building HTML
   - python tools/jinjer/jinjer.py src/html server/swissvoice/static
+  - echo building CSS
   - python tools/sassier/sassier.py src/css server/swissvoice/static/css
+  - echo building JS
   - npm run-script build
 
 before_deploy:
+  - echo building docker image...
   - docker build -t $"DOCKER_REPO":latest
 
 deploy:

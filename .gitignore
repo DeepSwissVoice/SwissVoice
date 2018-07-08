@@ -2,6 +2,9 @@
 build/
 venv/
 node_modules/
+static/css
+static/js
+static/*.html
 
 *.pyc
 package-lock.json

@@ -30,10 +30,8 @@ script:
 
 before_deploy:
   - echo building docker image...
-  - docker build -t "$DOCKER_REPO":latest ./server
+  - docker build -t "$DOCKER_REPO" ./server
 
 deploy:
   provider: script
   script: bash ./.travis/docker_push.sh
-  on:
-    branch: travis

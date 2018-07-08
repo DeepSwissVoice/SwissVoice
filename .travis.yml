@@ -15,12 +15,12 @@ before_install:
   - npm install
 
 install:
-  - tools/jinjer/jinjer.py src/html server/swissvoice/static
-  - tools/sassier/sassier.py src/css server/swissvoice/static/css
+  - python tools/jinjer/jinjer.py src/html server/swissvoice/static
+  - python tools/sassier/sassier.py src/css server/swissvoice/static/css
   - npm run-script build
 
 before_deploy:
-  - docker build -t siku2/swissvoice:latest
+  - docker build -t $"DOCKER_REPO":latest
 
 deploy:
   provider: script

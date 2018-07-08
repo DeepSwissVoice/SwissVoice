@@ -30,7 +30,7 @@ script:
 
 before_deploy:
   - echo building docker image...
-  - docker build -t $"DOCKER_REPO":latest
+  - docker build -t "$DOCKER_REPO":latest
 
 deploy:
   provider: script

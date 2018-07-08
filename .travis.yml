@@ -25,6 +25,9 @@ install:
   - echo building JS
   - npm run-script build
 
+script:
+  - echo success
+
 before_deploy:
   - echo building docker image...
   - docker build -t $"DOCKER_REPO":latest

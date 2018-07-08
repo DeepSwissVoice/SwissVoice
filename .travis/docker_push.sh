@@ -2,7 +2,7 @@
 
 if [ "$TRAVIS_BRANCH" == "master" ]; then
     DOCKER_TAG="latest"
-elif [ "$TRAVIS_BRANCH"= = "development" ]; then
+elif [ "$TRAVIS_BRANCH" == "development" ]; then
     DOCKER_TAG="dev"
 elif [ "$TRAVIS_BRANCH" == "travis" ]; then
     DOCKER_TAG="test"

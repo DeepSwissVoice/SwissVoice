@@ -224,9 +224,9 @@ def get_statistics() -> Response:
             regions.append(region)
 
         stats = {
-            "total_texts": proxy.texts_coll.count_documents(),
-            "total_proposed": proxy.proposed_texts_coll.count_documents(),
-            "total_samples": proxy.audio_samples_coll.count_documents(),
+            "total_texts": proxy.texts_coll.estimated_document_count(),
+            "total_proposed": proxy.proposed_texts_coll.estimated_document_count(),
+            "total_samples": proxy.audio_samples_coll.estimated_document_count(),
             "total_votes": total_votes_aggr.next()["sum"],
             "regions": regions
         }

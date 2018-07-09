@@ -1,13 +1,11 @@
 $theme-colors: (
-  "primary": rgba(214, 241, 255, 0.8)
+        "primary": rgba(214, 241, 255, 0.8)
 );
 
 /*these are requierd by bootsrap on every page*/
-@import "bootstrap/functions";
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-/*optional but also used on every page*/
 @import "bootstrap/bootstrap-reboot";
+
+/*optional but also used on every page*/
 @import "bootstrap/type";
 @import "bootstrap/utilities";
 @import "bootstrap/bootstrap-grid";
@@ -19,7 +17,6 @@ $theme-colors: (
 @import "bootstrap/alert";
 @import "bootstrap/transitions";
 
-
 /*
 @import "bootstrap/card";
 @import "bootstrap/button-group";
@@ -27,6 +24,7 @@ $theme-colors: (
 @import "bootstrap/forms";
 @import "bootstrap/jumbotron";*/
 
+@import "select-canton";
 
 body {
   margin: 0;
@@ -54,19 +52,19 @@ body {
 }
 
 .bg-color-inf {
-    background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }
 
-.bg-primary  {
-    border: none;
+.bg-primary {
+  border: none;
 }
 
-.bg-transp  {
-    background-color: rgba(214, 241, 255, 0.8);
+.bg-transp {
+  background-color: rgba(214, 241, 255, 0.8);
 }
 
 .bg-light {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 
 #bg-bubble {
@@ -117,7 +115,6 @@ body {
   background-color: #a2a0ff;
 }
 
-
 #footer-area {
 
 }
@@ -129,6 +126,10 @@ body {
 .card-divider {
   width: 100%;
   color: grey;
+}
+
+.card-body.fixed-size {
+  align-self: start;
 }
 
 span.navbar-brand {
@@ -176,85 +177,37 @@ hr.hz-line {
   font-weight: 300;
 }
 
-#popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.popup-container {
-  width: 60%;
-  background-color: #f4f4f4;
-  border-radius: 4px;
-  margin: auto;
-  position: absolute;
-  top: 10%;
-  left: 0;
-  bottom: 5%;
-  right: 0;
-  z-index: 2001;
-  font-family: Oxygen, "Open-Sans", Helvetica, sans-serif;
-  font-size: 2vw;
-  line-height: 100px;
-  text-align: center;
-  box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
-  overflow-y: scroll;
-}
-
-.cover {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
-}
-
-.canton-image {
-    cursor: pointer;
-    width: 25%;
-    padding: 1%;
-}
-
 /* Large devices (desktops, less than 1200px)*/
-@media (max-width: 1200px) {
-    .main-text {
-        font-size: 2rem;
-    }
+@include media-breakpoint-down(lg) {
+  .main-text {
+    font-size: 2rem;
+  }
 }
 
 /* Medium devices (tablets, less than 992px)*/
-@media (max-width: 992px) {
-    .text-normal {
-        font-size: 1rem;
-    }
-
-    .popup-container {
-        width: 80%
-    }
+@include media-breakpoint-down(md) {
+  .text-normal {
+      font-size: 1rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
-@media (max-width: 768px) {
-    .main-text {
-        font-size: 1.5rem;
-    }
+@include media-breakpoint-down(sm) {
+  .main-text {
+    font-size: 1.5rem;
+  }
 
-    .text-gross-info {
-        font-size: 1.0em;
-    }
+  .text-gross-info {
+    font-size: 1.0em;
+  }
 
-    .text-normal {
-        font-size: 0.8rem;
-    }
-
-    .popup-container {
-        width: 95%
-    }
+  .text-normal {
+    font-size: 0.8rem;
+  }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 576px) {
+@include media-breakpoint-down(xs) {
   .main-text {
     font-size: 1.3rem;
   }

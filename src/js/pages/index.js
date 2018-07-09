@@ -1,5 +1,6 @@
 import setup from "../page-setup";
 import {sleep} from "../utils";
+import {setupTeaserTriggers} from "../visuals";
 
 const {elements} = setup({
     onReady: init,
@@ -10,18 +11,6 @@ const {elements} = setup({
         logoScreen: ".logo-screen",
         bgLogoScreen: "#bg-loading-screen",
         footerArea: "#footer-area"
-    },
-    buttons: {
-        ".teaser-trigger": (event) => {
-            const target = $(event.delegateTarget).prev();
-            if (target.hasClass("teaser")) {
-                target.attr("data-height", target.height());
-                target.height(target.prop("scrollHeight"));
-            } else {
-                target.height(target.attr("data-height"));
-            }
-            target.toggleClass("teaser");
-        }
     }
 });
 
@@ -39,5 +28,6 @@ async function loadingAnimation() {
 }
 
 async function init() {
+    setupTeaserTriggers();
     await loadingAnimation();
 }

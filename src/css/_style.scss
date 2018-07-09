@@ -1,5 +1,5 @@
 $theme-colors: (
-  "primary": rgba(214, 241, 255, 0.8)
+        "primary": rgba(214, 241, 255, 0.8)
 );
 
 /*these are requierd by bootsrap on every page*/
@@ -16,7 +16,6 @@ $theme-colors: (
 @import "bootstrap/dropdown";
 @import "bootstrap/alert";
 @import "bootstrap/transitions";
-
 
 /*
 @import "bootstrap/card";
@@ -53,19 +52,19 @@ body {
 }
 
 .bg-color-inf {
-    background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
+  background-color: #d6f1ff; /*color SwissVoice-info-text-title section*/
 }
 
-.bg-primary  {
-    border: none;
+.bg-primary {
+  border: none;
 }
 
-.bg-transp  {
-    background-color: rgba(214, 241, 255, 0.8);
+.bg-transp {
+  background-color: rgba(214, 241, 255, 0.8);
 }
 
 .bg-light {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 
 #bg-bubble {
@@ -116,7 +115,6 @@ body {
   background-color: #a2a0ff;
 }
 
-
 #footer-area {
 
 }
@@ -128,6 +126,10 @@ body {
 .card-divider {
   width: 100%;
   color: grey;
+}
+
+.card-body.fixed-size {
+  align-self: start;
 }
 
 span.navbar-brand {
@@ -175,34 +177,33 @@ hr.hz-line {
   font-weight: 300;
 }
 
-
 /* Large devices (desktops, less than 1200px)*/
 @include media-breakpoint-down(lg) {
-    .main-text {
-        font-size: 2rem;
-    }
+  .main-text {
+    font-size: 2rem;
+  }
 }
 
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
-    .text-normal {
-        font-size: 1rem;
-    }
+  .text-normal {
+      font-size: 1rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @include media-breakpoint-down(sm) {
-    .main-text {
-        font-size: 1.5rem;
-    }
+  .main-text {
+    font-size: 1.5rem;
+  }
 
-    .text-gross-info {
-        font-size: 1.0em;
-    }
+  .text-gross-info {
+    font-size: 1.0em;
+  }
 
-    .text-normal {
-        font-size: 0.8rem;
-    }
+  .text-normal {
+    font-size: 0.8rem;
+  }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/

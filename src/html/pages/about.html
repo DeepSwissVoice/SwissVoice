@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block body_content %}
-    <div class="container mb-5">
-        <div class="my-5">
+    <div class="container mb-5 mt-0">
+        <div class="mt-5">
             <span class="main-text">SwissVoice - About</span>
         </div>
 
         <!-- content -->
-        <div class="card-deck row">
-            <div class="card card-body bg-primary col-12 col-md-6 mb-5 mb-md-0 mr-md-4 fixed-size">
+        <div class="card-columns">
+            <div class="card card-body bg-primary mt-5 fixed-size">
                 <div class="card-titel h4">Unser Plan</div>
                 <div class="card-text">
                     <span class="sub-title">Das SwissVoice-Projekt umfasst 2 Phasen:<br class="mb-2"></span>
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="card card-body bg-primary col-12 col-md-6">
+            <div class="card card-body mt-5 bg-primary">
                 <div class="card-titel h4">Die Idee</div>
                 <div>
                     <p class="card-text info-text">
@@ -34,7 +34,7 @@
                         jedoch überschneiden sie sich nicht, da es für die komplizierte Sprachlandschaft der Schweiz eine spezielle Lösung braucht.
                         Diese Lösung heisst SwissVoice!
                         <br>
-                        Im Gegenteil zu CommenVoice beachten wir regionale Gegebenheiten und lassen nur Personen Texte bewerten,
+                        Im Gegenteil zu CommonVoice beachten wir regionale Gegebenheiten und lassen nur Personen Texte bewerten,
                         die einen ähnlichen Dialekt sprechen wie der Verfasser.
                         Das Gleiche wird in einer zweiten Phase mit den Sprachaufnahmen auch der Fall sein.
                         <br>
@@ -44,6 +44,16 @@
                     </p>
                     <button class="btn btn-primary btn-sm teaser-trigger"></button>
                 </div>
+            </div>
+            <div class="card card-body bg-primary mt-5 fixed-size">
+                <div class="card-title h4">Wer ist SwissVoice?</div>
+                <p class="card-text info-text">
+                    Unser Team besteht aus drei angehenden Studenten, die sich in ihrer Freizeit mit Programmieren beschäftigen.
+                    Wir sind fasziniert von den Möglichkeiten, welche neuronale Netze bieten, und hoffen mit dem SwissVoice-Projekt
+                    einen Nutzen für die Allgemeinheit schaffen zu können.<br/>
+                    Bei Fragen kontaktieren Sie uns bitte per E-Mail:
+                    <a class="link link-style" href="mailto:developers@swiss-voice.ch">developers@swiss-voice.ch</a>
+                </p>
             </div>
         </div>
     </div>

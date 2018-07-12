@@ -162,6 +162,12 @@ hr.hz-line {
   border-top: 2px solid rgba(0, 0, 0, 0.6);
 }
 
+.center-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .main-text {
   font-size: 2.2rem;
   font-weight: 500;

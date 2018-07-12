@@ -19,8 +19,9 @@
 
 #main-schreiben-btn {
   border-color: transparent;
-  font-size: 1.5rem;
-
+  min-height: 4rem;
+  font-weight: 500;
+  overflow: auto;
 }
 
 #sv-info-text-card {
@@ -58,28 +59,24 @@
   font-weight: 400;
 }
 
+.btn-attention {
+    background-color: #b015f2;
+}
+
 @import "bootstrap/functions"; // required for variables
 @import "bootstrap/variables"; // required for breakpoints to work
 @import "bootstrap/mixins/breakpoints";
 
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
-  #main-schreiben-btn {
-    font-size: 1.2rem;
-  }
+
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @include media-breakpoint-down(sm) {
-  #main-schreiben-btn {
-    font-size: 1.1rem;
-  }
+
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @include media-breakpoint-down(xs) {
-  #main-schreiben-btn {
-    font-size: 0.9rem;
-  }
-
 }

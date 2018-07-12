@@ -18,3 +18,28 @@
   transition: height 1s;
   overflow: hidden;
 }
+
+.card-columns{
+    column-count: 2;
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@include media-breakpoint-down(md) {
+    .card-columns{
+        column-count: 2;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@include media-breakpoint-down(sm) {
+    .card-columns{
+        column-count: 2;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@include media-breakpoint-down(xs) {
+    .card-columns{
+        column-count: 1;
+    }
+}

@@ -2,38 +2,38 @@
 
 {% block body_content %}
     <div class="container intro my-4">
-        <h1>Statistics</h1>
+        <h1>Statistiken</h1>
     </div>
     <div id="content" class="loading">
         <div class="content-container card card-body bg-primary pt-2 mx-auto">
             <div class="container">
-                <!--German plz-->
-                <div>There have been a total of <span id="total-votes-display"></span> votes cast!</div>
+                <div>Bis jetzt wurden <span id="total-votes-display"></span> Stimmen abgegeben!</div>
                 <div>
-                    We collected a total of <span id="total-samples-display"></span> recodings over <span id="total-texts-display">0</span> sentences.
-                    This amounts to about <span id="total-samples-duration-display"></span> of audio!
-                    Oh and there are <span id="total-proposed-display">0</span> proposed sentences.
+                    Wir haben insgesamt <span id="total-samples-display"></span> Aufnahmen für insgesamt
+                    <span id="total-texts-display">0</span> Sätze gesammelt und im Moment werden
+                    <span id="total-proposed-display">0</span> vorgeschlagene Sätze bearbeitet.
+                    Insgesamt sind das ungefähr <span id="total-samples-duration-display"></span> Audio!
                 </div>
             </div>
 
             <div class="container">
                 <div class="row">
                     <div class="chart-container col mt-5">
-                        <h3>Distribution of texts over regions</h3>
+                        <h3>Verteilung der Sätze</h3>
                         <canvas id="region-texts-distribution-doughnut"></canvas>
                     </div>
                     <div class="chart-container col mt-5">
-                        <h3>Distribution of proposed texts over regions</h3>
+                        <h3>Verteilung der vorgschlagenen Sätze</h3>
                         <canvas id="region-proposed-texts-distribution-doughnut"></canvas>
                     </div>
                     <div class="chart-container col mt-5">
-                        <h3>Distribution of recordings over regions</h3>
+                        <h3>Verteilung der gesammelten Aufnahmen</h3>
                         <canvas id="region-samples-distribution-doughnut"></canvas>
                     </div>
                 </div>
                 <div>
                     <div class="chart-container col mt-5">
-                        <h3>Interactions over time</h3>
+                        <h3>Zeitstrahl</h3>
                         <canvas id="interaction-timeline"></canvas>
                     </div>
                 </div>

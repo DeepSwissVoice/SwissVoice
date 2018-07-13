@@ -36,9 +36,9 @@ function formatTime(seconds) {
     const min = Math.round(seconds / 60);
     const hours = Math.round(min / 60);
     if (hours > 5) {
-        return hours + " hours";
+        return hours + " Stunden";
     } else {
-        return min + " minutes";
+        return min + " Minuten";
     }
 }
 
@@ -64,6 +64,9 @@ function regionDoughnut(allRegions, colours, attribute, element, label) {
 async function displayStatistics(data) {
     const Chart = (await import(/* webpackChunkName: "chart.js" */ "chart.js")).Chart;
     const moment = (await import(/* webpackChunkName: "moment" */ "moment")).default;
+
+    moment.locale("de");
+
     let colours, chart;
 
     Chart.defaults.global.animation.duration = 2500;
@@ -76,9 +79,9 @@ async function displayStatistics(data) {
     // Distribution doughnuts
     colours = await buildColourMap("earth", data.regions.length);
 
-    regionDoughnut(data.regions, colours, "total_texts", elements.regionTextsDistributionDoughnut, "# of texts");
-    regionDoughnut(data.regions, colours, "total_proposed", elements.regionProposedTextsDistributionDoughnut, "# of proposed texts");
-    regionDoughnut(data.regions, colours, "total_samples", elements.regionSamplesDistributionDoughnut, "# of samples");
+    regionDoughnut(data.regions, colours, "total_texts", elements.regionTextsDistributionDoughnut, "Anzahl Sätze");
+    regionDoughnut(data.regions, colours, "total_proposed", elements.regionProposedTextsDistributionDoughnut, "Anzahl vorgeschlagener Sätze");
+    regionDoughnut(data.regions, colours, "total_samples", elements.regionSamplesDistributionDoughnut, "Anzahl Aufnahmen");
 
     // Timeline
 
@@ -93,7 +96,7 @@ async function displayStatistics(data) {
     chart = new Chart(elements.interactionTimeline, {
         type: "line",
         data: {
-            datasets: [["Texts", "total_texts"], ["Proposed Texts", "total_proposed"], ["Samples", "total_samples"], ["Votes", "total_votes"]].map(
+            datasets: [["Sätze", "total_texts"], ["Vorgeschlagene Sätze", "total_proposed"], ["Aufnahmen", "total_samples"], ["Stimmen", "total_votes"]].map(
                 ([label, dataLabel], idx) => ({
                     label,
                     data: history.map((el) => ({t: moment().year(el.iso_year).isoWeek(el.iso_week), y: el[dataLabel]})),

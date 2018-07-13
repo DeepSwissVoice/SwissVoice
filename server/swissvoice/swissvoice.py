@@ -36,6 +36,15 @@ def get_regions() -> Response:
     return response(regions=regions)
 
 
+@app.route("/api/regions/verify/<oid:region>")
+def check_region(region: ObjectId) -> Response:
+    document = proxy.regions_coll.find_one(region)
+    if document:
+        return response(cantons=document.get("cantons", []))
+    else:
+        return error_response(Error.REGION_INVALID, "This region doesn't exist!")
+
+
 @app.route("/api/text/<oid:region>", methods=["GET"])
 def get_text(region: ObjectId) -> Response:
     count = cast_type(int, request.args.get("count"), 3)

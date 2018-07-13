@@ -76,9 +76,34 @@ export default (() => {
         extractCantons();
     }
 
+    async function verifyCanton(canton) {
+        if (canton.region && canton.name && canton.image) {
+            const url = buildUrl("api", "regions", "verify", canton.region);
+            let resp;
+
+            try {
+                resp = await $.getJSON(url);
+            } catch (e) {
+                return false;
+            }
+
+            if (resp.success) {
+                if (resp.cantons.indexOf(canton.name) >= 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     async function setup(canton, apiDomain) {
         if (!canton) {
             canton = JSON.parse(localStorage.getItem("canton"));
+            const valid = await verifyCanton(canton);
+            if (!valid) {
+                canton = null;
+            }
         }
         if (canton) {
             currentCanton = canton;

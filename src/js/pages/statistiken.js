@@ -7,14 +7,14 @@ const {elements} = setup({
     requireCanton: false,
     elements: {
         contentMain: "#content",
-        totalVotesDisplay: "#total-votes-display",
-        totalTextsDisplay: "#total-texts-display",
-        totalProposedDisplay: "#total-proposed-display",
-        totalSamplesDisplay: "#total-samples-display",
-        totalSamplesDurationDisplay: "#total-samples-duration-display",
-        regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
-        regionProposedTextsDistributionDoughnut: "#region-proposed-texts-distribution-doughnut",
-        regionSamplesDistributionDoughnut: "#region-samples-distribution-doughnut",
+        totVotDis: "#total-votes-display",
+        totTxtDis: "#total-texts-display",
+        totPropDis: "#total-proposed-display",
+        totSmpDis: "#total-samples-display",
+        totSmpDurDis: "#total-samples-duration-display",
+        regTxtDistrDnt: "#region-texts-distribution-doughnut",
+        regPropDistrDnt: "#region-proposed-texts-distribution-doughnut",
+        regSmpDistrDnt: "#region-samples-distribution-doughnut",
         interactionTimeline: "#interaction-timeline"
     }
 });
@@ -70,18 +70,18 @@ async function displayStatistics(data) {
     let colours, chart;
 
     Chart.defaults.global.animation.duration = 2500;
-    animateCountUp(elements.totalVotesDisplay, data.total_votes);
-    animateCountUp(elements.totalTextsDisplay, data.total_texts);
-    animateCountUp(elements.totalProposedDisplay, data.total_proposed);
-    animateCountUp(elements.totalSamplesDisplay, data.total_samples);
-    animateCountUp(elements.totalSamplesDurationDisplay, data.total_samples * avgDurAudioSample, {callback: formatTime});
+    animateCountUp(elements.totVotDis, data.total_votes);
+    animateCountUp(elements.totTxtDis, data.total_texts);
+    animateCountUp(elements.totPropDis, data.total_proposed);
+    animateCountUp(elements.totSmpDis, data.total_samples);
+    animateCountUp(elements.totSmpDurDis, data.total_samples * avgDurAudioSample, {callback: formatTime});
 
     // Distribution doughnuts
     colours = await buildColourMap("earth", data.regions.length);
 
-    regionDoughnut(data.regions, colours, "total_texts", elements.regionTextsDistributionDoughnut, "Anzahl Sätze");
-    regionDoughnut(data.regions, colours, "total_proposed", elements.regionProposedTextsDistributionDoughnut, "Anzahl vorgeschlagener Sätze");
-    regionDoughnut(data.regions, colours, "total_samples", elements.regionSamplesDistributionDoughnut, "Anzahl Aufnahmen");
+    regionDoughnut(data.regions, colours, "total_texts", elements.regTxtDistrDnt, "Anzahl Sätze");
+    regionDoughnut(data.regions, colours, "total_proposed", elements.regPropDistrDnt, "Anzahl vorgeschlagener Sätze");
+    regionDoughnut(data.regions, colours, "total_samples", elements.regSmpDistrDnt, "Anzahl Aufnahmen");
 
     // Timeline
 

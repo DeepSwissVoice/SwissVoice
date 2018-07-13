@@ -7,12 +7,19 @@
     <div id="content" class="loading">
         <div class="content-container card card-body bg-primary pt-2 mx-auto">
             <div class="container">
-                <div>Bis jetzt wurden <span id="total-votes-display"></span> Stimmen abgegeben!</div>
-                <div>
-                    Wir haben insgesamt <span id="total-samples-display"></span> Aufnahmen für insgesamt
-                    <span id="total-texts-display">0</span> Sätze gesammelt und im Moment werden
-                    <span id="total-proposed-display">0</span> vorgeschlagene Sätze bearbeitet.
-                    Insgesamt sind das ungefähr <span id="total-samples-duration-display"></span> Audio!
+                <div class="attention-numbers d-flex flex-row">
+                    {% for id, title in [
+                        ("votes",               "Stimmen"),
+                        ("samples",             "Aufnahmen"),
+                        ("samples-duration",    "Audio"),
+                        ("texts",               "Sätze"),
+                        ("proposed",            "Vorgeschlagene Sätze")
+                    ] %}
+                        <div class="container jumbotron">
+                            <span id="total-{{ id }}-display"></span><br>
+                            {{ title }}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 

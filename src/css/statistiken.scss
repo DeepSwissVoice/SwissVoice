@@ -32,5 +32,19 @@
 }
 
 .content-container {
-    width: 95%;
+  width: 95%;
+}
+
+.attention-numbers {
+  font-size: 150%;
+
+  span {
+    font-weight: 900;
+    font-size: 200%;
+    white-space: nowrap;
+  }
+
+  .container {
+
+  }
 }

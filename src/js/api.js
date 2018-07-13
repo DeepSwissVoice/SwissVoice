@@ -87,10 +87,8 @@ export default (() => {
                 return false;
             }
 
-            if (resp.success) {
-                if (resp.cantons.indexOf(canton.name) >= 0) {
-                    return true;
-                }
+            if (resp.success && resp.cantons.indexOf(canton.name) >= 0) {
+                return true;
             }
         }
 

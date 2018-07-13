@@ -6,6 +6,7 @@
     image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
     clip: text;
   }
+  -webkit-background-clip: text;
 
   & + .teaser-trigger::after {
     content: "Weiterlesen";

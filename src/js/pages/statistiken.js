@@ -19,7 +19,7 @@ const {elements} = setup({
     }
 });
 
-const avgDurAudioSample = 3;
+const avgDurAudioSample = 5;
 
 
 async function buildColourMap(spec, nShades) {

@@ -77,7 +77,7 @@ export default (() => {
     }
 
     async function verifyCanton(canton) {
-        if (canton.region && canton.name && canton.image) {
+        if (canton && canton.region && canton.name && canton.image) {
             const url = buildUrl("api", "regions", "verify", canton.region);
             let resp;
 

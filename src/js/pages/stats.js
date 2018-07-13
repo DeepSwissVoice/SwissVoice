@@ -13,6 +13,7 @@ const {elements} = setup({
         totalSamplesDisplay: "#total-samples-display",
         totalSamplesDurationDisplay: "#total-samples-duration-display",
         regionTextsDistributionDoughnut: "#region-texts-distribution-doughnut",
+        regionProposedTextsDistributionDoughnut: "#region-proposed-texts-distribution-doughnut",
         regionSamplesDistributionDoughnut: "#region-samples-distribution-doughnut",
         interactionTimeline: "#interaction-timeline"
     }
@@ -41,6 +42,24 @@ function formatTime(seconds) {
     }
 }
 
+function regionDoughnut(allRegions, colours, attribute, element, label) {
+    const regions = allRegions.filter((region) => region[attribute] > 0);
+
+    return new Chart(element, {
+        type: "doughnut",
+        data: {
+            labels: regions.map((el) => el.name || el._id),
+            datasets: [{
+                label: label,
+                data: regions.map((el) => el[attribute]),
+                backgroundColor: colours,
+                borderColor: colours,
+                borderWidth: 0
+            }]
+        }
+    });
+}
+
 
 async function displayStatistics(data) {
     const Chart = (await import(/* webpackChunkName: "chart.js" */ "chart.js")).Chart;
@@ -57,35 +76,9 @@ async function displayStatistics(data) {
     // Distribution doughnuts
     colours = await buildColourMap("earth", data.regions.length);
 
-    const textRegions = data.regions.filter((region) => region.total_texts > 0);
-    chart = new Chart(elements.regionTextsDistributionDoughnut, {
-        type: "doughnut",
-        data: {
-            labels: textRegions.map((el) => el.name || el._id),
-            datasets: [{
-                label: "# of texts",
-                data: textRegions.map((el) => el.total_texts),
-                backgroundColor: colours,
-                borderColor: colours,
-                borderWidth: 0
-            }]
-        }
-    });
-
-    const sampleRegions = data.regions.filter((region) => region.total_samples > 0);
-    chart = new Chart(elements.regionSamplesDistributionDoughnut, {
-        type: "doughnut",
-        data: {
-            labels: sampleRegions.map((el) => el.name || el._id),
-            datasets: [{
-                label: "# of voice samples",
-                data: sampleRegions.map((el) => el.total_samples),
-                backgroundColor: colours,
-                borderColor: colours,
-                borderWidth: 0
-            }]
-        }
-    });
+    regionDoughnut(data.regions, colours, "total_texts", elements.regionTextsDistributionDoughnut, "# of texts");
+    regionDoughnut(data.regions, colours, "total_proposed", elements.regionProposedTextsDistributionDoughnut, "# of proposed texts");
+    regionDoughnut(data.regions, colours, "total_samples", elements.regionSamplesDistributionDoughnut, "# of samples");
 
     // Timeline
 

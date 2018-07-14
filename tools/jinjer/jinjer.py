@@ -1,5 +1,5 @@
 __author__ = "Simon (siku2)"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 import errno
 import os.path
@@ -36,6 +36,11 @@ def process_html(templates: Dict[str, str]) -> Dict[str, str]:
     return templates
 
 
+def clear_dir(location: str):
+    for file in Path(location).glob("*.html"):
+        file.unlink()
+
+
 def save_templates(location: str, templates: Dict[str, str]):
     for name, content in templates.items():
         filename = os.path.join(location, name)
@@ -60,6 +65,8 @@ def render(input_dir: str, output_dir: str):
     output = render_templates(env, input_templates)
     print("Processing...")
     output = process_html(output)
+    print("Removing old files...")
+    clear_dir(output_dir)
     print("Saving...")
     save_templates(output_dir, output)
     print("Saved templates")

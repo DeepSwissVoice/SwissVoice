@@ -1,5 +1,5 @@
 {
-  "version": "2.2.9",
+  "version": "2.2.10",
   "dependencies": {
     "@sentry/webpack-plugin": "^1.5.2",
     "autoprefixer": "^8.6.4",

@@ -38,7 +38,7 @@ function formatTime(seconds) {
     if (hours > 5) {
         return hours + " Stunden";
     } else {
-        return min + " Minute" + (min !== 0 ? "" : "n");
+        return min + " Minute" + (min === 1 ? "" : "n");
     }
 }
 

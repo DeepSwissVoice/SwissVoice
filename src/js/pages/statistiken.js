@@ -2,6 +2,8 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {animateCountUp} from "../visuals";
 
+let Chart;
+
 const {elements} = setup({
     onReady: init,
     requireCanton: false,
@@ -50,7 +52,7 @@ function regionDoughnut(allRegions, colours, attribute, element, label) {
         data: {
             labels: regions.map((el) => el.name || el._id),
             datasets: [{
-                label: label,
+                label,
                 data: regions.map((el) => el[attribute]),
                 backgroundColor: colours,
                 borderColor: colours,
@@ -62,7 +64,7 @@ function regionDoughnut(allRegions, colours, attribute, element, label) {
 
 
 async function displayStatistics(data) {
-    const Chart = (await import(/* webpackChunkName: "chart.js" */ "chart.js")).Chart;
+    Chart = (await import(/* webpackChunkName: "chart.js" */ "chart.js")).Chart;
     const moment = (await import(/* webpackChunkName: "moment" */ "moment")).default;
 
     moment.locale("de");

@@ -17,10 +17,8 @@
   text-align: left;
 }
 
-#text-tip {
-  font-size: 0.9em;
-  font-style: italic;
-  color: grey;
+#textarea-input {
+  border: 0.8px solid grey;
 }
 
 .send-btn {
@@ -44,12 +42,6 @@
 
 #words-score {
   font-size: 1.5em;
-}
-
-.center-text {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }
 
 .textarea-vote {

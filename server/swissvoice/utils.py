@@ -22,6 +22,8 @@ class Error(IntEnum):
     GENERAL = 0
     INVALID_REQUEST = 1
 
+    REGION_INVALID = 101
+
     NO_TEXT_FOUND = 1001
 
     NO_SAMPLE_FOUND = 2001

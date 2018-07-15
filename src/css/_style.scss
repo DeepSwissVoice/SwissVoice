@@ -123,6 +123,15 @@ body {
   line-height: normal;
 }
 
+.spacer-mt-big {
+    margin-top: 100px;
+}
+
+.spacer-mb-big {
+    margin-bottom: 100px;
+}
+
+
 .card-divider {
   width: 100%;
   color: grey;
@@ -162,6 +171,12 @@ hr.hz-line {
   border-top: 2px solid rgba(0, 0, 0, 0.6);
 }
 
+.center-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .main-text {
   font-size: 2.2rem;
   font-weight: 500;
@@ -187,7 +202,7 @@ hr.hz-line {
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
   .text-normal {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 }
 

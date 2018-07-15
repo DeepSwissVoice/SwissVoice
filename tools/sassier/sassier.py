@@ -1,5 +1,5 @@
 __author__ = "Simon (siku2)"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 import shutil
 import subprocess
@@ -16,6 +16,11 @@ POSTCSS_DEFAULT_ARGS = ["-r", "-u", "autoprefixer"]
 POSTCSS_CMD = [NPM_LOCATION, "run", "postcss", "--"]
 
 
+def clear_dir(location: str):
+    for file in Path(location).glob("*.css"):
+        file.unlink()
+
+
 def compile_sass(input_dir: str, output_dir: str):
     pages_dir = str(Path(input_dir) / PAGES_DIR)
     command = SASS_CMD + SASS_DEFAULT_ARGS + ["{pages_dir}:{output_dir}"]
@@ -29,8 +34,13 @@ def process_css(directory: str):
 
 
 def build(input_dir: str, output_dir: str):
+    print("Removing old files...")
+    clear_dir(output_dir)
+    print("Compiling Sass to CSS")
     compile_sass(input_dir, output_dir)
+    print("Processing CSS")
     process_css(output_dir)
+    print("DONE")
 
 
 if __name__ == "__main__":

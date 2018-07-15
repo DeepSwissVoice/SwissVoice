@@ -36,6 +36,15 @@ def get_regions() -> Response:
     return response(regions=regions)
 
 
+@app.route("/api/regions/verify/<oid:region>")
+def check_region(region: ObjectId) -> Response:
+    document = proxy.regions_coll.find_one(region)
+    if document:
+        return response(cantons=document.get("cantons", []))
+    else:
+        return error_response(Error.REGION_INVALID, "This region doesn't exist!")
+
+
 @app.route("/api/text/<oid:region>", methods=["GET"])
 def get_text(region: ObjectId) -> Response:
     count = cast_type(int, request.args.get("count"), 3)
@@ -224,9 +233,9 @@ def get_statistics() -> Response:
             regions.append(region)
 
         stats = {
-            "total_texts": proxy.texts_coll.count_documents(),
-            "total_proposed": proxy.proposed_texts_coll.count_documents(),
-            "total_samples": proxy.audio_samples_coll.count_documents(),
+            "total_texts": proxy.texts_coll.estimated_document_count(),
+            "total_proposed": proxy.proposed_texts_coll.estimated_document_count(),
+            "total_samples": proxy.audio_samples_coll.estimated_document_count(),
             "total_votes": total_votes_aggr.next()["sum"],
             "regions": regions
         }

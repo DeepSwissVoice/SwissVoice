@@ -5,7 +5,7 @@
 @import "bootstrap/card";
 
 #action-section {
-  max-width: 700px;
+  max-width: 350px;
 
 }
 
@@ -18,12 +18,19 @@
 }
 
 #main-schreiben-btn {
+  width: 30vw;
   border-color: transparent;
+  min-height: 4rem;
   font-size: 1.5rem;
-
+  font-weight: 500;
+  box-shadow: 3px 5px 1px 1px #4b0d66;
+  margin: 0px 3px 5px 0px;
 }
 
-#sv-info-text-card {
+#main-schreiben-btn:hover {
+  box-shadow: none;
+  margin: 5px 0px 0px 3px;
+  transition: all 0.3s;
 }
 
 .sv-info-header {
@@ -48,38 +55,42 @@
   overflow: hidden;
 }
 
-.link {
-  font-style: italic;
-  color: grey;
-}
-
 #subtitle {
   max-width: 700px;
   font-weight: 400;
+}
+
+.btn-attention {
+  background-color: #b015f2;
 }
 
 @import "bootstrap/functions"; // required for variables
 @import "bootstrap/variables"; // required for breakpoints to work
 @import "bootstrap/mixins/breakpoints";
 
+/* Large devices (desktops, less than 1200px)*/
+@include media-breakpoint-down(lg) {
+  #main-schreiben-btn {
+    width: 50vw;
+  }
+
+}
+
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
-  #main-schreiben-btn {
-    font-size: 1.2rem;
-  }
+  
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @include media-breakpoint-down(sm) {
   #main-schreiben-btn {
-    font-size: 1.1rem;
+    width: 70vw;
   }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @include media-breakpoint-down(xs) {
   #main-schreiben-btn {
-    font-size: 0.9rem;
+    width: 90vw;
   }
-
 }

@@ -1,0 +1,90 @@
+@import "style";
+@import "animation/loading-cube";
+@import "bootstrap/jumbotron";
+
+#content {
+  position: relative;
+}
+
+#content.loading .content-container {
+  visibility: hidden;
+}
+
+#content:not(.loading) #loading-indicator {
+  display: none;
+}
+
+#loading-indicator {
+  position: absolute;
+  top: 0;
+  padding-top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.loading-indicator-cover {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.content-container {
+  width: 95%;
+}
+
+.attention-numbers {
+  font-size: 150%;
+
+  div {
+    border: none;
+    line-height: normal;
+    height: auto;
+  }
+
+  span {
+    font-weight: 900;
+    font-size: 200%;
+    white-space: nowrap;
+  }
+
+  .container {
+
+  }
+}
+
+@import "bootstrap/functions"; // required for variables
+@import "bootstrap/variables"; // required for breakpoints to work
+@import "bootstrap/mixins/breakpoints";
+
+/* Large devices (desktops, less than 1200px)*/
+@include media-breakpoint-down(lg) {
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@include media-breakpoint-down(md) {
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@include media-breakpoint-down(sm) {
+  .attention-numbers {
+    font-size: 130%;
+
+    span {
+      font-size: 160%;
+    }
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@include media-breakpoint-down(xs) {
+  .attention-numbers {
+    font-size: 120%;
+
+    span {
+      font-size: 140%;
+      }
+    }
+}

@@ -7,12 +7,18 @@ const {elements} = setup({
     elements: {
         proposeTextsInput: "#textarea-input",
         proposedTextDisplay: "#proposed-text-display",
-        voteSystem: "#vote-system"
+        voteSystem: "#vote-system",
+        schreibenBtn: "#slider-schreiben-btn";
+        bewertenBtn: "#slider-bewerten-btn",
+        schreibenSection: "#propose-text",
+        bewertenSection: "#vote-text"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
-        "#vote-text-false-btn": () => voteText(false)
+        "#vote-text-false-btn": () => voteText(false),
+        "#slider-schreiben-btn": () => slider(schreiben),
+        "#slider-bewerten-btn": () => slider(bewerten)
     }
 });
 
@@ -50,4 +56,26 @@ function showProposedText() {
     }
 
     elements.proposedTextDisplay.text(text);
+}
+
+async function slider(slide) {
+    let curr_slide = "schreiben"
+    if (curr_slide == slide) {
+        return;
+    } else if (slide == "schreiben") {
+        elements.bewertenBtn.removeClass("active");
+        elements.schreibenBtn.addClass("active");
+        elements.bewertenSection.removeClass("slide-active");
+        elements.schreibenSection.addClass("slide-active");
+        return;
+    } else if (slide == "bewerten") {
+        elements.schreibenBtn.removeClass("active");
+        elements.bewertenBtn.addClass("active");
+        elements.schreibenSection.removeClass("slide-active");
+        elements.bewertenSection.addClass("slide-active");
+        return;
+    } else {
+        return;
+    }
+
 }

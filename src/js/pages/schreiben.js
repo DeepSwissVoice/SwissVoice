@@ -17,8 +17,8 @@ const {elements} = setup({
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        "#slider-schreiben-btn": () => slider(schreiben),
-        "#slider-bewerten-btn": () => slider(bewerten)
+        "#slider-schreiben-btn": () => slider("schreiben"),
+        "#slider-bewerten-btn": () => slider("bewerten")
     }
 });
 

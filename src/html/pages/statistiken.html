@@ -6,17 +6,17 @@
     </div>
     <div id="content" class="loading">
         <div class="content-container card card-body bg-primary pt-2 mx-auto">
-            <div class="container">
-                <div class="attention-numbers d-flex flex-row">
-                    {% for id, title in [
-                        ("votes",               "Stimmen"),
-                        ("samples",             "Aufnahmen"),
-                        ("samples-duration",    "Audio"),
-                        ("texts",               "Sätze"),
-                        ("proposed",            "Vorgeschlagene Sätze")
+            <div class="container mx-auto">
+                <div class="attention-numbers row justify-content-around">
+                    {% for id, title, layout in [
+                        ("votes",               "Stimmen",              "col-6 col-md-4 col-xl-2"),
+                        ("samples",             "Aufnahmen",            "col-6 col-md-4 col-xl-2"),
+                        ("samples-duration",    "Audio",                "col-6 col-md-4 col-xl-3 pl-md-2 pl-lg-3"),
+                        ("texts",               "Sätze",                "col-6 col-md-4 col-xl-auto"),
+                        ("proposed",            "Vorgeschlagene Sätze", "col")
                     ] %}
-                        <div class="container jumbotron">
-                            <span id="total-{{ id }}-display"></span><br>
+                        <div class="container jumbotron {{ layout }} mx-0 my-2 my-xl-5 py-3 py-lg-5">
+                            <span id="total-{{ id }}-display" class="mb-0 mb-md-4"></span><br>
                             {{ title }}
                         </div>
                     {% endfor %}

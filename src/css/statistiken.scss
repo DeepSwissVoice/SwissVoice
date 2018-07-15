@@ -38,6 +38,12 @@
 .attention-numbers {
   font-size: 150%;
 
+  div {
+    border: none;
+    line-height: normal;
+    height: auto;
+  }
+
   span {
     font-weight: 900;
     font-size: 200%;
@@ -47,4 +53,38 @@
   .container {
 
   }
+}
+
+@import "bootstrap/functions"; // required for variables
+@import "bootstrap/variables"; // required for breakpoints to work
+@import "bootstrap/mixins/breakpoints";
+
+/* Large devices (desktops, less than 1200px)*/
+@include media-breakpoint-down(lg) {
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@include media-breakpoint-down(md) {
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@include media-breakpoint-down(sm) {
+  .attention-numbers {
+    font-size: 130%;
+
+    span {
+      font-size: 160%;
+    }
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@include media-breakpoint-down(xs) {
+  .attention-numbers {
+    font-size: 120%;
+
+    span {
+      font-size: 140%;
+      }
+    }
 }

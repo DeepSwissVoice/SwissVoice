@@ -38,6 +38,7 @@ before_deploy:
   - docker build -t "$DOCKER_REPO" ./server
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: bash ./.travis/docker_push.sh
   on:

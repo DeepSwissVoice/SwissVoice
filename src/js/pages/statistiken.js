@@ -118,9 +118,6 @@ async function displayStatistics(data) {
                     gridLines: {
                         display: false
                     }
-                }],
-                yAxes: [{
-                    stacked: true
                 }]
             }
         }

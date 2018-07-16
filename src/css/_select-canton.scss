@@ -1,46 +1,46 @@
 
 #popup {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
 }
 
 .popup-container {
-    width: 60%;
-    border-radius: 4px;
-    margin: auto;
-    position: absolute;
-    top: 10%;
-    left: 0;
-    bottom: 5%;
-    right: 0;
-    z-index: 2001;
-    font-family: Oxygen, "Open-Sans", Helvetica, sans-serif;
-    font-size: 2vw;
-    line-height: 100px;
-    text-align: center;
-    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
-    overflow-y: scroll;
+  width: 60%;
+  border-radius: 4px;
+  margin: auto;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  bottom: 5%;
+  right: 0;
+  z-index: 2001;
+  font-family: Oxygen, "Open-Sans", Helvetica, sans-serif;
+  font-size: 2vw;
+  line-height: 100px;
+  text-align: center;
+  box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
+  overflow-y: scroll;
 }
 
 .cover {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
 }
 
 .canton-image {
-    cursor: pointer;
-    width: 20%;
-    padding: 2%;
+  cursor: pointer;
+  width: 20%;
+  padding: 2%;
 }
 
 .select-canton-text {
-    line-height: normal;
+  line-height: normal;
 }
 
 /* Large devices (desktops, less than 1200px)*/
@@ -50,21 +50,21 @@
 
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
-    .popup-container {
-        width: 80%
-    }
+  .popup-container {
+    width: 80%
+  }
 }
 
 /* Small devices (landscape phones, less than 768px)*/
 @include media-breakpoint-down(sm) {
-    .popup-container {
-        width: 95%
-    }
+  .popup-container {
+    width: 95%
+  }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @include media-breakpoint-down(xs) {
-    .canton-image   {
-        width: 25%;
-    }
+  .canton-image {
+    width: 25%;
+  }
 }

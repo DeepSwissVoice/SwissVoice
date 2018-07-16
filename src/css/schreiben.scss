@@ -4,7 +4,6 @@
 @import "bootstrap/button-group";
 @import "bootstrap/input-group";
 @import "bootstrap/forms";
-
 @import "animation/section-slider";
 
 #propose-text {
@@ -55,7 +54,6 @@
   padding-right: 1rem;
 }
 
-
 .btn-true {
   background-color: white;
   min-width: 20px;
@@ -87,7 +85,6 @@
 #icon-false {
   transform: translate(25%, 25%);
 }
-
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {

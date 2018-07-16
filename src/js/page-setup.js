@@ -46,7 +46,7 @@ export default function setup(options) {
 
     async function ready() {
         await setupPage();
-        
+
         if (options.setupAPI) {
             await SwissVoiceAPI.ready;
 

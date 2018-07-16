@@ -2,6 +2,8 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
+let curr_slide = "schreiben"
+
 const {elements} = setup({
     onReady: showProposedText,
     elements: {
@@ -59,7 +61,6 @@ function showProposedText() {
 }
 
 async function slider(slide) {
-    let curr_slide = "schreiben"
     if (curr_slide == slide) {
         return;
     } else if (slide == "schreiben") {
@@ -67,12 +68,14 @@ async function slider(slide) {
         elements.schreibenBtn.addClass("active");
         elements.bewertenSection.removeClass("slide-active");
         elements.schreibenSection.addClass("slide-active");
+        curr_slide = "schreiben"
         return;
     } else if (slide == "bewerten") {
         elements.schreibenBtn.removeClass("active");
         elements.bewertenBtn.addClass("active");
         elements.schreibenSection.removeClass("slide-active");
         elements.bewertenSection.addClass("slide-active");
+        curr_slide = "bewerten"
         return;
     } else {
         return;

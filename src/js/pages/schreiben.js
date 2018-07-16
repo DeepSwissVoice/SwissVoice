@@ -2,8 +2,6 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
-let curr_slide = "schreiben";
-
 const {elements} = setup({
     onReady: showProposedText,
     elements: {
@@ -11,16 +9,13 @@ const {elements} = setup({
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
         writeBtn: "#slider-write-btn",
-        voteBtn: "#slider-vote-btn",
-        proposeSection: "#propose-text",
-        voteSection: "#vote-text"
+        voteBtn: "#slider-vote-btn"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        "#slider-write-btn": () => slider("schreiben"),
-        "#slider-vote-btn": () => slider("bewerten")
+        ".slider-btn": toggleSlider
     }
 });
 
@@ -60,25 +55,11 @@ function showProposedText() {
     elements.proposedTextDisplay.text(text);
 }
 
-async function slider(slide) {
-    if (curr_slide == slide) {
-
-    } else if (slide == "schreiben") {
-        elements.voteBtn.removeClass("active");
-        elements.writeBtn.addClass("active");
-        elements.voteSection.removeClass("slide-active");
-        elements.proposeSection.addClass("slide-active");
-        curr_slide = "schreiben";
-
-    } else if (slide == "bewerten") {
-        elements.writeBtn.removeClass("active");
-        elements.voteBtn.addClass("active");
-        elements.proposeSection.removeClass("slide-active");
-        elements.voteSection.addClass("slide-active");
-        curr_slide = "bewerten";
-
-    } else {
-
-    }
-
+function toggleSlider(event) {
+    $(".slide-active").removeClass("slide-active");
+    $(".slider-btn.active").removeClass("active");
+    const btn = event.target;
+    btn.classList.add("active");
+    const target = document.querySelector(btn.dataset.target);
+    target.classList.add("slide-active");
 }

@@ -2,7 +2,7 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
-let curr_slide = "schreiben"
+let curr_slide = "schreiben";
 
 const {elements} = setup({
     onReady: showProposedText,
@@ -10,17 +10,17 @@ const {elements} = setup({
         proposeTextsInput: "#textarea-input",
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
-        schreibenBtn: "#slider-schreiben-btn";
-        bewertenBtn: "#slider-bewerten-btn",
-        schreibenSection: "#propose-text",
-        bewertenSection: "#vote-text"
+        writeBtn: "#slider-write-btn",
+        voteBtn: "#slider-vote-btn",
+        proposeSection: "#propose-text",
+        voteSection: "#vote-text"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        "#slider-schreiben-btn": () => slider("schreiben"),
-        "#slider-bewerten-btn": () => slider("bewerten")
+        "#slider-write-btn": () => slider("schreiben"),
+        "#slider-vote-btn": () => slider("bewerten")
     }
 });
 
@@ -62,23 +62,23 @@ function showProposedText() {
 
 async function slider(slide) {
     if (curr_slide == slide) {
-        return;
+
     } else if (slide == "schreiben") {
-        elements.bewertenBtn.removeClass("active");
-        elements.schreibenBtn.addClass("active");
-        elements.bewertenSection.removeClass("slide-active");
-        elements.schreibenSection.addClass("slide-active");
-        curr_slide = "schreiben"
-        return;
+        elements.voteBtn.removeClass("active");
+        elements.writeBtn.addClass("active");
+        elements.voteSection.removeClass("slide-active");
+        elements.proposeSection.addClass("slide-active");
+        curr_slide = "schreiben";
+
     } else if (slide == "bewerten") {
-        elements.schreibenBtn.removeClass("active");
-        elements.bewertenBtn.addClass("active");
-        elements.schreibenSection.removeClass("slide-active");
-        elements.bewertenSection.addClass("slide-active");
-        curr_slide = "bewerten"
-        return;
+        elements.writeBtn.removeClass("active");
+        elements.voteBtn.addClass("active");
+        elements.proposeSection.removeClass("slide-active");
+        elements.voteSection.addClass("slide-active");
+        curr_slide = "bewerten";
+
     } else {
-        return;
+
     }
 
 }

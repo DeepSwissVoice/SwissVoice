@@ -46,13 +46,13 @@ function buildPopup(cancelable, cb) {
     const callback = cb || selectCanton;
 
     const popup = $(
-        "<div id='popup' class='text-normal' style='display: none;'>\
-            <div class='popup-container bg-primary'>\
-                <p class='h4 select-canton-text my-3'>Wähle deine Sprachregion aus.</p>\
-                <div class='image-view'></div>\
+        `<div id="popup" class="text-normal" style="display: none;">\
+            <div class="popup-container bg-primary">\
+                <p class="h4 select-canton-text my-3">Wähle deine Sprachregion aus.</p>\
+                <div class="image-view"></div>\
             </div>\
-            <div class='cover'></div>\
-        </div>"
+            <div class="cover"></div>\
+        </div>`
     );
 
     if (cancelable) {
@@ -62,9 +62,7 @@ function buildPopup(cancelable, cb) {
     const cantonContainer = popup.find("div.image-view");
     const cantons = SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
-        $("<img>")
-            .addClass("canton-image")
-            .attr("src", canton.image)
+        $(`<img src="${canton.image}" class="canton-image">`)
             .click(() => callback(canton))
             .appendTo(cantonContainer);
     }

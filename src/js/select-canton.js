@@ -4,28 +4,26 @@ let currentPopup;
 
 function showPopup(popup, display, cb) {
     if (display) {
-        $("#popup").fadeIn("slow", cb);
+        popup.fadeIn("slow", cb);
     } else {
-        $("#popup").fadeOut("slow", cb);
+        popup.fadeOut("slow", cb);
     }
     $(document.body).toggleClass("disable-scroll");
 }
 
 export function promptCanton(cancelable) {
     return new Promise((res) => {
-        let popup;
-        popup = buildPopup(cancelable, (canton) => {
+        buildPopup(cancelable, (canton, popup) => {
             showPopup(popup, false, () => popup.remove());
             res(canton);
-        });
-        showPopup(popup, true);
+        }).then((popup) => showPopup(popup, true));
     });
 }
 
 export async function toggleCantonPopup() {
     if (!currentPopup) {
         await SwissVoiceAPI.ready;
-        currentPopup = buildPopup(true);
+        currentPopup = await buildPopup(true);
     }
 
     if (currentPopup.is(":visible")) {
@@ -42,7 +40,7 @@ function selectCanton(selectedCanton) {
     toggleCantonPopup();
 }
 
-function buildPopup(cancelable, cb) {
+async function buildPopup(cancelable, cb) {
     const callback = cb || selectCanton;
 
     const popup = $(
@@ -60,10 +58,10 @@ function buildPopup(cancelable, cb) {
     }
 
     const cantonContainer = popup.find("div.image-view");
-    const cantons = SwissVoiceAPI.getCantons();
+    const cantons = await SwissVoiceAPI.getCantons();
     for (const canton of cantons) {
         $(`<img src="${canton.image}" class="canton-image">`)
-            .click(() => callback(canton))
+            .click(() => callback(canton, popup))
             .appendTo(cantonContainer);
     }
     popup.appendTo(document.body);

@@ -72,10 +72,7 @@ export default (() => {
         }
     }
 
-    async function fetchRegions() {
-        if (regions.length > 0) {
-            return false;
-        }
+    async function loadRegions() {
         const url = buildUrl("api", "regions");
         const resp = await $.getJSON(url);
         if (!resp.success) {
@@ -83,7 +80,16 @@ export default (() => {
             throw new Error("Couldn't fetch any regions!");
         }
         regions.push(...resp.regions);
+
         extractCantons();
+    }
+
+    async function getCantons() {
+        if (cantons.length > 0) {
+            return cantons;
+        }
+        await loadRegions();
+        return cantons;
     }
 
     async function verifyCanton(canton) {
@@ -105,7 +111,7 @@ export default (() => {
         return false;
     }
 
-    async function setup(canton, apiDomain) {
+    async function setup(canton) {
         if (!canton) {
             canton = JSON.parse(localStorage.getItem("canton"));
             const valid = await verifyCanton(canton);
@@ -119,11 +125,6 @@ export default (() => {
 
             invalidateCaches();
         }
-        if (apiDomain) {
-            settings.domain = apiDomain;
-        }
-
-        await fetchRegions();
     }
 
     return {
@@ -137,8 +138,8 @@ export default (() => {
             }
             return currentCanton;
         },
-        setup(canton, apiDomain) {
-            readyPromise = setup(canton, apiDomain);
+        setup(canton) {
+            readyPromise = setup(canton);
             return readyPromise;
         },
         get ready() {
@@ -147,11 +148,8 @@ export default (() => {
             }
             return readyPromise;
         },
-        getRegions() {
-            return regions;
-        },
-        getCantons() {
-            return cantons;
+        async getCantons() {
+            return await getCantons();
         },
         async getText() {
             return await getItemFromCache("text");

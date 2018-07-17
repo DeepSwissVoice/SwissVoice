@@ -4,8 +4,8 @@ import SwissVoiceAPI from "./api";
 let player;
 let currentSample;
 
-export function nextSample() {
-    currentSample = SwissVoiceAPI.getSample();
+export async function nextSample() {
+    currentSample = await SwissVoiceAPI.getSample();
     if (!currentSample) {
         alert("There aren't any samples left...");
         return;
@@ -14,9 +14,9 @@ export function nextSample() {
     elements.voteSampleButtons.addClass("disabled");
 }
 
-function getSample() {
+async function getSample() {
     if (!currentSample) {
-        nextSample();
+        await nextSample();
     }
     return currentSample;
 }
@@ -40,9 +40,9 @@ export function togglePlay() {
     }
 }
 
-export function voteSample(opinion) {
+export async function voteSample(opinion) {
     if (currentSample && !elements.voteSampleButtons.hasClass("disabled")) {
         SwissVoiceAPI.approveSample(opinion);
-        nextSample();
+        await nextSample();
     }
 }

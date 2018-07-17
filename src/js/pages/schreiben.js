@@ -38,11 +38,11 @@ async function proposeTexts() {
 
 async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
-    showProposedText();
+    await showProposedText();
 }
 
-function showProposedText() {
-    const textSample = SwissVoiceAPI.getProposedText();
+async function showProposedText() {
+    const textSample = await SwissVoiceAPI.getProposedText();
     let text;
     if (textSample) {
         text = textSample.text;

@@ -7,8 +7,8 @@ import {sleep} from "./utils";
 const audioWeb = new AudioWeb();
 let currentRecordText;
 
-export function nextRecordText() {
-    currentRecordText = SwissVoiceAPI.getText();
+export async function nextRecordText() {
+    currentRecordText = await SwissVoiceAPI.getText();
     if (!currentRecordText) {
         alert("There aren't any texts left...");
         return;

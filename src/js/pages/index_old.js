@@ -23,7 +23,6 @@ const {elements} = setup({
 
 export {elements};
 
-function init() {
-    nextSample();
-    nextRecordText();
+async function init() {
+    await Promise.all([nextSample(), nextRecordText()]);
 }

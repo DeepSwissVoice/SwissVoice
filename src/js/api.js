@@ -28,29 +28,39 @@ export default (() => {
         return settings.domain + endpoint.join("/");
     }
 
-    async function ensureCache(name) {
-        if (cache[name].length < settings.minCacheSize) {
+    async function ensureCache(name, lazy = true) {
+        async function restockCache() {
             const url = buildUrl("api", name, regionId);
             const resp = await $.getJSON(url, {
                 count: settings.cacheRestockCount
             });
+
             if (!resp.success) {
                 Raven.captureBreadcrumb({data: resp});
                 throw new Error("Unsuccessful request to retrieve items for \"" + name + "\" cache");
             }
+
             cache[name].push(...resp.items);
+        }
+
+        const itemsLeft = cache[name].length;
+        if (itemsLeft < settings.minCacheSize) {
+            const promise = restockCache();
+            if (itemsLeft < 1 || !lazy) {
+                await promise;
+            }
         }
     }
 
-    function getItemFromCache(name) {
-        ensureCache(name);
+    async function getItemFromCache(name) {
+        await ensureCache(name);
         const item = cache[name].shift();
         currentItems[name] = item;
         return item;
     }
 
-    async function ensureCaches() {
-        await Promise.all(Object.keys(cache).map(ensureCache));
+    function invalidateCaches() {
+        Object.values(cache).map((value) => value.length = 0);
     }
 
     function extractCantons() {
@@ -107,7 +117,7 @@ export default (() => {
             currentCanton = canton;
             regionId = canton.region;
 
-            await ensureCaches();
+            invalidateCaches();
         }
         if (apiDomain) {
             settings.domain = apiDomain;
@@ -123,7 +133,7 @@ export default (() => {
                 regionId = newCanton.region;
 
                 localStorage.setItem("canton", JSON.stringify(newCanton));
-                return ensureCaches();
+                invalidateCaches();
             }
             return currentCanton;
         },
@@ -143,14 +153,14 @@ export default (() => {
         getCantons() {
             return cantons;
         },
-        getText() {
-            return getItemFromCache("text");
+        async getText() {
+            return await getItemFromCache("text");
         },
-        getProposedText() {
-            return getItemFromCache("proposed");
+        async getProposedText() {
+            return await getItemFromCache("proposed");
         },
-        getSample() {
-            return getItemFromCache("voice");
+        async getSample() {
+            return await getItemFromCache("voice");
         },
         async proposeTexts(...texts) {
             const payload = {texts};

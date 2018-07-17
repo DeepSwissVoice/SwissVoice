@@ -3,7 +3,7 @@ import {sleep} from "../utils";
 import {setupTeaserTriggers} from "../visuals";
 
 const {elements} = setup({
-    onReady: init,
+    onLoad: init,
     requireCanton: false,
     elements: {
         flyText: ".fly-text",

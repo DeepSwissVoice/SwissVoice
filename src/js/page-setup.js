@@ -27,7 +27,7 @@ export default function setup(options) {
 
     const elements = {};
 
-    async function setupPage() {
+    function setupPage() {
         if (options.toggleCantonsPopupBtn) {
             $("#toggle-cantons-popup").click(toggleCantonPopup);
         }
@@ -45,7 +45,11 @@ export default function setup(options) {
     }
 
     async function ready() {
-        await setupPage();
+        setupPage();
+
+        if (options.onLoad) {
+            options.onLoad();
+        }
 
         if (options.setupAPI) {
             await SwissVoiceAPI.ready;

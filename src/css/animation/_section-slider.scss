@@ -2,6 +2,12 @@ body {
   overflow-x: hidden;
 }
 
+/*apparently some browsers ignore overflow on html and body
+if a viewport meta tag is set*/
+#content-wrapper {
+  overflow-x: hidden;
+}
+
 #slider-wrapper {
   position: relative;
 }

@@ -86,15 +86,17 @@
   transform: translate(25%, 25%);
 }
 
+
+
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px) {
+@include media-breakpoint-down(xs) {
   .vote-btns {
     justify-content: space-between;
   }
 }
 
 @media (hover: none) {
-  .btn.btn-outline-secondary {
+  .btn-outline-secondary.btn:hover {
     color: #6c757d;
     background-color: #fff;
   }

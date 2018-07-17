@@ -2,8 +2,18 @@ import SwissVoiceAPI from "./api";
 
 let currentPopup;
 
+function highlightCurrentCanton() {
+    const currentCanton = SwissVoiceAPI.canton();
+    $(".canton-image.not-current,.canton-image.current").removeClass("not-current current");
+    if (currentCanton) {
+        document.getElementById("canton-" + currentCanton.name).classList.add("current");
+        $(".canton-image:not(.current)").addClass("not-current");
+    }
+}
+
 function showPopup(popup, display, cb) {
     if (display) {
+        highlightCurrentCanton();
         popup.fadeIn("slow", cb);
     } else {
         popup.fadeOut("slow", cb);
@@ -59,11 +69,13 @@ async function buildPopup(cancelable, cb) {
 
     const cantonContainer = popup.find("div.image-view");
     const cantons = await SwissVoiceAPI.getCantons();
+
     for (const canton of cantons) {
-        $(`<img src="${canton.image}" class="canton-image">`)
+        $(`<img src="${canton.image}" id="canton-${canton.name}" class="canton-image">`)
             .click(() => callback(canton, popup))
             .appendTo(cantonContainer);
     }
+
     popup.appendTo(document.body);
     return popup;
 }

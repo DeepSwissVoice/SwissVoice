@@ -21,7 +21,7 @@ const {elements} = setup({
     }
 });
 
-const avgDurAudioSample = 5;
+const avgDurAudioSample = 4;
 
 
 async function buildColourMap(spec, nShades) {
@@ -35,12 +35,15 @@ async function buildColourMap(spec, nShades) {
 }
 
 function formatTime(seconds) {
+    const sec = Math.round(seconds);
     const min = Math.round(seconds / 60);
-    const hours = Math.round(min / 60);
-    if (hours > 5) {
-        return hours + " Stunden";
+    const hrs = Math.round(seconds / 3600);
+    if (hrs > 5) {
+        return hrs + " Stunden";
+    } else if (min > 5) {
+        return min + " Minuten";
     } else {
-        return min + " Minute" + (min === 1 ? "" : "n");
+        return sec + " Sekunde" + (sec === 1 ? "" : "n");
     }
 }
 

@@ -13,7 +13,6 @@
 #example-text {
   color: grey;
   font-size: 0.8rem;
-  margin-bottom: 0 !important;
 }
 
 #vote-text {
@@ -61,6 +60,7 @@
 }
 
 .btn-true {
+  position: relative;
   background-color: white;
   min-width: 20px;
   min-height: 50px;
@@ -68,6 +68,7 @@
 }
 
 .btn-false {
+  position: relative;
   background-color: white;
   min-width: 20px;
   min-height: 50px;
@@ -82,16 +83,8 @@
   top: 0;
   width: 100%;
   height: 100%;
+  transform: translateY(25%);
 }
-
-#icon-true {
-  transform: translate(-25%, 25%);
-}
-
-#icon-false {
-  transform: translate(25%, 25%);
-}
-
 
 
 /* Extra small devices (portrait phones, less than 576px)*/

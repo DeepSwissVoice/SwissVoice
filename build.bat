@@ -3,9 +3,9 @@ echo ^+----------------------------------------^+
 echo ^|         Simon's super starter          ^|
 echo ^|========================================^|
 echo ^|  - Building static files...            ^|
-call tools\jinjer\jinjer.exe src/html server/swissvoice/static >nul
+@start /b cmd /c tools\jinjer\jinjer.exe src/html server/swissvoice/static >nul
 echo ^|    * html built                        ^|
-call tools\sassier\sassier.exe src/css server/swissvoice/static/css >nul
+@start /b cmd /c tools\sassier\sassier.exe src/css server/swissvoice/static/css >nul
 echo ^|    * css built                         ^|
 call npm run-script build >nul
 echo ^|    * js built                          ^|

@@ -18,6 +18,8 @@
 }
 
 #main-schreiben-btn {
+  color: #d6f1ff;
+  font-weight: 1000;
   width: 30vw;
   border-color: transparent;
   min-height: 4rem;
@@ -28,6 +30,7 @@
 }
 
 #main-schreiben-btn:hover {
+  color: black;
   box-shadow: none;
   margin: 5px 0px 0px 3px;
   transition: all 0.3s;
@@ -78,7 +81,7 @@
 
 /* Medium devices (tablets, less than 992px)*/
 @include media-breakpoint-down(md) {
-  
+
 }
 
 /* Small devices (landscape phones, less than 768px)*/

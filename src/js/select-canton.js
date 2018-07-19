@@ -2,30 +2,38 @@ import SwissVoiceAPI from "./api";
 
 let currentPopup;
 
+function highlightCurrentCanton() {
+    const currentCanton = SwissVoiceAPI.canton();
+    $(".canton-image.not-current,.canton-image.current").removeClass("not-current current");
+    if (currentCanton) {
+        document.getElementById("canton-" + currentCanton.name).classList.add("current");
+        $(".canton-image:not(.current)").addClass("not-current");
+    }
+}
+
 function showPopup(popup, display, cb) {
     if (display) {
-        $("#popup").fadeIn("slow", cb);
+        highlightCurrentCanton();
+        popup.fadeIn("slow", cb);
     } else {
-        $("#popup").fadeOut("slow", cb);
+        popup.fadeOut("slow", cb);
     }
     $(document.body).toggleClass("disable-scroll");
 }
 
 export function promptCanton(cancelable) {
     return new Promise((res) => {
-        let popup;
-        popup = buildPopup(cancelable, (canton) => {
+        buildPopup(cancelable, (canton, popup) => {
             showPopup(popup, false, () => popup.remove());
             res(canton);
-        });
-        showPopup(popup, true);
+        }).then((popup) => showPopup(popup, true));
     });
 }
 
 export async function toggleCantonPopup() {
     if (!currentPopup) {
         await SwissVoiceAPI.ready;
-        currentPopup = buildPopup(true);
+        currentPopup = await buildPopup(true);
     }
 
     if (currentPopup.is(":visible")) {
@@ -42,17 +50,17 @@ function selectCanton(selectedCanton) {
     toggleCantonPopup();
 }
 
-function buildPopup(cancelable, cb) {
+async function buildPopup(cancelable, cb) {
     const callback = cb || selectCanton;
 
     const popup = $(
-        "<div id='popup' class='text-normal' style='display: none;'>\
-            <div class='popup-container bg-primary'>\
-                <p class='h4 select-canton-text my-3'>Wähle deine Sprachregion aus.</p>\
-                <div class='image-view'></div>\
+        `<div id="popup" class="text-normal" style="display: none;">\
+            <div class="popup-container bg-primary">\
+                <p class="h4 select-canton-text my-3">Wähle deine Sprachregion aus.</p>\
+                <div class="image-view"></div>\
             </div>\
-            <div class='cover'></div>\
-        </div>"
+            <div class="cover"></div>\
+        </div>`
     );
 
     if (cancelable) {
@@ -60,14 +68,14 @@ function buildPopup(cancelable, cb) {
     }
 
     const cantonContainer = popup.find("div.image-view");
-    const cantons = SwissVoiceAPI.getCantons();
+    const cantons = await SwissVoiceAPI.getCantons();
+
     for (const canton of cantons) {
-        $("<img>")
-            .addClass("canton-image")
-            .attr("src", canton.image)
-            .click(() => callback(canton))
+        $(`<img src="${canton.image}" id="canton-${canton.name}" class="canton-image">`)
+            .click(() => callback(canton, popup))
             .appendTo(cantonContainer);
     }
+
     popup.appendTo(document.body);
     return popup;
 }

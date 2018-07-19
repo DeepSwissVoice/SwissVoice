@@ -4,9 +4,15 @@
 @import "bootstrap/button-group";
 @import "bootstrap/input-group";
 @import "bootstrap/forms";
+@import "animation/section-slider";
 
 #propose-text {
   text-align: left;
+}
+
+#example-text {
+  color: grey;
+  font-size: 0.8rem;
 }
 
 #vote-text {
@@ -54,24 +60,42 @@
 }
 
 .btn-true {
+  position: relative;
   background-color: white;
   min-width: 20px;
   min-height: 50px;
-  text-align: center;
   flex-grow: 1;
 }
 
 .btn-false {
+  position: relative;
   background-color: white;
   min-width: 20px;
   min-height: 50px;
-  text-align: center;
   flex-grow: 1;
 }
 
+.center-icon {
+  display: inline;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(25%);
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px) {
+@include media-breakpoint-down(xs) {
   .vote-btns {
     justify-content: space-between;
+  }
+}
+
+@media (hover: none) {
+  .btn-outline-secondary.btn:hover {
+    color: #6c757d;
+    background-color: #fff;
   }
 }

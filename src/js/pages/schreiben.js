@@ -7,12 +7,15 @@ const {elements} = setup({
     elements: {
         proposeTextsInput: "#textarea-input",
         proposedTextDisplay: "#proposed-text-display",
-        voteSystem: "#vote-system"
+        voteSystem: "#vote-system",
+        writeBtn: "#slider-write-btn",
+        voteBtn: "#slider-vote-btn"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
-        "#vote-text-false-btn": () => voteText(false)
+        "#vote-text-false-btn": () => voteText(false),
+        ".slider-btn": toggleSlider
     }
 });
 
@@ -35,11 +38,11 @@ async function proposeTexts() {
 
 async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
-    showProposedText();
+    await showProposedText();
 }
 
-function showProposedText() {
-    const textSample = SwissVoiceAPI.getProposedText();
+async function showProposedText() {
+    const textSample = await SwissVoiceAPI.getProposedText();
     let text;
     if (textSample) {
         text = textSample.text;
@@ -50,4 +53,13 @@ function showProposedText() {
     }
 
     elements.proposedTextDisplay.text(text);
+}
+
+function toggleSlider(event) {
+    $(".slide-active").removeClass("slide-active");
+    $(".slider-btn.active").removeClass("active");
+    const btn = event.target;
+    btn.classList.add("active");
+    const target = document.querySelector(btn.dataset.target);
+    target.classList.add("slide-active");
 }

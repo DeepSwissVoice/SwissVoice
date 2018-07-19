@@ -24,12 +24,15 @@
   text-align: center;
   box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2), 0 12px 40px 0 rgba(255, 255, 255, 0.19);
   overflow-y: scroll;
+
+  .image-view {
+    overflow: hidden;
+  }
 }
 
 .cover {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 2000;
 }

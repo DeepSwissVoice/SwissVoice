@@ -2,6 +2,19 @@
 @import "style/teaser";
 @import "bootstrap/card";
 
+
+#download-data-btn {
+  background-color: #a2a0ff;
+}
+
+#download-data-btn:hover {
+  background-color: #7371d6;
+}
+
+#download-comment {
+  font-size: 0.8em;
+}
+
 .card-text {
   line-height: normal;
   text-align: left;

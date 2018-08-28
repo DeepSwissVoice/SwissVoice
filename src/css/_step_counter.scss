@@ -1,0 +1,75 @@
+#step-counter {
+  position: relative;
+}
+
+.circle {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid black;
+  border-radius: 100%;
+  cursor: default;
+}
+
+.center-tick {
+  display: inline;
+  text-align: center;
+  position: absolute;
+  font-size: 20px;
+  left: 0;
+  top: 0;
+}
+
+.center-cross {
+  display: inline;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#end-guidance {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  right: 0;
+  top: 0;
+  border: 0;
+}
+
+#end-guidance i {
+
+}
+
+#end-guidance i:hover {
+  background-color: grey;
+  border-radius: 100%;
+}
+
+
+/* animations */
+.circle i {
+  opacity: 0;
+}
+
+div.done {
+  background-color: #a2a0ff;
+}
+
+div.done i {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+#step-counter {
+  height: 30px; /* not optimal solution!*/
+  opacity: 1;
+}
+
+#step-counter.closed {
+  height: 0;
+  opacity: 0;
+  transition: height 600ms ease-in, opacity 500ms ease-in;
+}

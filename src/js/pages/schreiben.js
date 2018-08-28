@@ -9,13 +9,16 @@ const {elements} = setup({
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
         writeBtn: "#slider-write-btn",
-        voteBtn: "#slider-vote-btn"
+        voteBtn: "#slider-vote-btn",
+        stepCounter: "#step-counter"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        ".slider-btn": toggleSlider
+        ".slider-btn": toggleSlider,
+        "#end-guidance i": endStepCounter
+
     }
 });
 
@@ -53,6 +56,10 @@ async function showProposedText() {
     }
 
     elements.proposedTextDisplay.text(text);
+}
+
+async function endStepCounter() {
+    elements.stepCounter.addClass("closed");
 }
 
 function toggleSlider(event) {

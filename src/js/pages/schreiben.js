@@ -28,17 +28,18 @@ class StepCounter {
     }
 
     step() {
+        if (this.currentStep >= this.totalSteps) {
+            this.reset()
+        }
+
         this.currentStep++;
 
         $(".slide-active").find(`.tick-${this.currentStep}`).parent().addClass("done");
-
-        if (this.currentStep >= this.totalSteps - 1) {
-            this.reset()
-        }
     }
 
     reset() {
         this.currentStep = 0;
+        $(".slide-active").find(`.circle`).removeClass("done");
     }
 }
 

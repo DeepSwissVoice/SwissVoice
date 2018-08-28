@@ -1,7 +1,3 @@
-#step-counter {
-  position: relative;
-}
-
 .circle {
   position: relative;
   width: 1.5rem;
@@ -63,13 +59,14 @@ div.done i {
   transition: opacity 200ms ease-in;
 }
 
-#step-counter {
+#schreiben-step-counter {
+  position: relative;
   height: 30px; /* not optimal solution!*/
   opacity: 1;
   margin-top: 1rem;
 }
 
-#step-counter.closed {
+#schreiben-step-counter.closed {
   height: 0;
   opacity: 0;
   margin-top: 0;

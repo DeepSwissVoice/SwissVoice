@@ -2,6 +2,8 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
+let currCounterStep = 0;
+
 const {elements} = setup({
     onReady: showProposedText,
     elements: {
@@ -10,7 +12,7 @@ const {elements} = setup({
         voteSystem: "#vote-system",
         writeBtn: "#slider-write-btn",
         voteBtn: "#slider-vote-btn",
-        stepCounter: "#step-counter"
+        schreibenStepCounter: "#schreiben-step-counter"
     },
     buttons: {
         "#send-text": proposeTexts,
@@ -37,6 +39,7 @@ async function proposeTexts() {
     const result = await SwissVoiceAPI.proposeTexts(...texts);
     elements.proposeTextsInput.val("");
     console.log(result);
+    stepCounter(3);
 }
 
 async function voteText(isCorrect) {
@@ -59,7 +62,7 @@ async function showProposedText() {
 }
 
 async function endStepCounter() {
-    elements.stepCounter.addClass("closed");
+    elements.schreibenStepCounter.addClass("closed");
 }
 
 function toggleSlider(event) {
@@ -69,4 +72,15 @@ function toggleSlider(event) {
     btn.classList.add("active");
     const target = document.querySelector(btn.dataset.target);
     target.classList.add("slide-active");
+}
+
+function stepCounter(steps) {
+    currCounterStep++;
+    if (currCounterStep == steps) {
+        $(`#tick-${currCounterStep}`).parent().addClass("done");
+        endStepCounter();
+        currCounterStep = 0;
+    } else {
+        $(`#tick-${currCounterStep}`).parent().addClass("done");
+    }
 }

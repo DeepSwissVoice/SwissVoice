@@ -12,14 +12,14 @@ const {elements} = setup({
         voteSystem: "#vote-system",
         writeBtn: "#slider-write-btn",
         voteBtn: "#slider-vote-btn",
-        schreibenStepCounter: "#schreiben-step-counter"
+        stepCounter: ".step-counter"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
         ".slider-btn": toggleSlider,
-        "#end-guidance i": endStepCounter
+        ".end-guidance i": endStepCounter
 
     }
 });
@@ -44,6 +44,7 @@ async function proposeTexts() {
 
 async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
+    stepCounter(5);
     await showProposedText();
 }
 
@@ -62,7 +63,7 @@ async function showProposedText() {
 }
 
 async function endStepCounter() {
-    elements.schreibenStepCounter.addClass("closed");
+    elements.stepCounter.addClass("closed");
 }
 
 function toggleSlider(event) {
@@ -74,13 +75,13 @@ function toggleSlider(event) {
     target.classList.add("slide-active");
 }
 
-function stepCounter(steps) {
+function stepCounter(maxSteps) {
     currCounterStep++;
-    if (currCounterStep == steps) {
-        $(`#tick-${currCounterStep}`).parent().addClass("done");
+    if (currCounterStep == maxSteps) {
+        $(`.tick-${currCounterStep}`).parent().addClass("done");
         endStepCounter();
         currCounterStep = 0;
     } else {
-        $(`#tick-${currCounterStep}`).parent().addClass("done");
+        $(`.tick-${currCounterStep}`).parent().addClass("done");
     }
 }

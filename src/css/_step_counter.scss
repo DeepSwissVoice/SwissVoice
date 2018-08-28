@@ -26,7 +26,7 @@
   height: 100%;
 }
 
-#end-guidance {
+.end-guidance {
   position: absolute;
   width: 1.5rem;
   height: 1.5rem;
@@ -35,11 +35,11 @@
   border: 0;
 }
 
-#end-guidance i {
+.end-guidance i {
 
 }
 
-#end-guidance i:hover {
+.end-guidance i:hover {
   background-color: grey;
   border-radius: 100%;
 }
@@ -59,14 +59,14 @@ div.done i {
   transition: opacity 200ms ease-in;
 }
 
-#schreiben-step-counter {
+.step-counter {
   position: relative;
   height: 30px; /* not optimal solution!*/
   opacity: 1;
   margin-top: 1rem;
 }
 
-#schreiben-step-counter.closed {
+.step-counter.closed {
   height: 0;
   opacity: 0;
   margin-top: 0;

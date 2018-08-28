@@ -2,8 +2,6 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
-let currCounterStep = 0;
-
 const {elements} = setup({
     onReady: showProposedText,
     elements: {
@@ -11,18 +9,41 @@ const {elements} = setup({
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
         writeBtn: "#slider-write-btn",
-        voteBtn: "#slider-vote-btn",
-        stepCounter: ".step-counter"
+        voteBtn: "#slider-vote-btn"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
         ".slider-btn": toggleSlider,
-        ".end-guidance i": endStepCounter
+        // ".end-guidance i": endStepCounter
 
     }
 });
+
+class StepCounter {
+    constructor(totalSteps) {
+        this.totalSteps = totalSteps;
+        this.reset();
+    }
+
+    step() {
+        this.currentStep++;
+
+        $(".slide-active").find(`.tick-${this.currentStep}`).parent().addClass("done");
+
+        if (this.currentStep >= this.totalSteps - 1) {
+            this.reset()
+        }
+    }
+
+    reset() {
+        this.currentStep = 0;
+    }
+}
+
+const proposalCounter = new StepCounter(3);
+const voteCounter = new StepCounter(5);
 
 async function proposeTexts() {
     const content = elements.proposeTextsInput.val();
@@ -39,12 +60,14 @@ async function proposeTexts() {
     const result = await SwissVoiceAPI.proposeTexts(...texts);
     elements.proposeTextsInput.val("");
     console.log(result);
-    stepCounter(3);
+
+    proposalCounter.step();
 }
 
 async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
-    stepCounter(5);
+    voteCounter.step();
+
     await showProposedText();
 }
 
@@ -62,10 +85,6 @@ async function showProposedText() {
     elements.proposedTextDisplay.text(text);
 }
 
-async function endStepCounter() {
-    elements.stepCounter.addClass("closed");
-}
-
 function toggleSlider(event) {
     $(".slide-active").removeClass("slide-active");
     $(".slider-btn.active").removeClass("active");
@@ -73,15 +92,4 @@ function toggleSlider(event) {
     btn.classList.add("active");
     const target = document.querySelector(btn.dataset.target);
     target.classList.add("slide-active");
-}
-
-function stepCounter(maxSteps) {
-    currCounterStep++;
-    if (currCounterStep == maxSteps) {
-        $(`.tick-${currCounterStep}`).parent().addClass("done");
-        endStepCounter();
-        currCounterStep = 0;
-    } else {
-        $(`.tick-${currCounterStep}`).parent().addClass("done");
-    }
 }

@@ -66,10 +66,12 @@ div.done i {
 #step-counter {
   height: 30px; /* not optimal solution!*/
   opacity: 1;
+  margin-top: 1rem;
 }
 
 #step-counter.closed {
   height: 0;
   opacity: 0;
-  transition: height 600ms ease-in, opacity 500ms ease-in;
+  margin-top: 0;
+  transition: margin-top 600ms, height 600ms ease-in, opacity 500ms ease-in;
 }

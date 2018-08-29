@@ -25,21 +25,28 @@ class StepCounter {
     constructor(totalSteps) {
         this.totalSteps = totalSteps;
         this.reset();
+        this.status = true;
     }
 
     step() {
-        if (this.currentStep >= this.totalSteps) {
-            this.reset()
+        if (this.status == true) {
+            if (this.currentStep >= this.totalSteps) {
+                this.reset()
+            }
+
+            this.currentStep++;
+
+            $(".slide-active").find(`.tick-${this.currentStep}`).parent().addClass("done");
         }
-
-        this.currentStep++;
-
-        $(".slide-active").find(`.tick-${this.currentStep}`).parent().addClass("done");
     }
 
     reset() {
         this.currentStep = 0;
         $(".slide-active").find(`.circle`).removeClass("done");
+    }
+
+    toggleOnOff() {
+        this.status = !this.status;
     }
 }
 
@@ -98,4 +105,6 @@ function toggleSlider(event) {
 function toggleUserGuidance() {
     $(".toggle-guidance").toggleClass("off");
     $(".step-bar").toggleClass("off");
+    voteCounter.toggleOnOff();
+    proposalCounter.toggleOnOff();
 }

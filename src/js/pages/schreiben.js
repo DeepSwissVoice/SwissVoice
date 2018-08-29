@@ -16,7 +16,7 @@ const {elements} = setup({
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
         ".slider-btn": toggleSlider,
-        // ".end-guidance i": endStepCounter
+        ".toggle-guidance": toggleUserGuidance
 
     }
 });
@@ -93,4 +93,9 @@ function toggleSlider(event) {
     btn.classList.add("active");
     const target = document.querySelector(btn.dataset.target);
     target.classList.add("slide-active");
+}
+
+function toggleUserGuidance() {
+    $(".toggle-guidance").toggleClass("off");
+    $(".step-bar").toggleClass("off");
 }

@@ -1,3 +1,13 @@
+.step-counter {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.step-bar {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
 .circle {
   position: relative;
   width: 1.5rem;
@@ -16,36 +26,30 @@
   top: 0;
 }
 
-.center-cross {
-  display: inline;
-  text-align: center;
+.toggle-guidance {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.end-guidance {
-  position: absolute;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 1rem;
   right: 0;
-  top: 0;
-  border: 0;
+  top: 12%;
+  border: 1px solid black;
+  background-color: rgba(162, 160, 255, 0.5);
+  transition: background-color 0.5s ease-in;
+  overflow: hidden;
 }
 
-.end-guidance i {
-
-}
-
-.end-guidance i:hover {
-  background-color: grey;
-  border-radius: 100%;
+.toggle-slider {
+  position: absolute;
+  width: 0.5rem;
+  height: 100%;
+  background-color: black;
+  left: 65%;
+  transition: left 0.5s ease-in;
 }
 
 
 /* animations */
+/* circles and ticks */
 .circle i {
   opacity: 0;
 }
@@ -54,21 +58,23 @@ div.done {
   background-color: #a2a0ff;
 }
 
-div.done i {
+div.done div {
   opacity: 1;
   transition: opacity 200ms ease-in;
 }
 
-.step-counter {
-  position: relative;
-  height: 30px; /* not optimal solution!*/
-  opacity: 1;
-  margin-top: 1rem;
+/* guidance on/off */
+.toggle-guidance.off {
+  background-color: rgba(232, 232, 232, 0.7);
+  transition: background-color 0.5s ease-in;
 }
 
-.step-counter.closed {
-  height: 0;
+.toggle-guidance.off .toggle-slider {
+  left: 10%;
+  transition: left 0.5s ease-in;
+}
+
+.step-bar.off {
   opacity: 0;
-  margin-top: 0;
-  transition: margin-top 600ms, height 600ms ease-in, opacity 500ms ease-in;
+  transition: opacity 0.5s ease-in;
 }

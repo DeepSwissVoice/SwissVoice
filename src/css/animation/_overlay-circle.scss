@@ -1,8 +1,8 @@
 .overlay-circle {
   display: flex;
   position: absolute;
-  width: 270px;
-  height: 270px;
+  width: 225px;
+  height: 225px;
   background-color: rgb(79, 251, 178);
   border-radius: 100%;
   opacity: 1;
@@ -15,32 +15,32 @@
 
 .next-btn {
   position: absolute;
-  top: 170px;
+  top: 150px;
   font-size: 40px;
 }
 
 .proposal-count-text {
   position: absolute;
-  top: 50px;
-  right: 140px;
+  top: 40px;
+  right: 130px;
 }
 
 .proposal-count {
   position: absolute;
-  top: 50px;
-  right: 110px;
+  top: 40px;
+  right: 100px;
 }
 
 .vote-count-text {
   position: absolute;
-  top: 70px;
-  right: 140px;
+  top: 60px;
+  right: 130px;
 }
 
 .vote-count {
   position: absolute;
-  top: 70px;
-  right: 110px;
+  top: 60px;
+  right: 100px;
 }
 
 /* animations */
@@ -76,7 +76,7 @@
 
   .next-btn {
     font-size: 30px;
-    top: 120px;
+    top: 130px;
   }
 
   .proposal-count-text {

@@ -16,10 +16,42 @@ const {elements} = setup({
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
         ".slider-btn": toggleSlider,
-        ".toggle-guidance": toggleUserGuidance
-
+        ".toggle-guidance": toggleUserGuidance,
+        "#schreiben-next-btn":() => nextStepInGuide("propose"),
+        "#bewerten-next-btn":() => nextStepInGuide("vote")
     }
 });
+
+class ScoreCounter {
+    constructor(storageName) {
+        this.storageName = storageName;
+        this.totalScore;
+        this.getCurrentScore();
+    }
+
+    updateStorage() {
+        localStorage.setItem(this.storageName, this.totalScore);
+    }
+
+    increaseScore(increaseRate) {
+        this.totalScore += increaseRate;
+        updateStorage();
+    }
+
+    getCurrentScore() {
+        if (sessionStorage.hasOwnProperty(this.storageName)) {
+            this.totalScore = localStorage.getItem(this.storageName);
+            return this.totalScore;
+        } else {
+            this.totalScore = 0;
+            localStorage.setItem(this.storageName, this.totalScore);
+            return this.totalScore;
+        }
+    }
+}
+
+const proposalStorage = new ScoreCounter("proposal");
+const voteStorage = new ScoreCounter("vote");
 
 class StepCounter {
     constructor(totalSteps) {
@@ -31,12 +63,20 @@ class StepCounter {
     step() {
         if (this.status == true) {
             if (this.currentStep >= this.totalSteps) {
-                this.reset()
+                this.reset();
             }
 
             this.currentStep++;
 
             $(".slide-active").find(`.tick-${this.currentStep}`).parent().addClass("done");
+        }
+    }
+
+    isStepCounterFull() {
+        if (this.currentStep == this.totalSteps) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -70,11 +110,17 @@ async function proposeTexts() {
     console.log(result);
 
     proposalCounter.step();
+    if (proposalCounter.isStepCounterFull()) {
+        toggleOverlayCircle();
+    }
 }
 
 async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
+    if (voteCounter.isStepCounterFull()) {
+        toggleOverlayCircle();
+    }
 
     await showProposedText();
 }
@@ -107,4 +153,23 @@ function toggleUserGuidance() {
     $(".step-bar").toggleClass("off");
     voteCounter.toggleOnOff();
     proposalCounter.toggleOnOff();
+    $(".overlay-circle").addClass("off");
+}
+
+function toggleOverlayCircle() {
+    $(".vote-count").text(voteStorage.getCurrentScore());
+    $(".proposal-count").text(proposalStorage.getCurrentScore());
+    $(".overlay-circle").toggleClass("off");
+}
+
+function nextStepInGuide(currNameOfBar) {
+    if (currNameOfBar == "propose") {
+        proposalCounter.reset();
+    }
+
+    if (currNameOfBar == "vote") {
+        voteCounter.reset();
+    }
+
+    toggleOverlayCircle();
 }

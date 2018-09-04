@@ -2,6 +2,8 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
+let currentActiveSlide = "proposal";
+
 const {elements} = setup({
     onReady: showProposedText,
     elements: {
@@ -17,8 +19,9 @@ const {elements} = setup({
         "#vote-text-false-btn": () => voteText(false),
         ".slider-btn": toggleSlider,
         ".toggle-guidance": toggleUserGuidance,
-        "#schreiben-next-btn":() => nextStepInGuide("propose"),
-        "#bewerten-next-btn":() => nextStepInGuide("vote")
+        "#schreiben-next-btn":() => nextStepInGuide("proposal"),
+        "#bewerten-next-btn":() => nextStepInGuide("vote"),
+        ".cover-circle-overlay":() => nextStepInGuide(currentActiveSlide)
     }
 });
 
@@ -39,7 +42,7 @@ class ScoreCounter {
     }
 
     getCurrentScore() {
-        if (sessionStorage.hasOwnProperty(this.storageName)) {
+        if (localStorage.hasOwnProperty(this.storageName)) {
             this.totalScore = localStorage.getItem(this.storageName);
             return this.totalScore;
         } else {
@@ -111,7 +114,7 @@ async function proposeTexts() {
 
     proposalCounter.step();
     if (proposalCounter.isStepCounterFull()) {
-        toggleOverlayCircle();
+        toggleOverlayCircle("proposal");
     }
 }
 
@@ -119,7 +122,7 @@ async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
     if (voteCounter.isStepCounterFull()) {
-        toggleOverlayCircle();
+        toggleOverlayCircle("vote");
     }
 
     await showProposedText();
@@ -146,6 +149,15 @@ function toggleSlider(event) {
     btn.classList.add("active");
     const target = document.querySelector(btn.dataset.target);
     target.classList.add("slide-active");
+    currentActiveSlide = toggleString(currentActiveSlide, "proposal", "vote");
+}
+
+function toggleString(variable, string1, string2 ) {
+    if (variable == string1) {
+        return string2;
+    } else {
+        return string1;
+    }
 }
 
 function toggleUserGuidance() {
@@ -154,16 +166,20 @@ function toggleUserGuidance() {
     voteCounter.toggleOnOff();
     proposalCounter.toggleOnOff();
     $(".overlay-circle").addClass("off");
+    if (!$(".cover-circle-overlay").hasClass("off")) {
+        $(".cover-circle-overlay").addClass("off")
+    }
 }
 
-function toggleOverlayCircle() {
+async function toggleOverlayCircle() {
     $(".vote-count").text(voteStorage.getCurrentScore());
     $(".proposal-count").text(proposalStorage.getCurrentScore());
     $(".overlay-circle").toggleClass("off");
+    $(".cover-circle-overlay").toggleClass("off")
 }
 
 function nextStepInGuide(currNameOfBar) {
-    if (currNameOfBar == "propose") {
+    if (currNameOfBar == "proposal") {
         proposalCounter.reset();
     }
 

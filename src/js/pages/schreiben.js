@@ -10,61 +10,53 @@ const {elements} = setup({
         proposeTextsInput: "#textarea-input",
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
-        proposalBtn: "#slider-proposal-btn",
-        voteBtn: "#slider-vote-btn"
+        proposalSlideBtn: "#slider-proposal-btn",
+        voteSlideBtn: "#slider-vote-btn",
+        voteCountDisplay: ".vote-count",
+        proposedCountDisplay: ".proposal-count",
+        overlayCircle: ".overlay-circle",
+        coverCircleOverlay: ".cover-circle-overlay"
     },
     buttons: {
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        ".slider-btn": toggleSlider,
+        "#proposal-next-btn": () => nextStepInGuide("slider-proposal-btn"),
+        "#vote-next-btn": () => nextStepInGuide("slider-vote-btn"),
+        ".slider-btn": toggleSlide,
         ".toggle-guidance": toggleUserGuidance,
-        "#schreiben-next-btn":() => nextStepInGuide("proposal"),
-        "#bewerten-next-btn":() => nextStepInGuide("vote"),
-        ".cover-circle-overlay":() => nextStepInGuide(currentActiveSlide)
+        ".cover-circle-overlay": nextStepInGuide
     }
 });
 
-class ScoreCounter {
+class PersistentIntStorage {
     constructor(storageName) {
         this.storageName = storageName;
-        this.totalScore;
-        this.getCurrentScore();
+        this.currentScore = parseInt(localStorage.getItem(storageName)) || 0;
     }
 
-    updateStorage() {
-        localStorage.setItem(this.storageName, this.totalScore);
+    storeScore() {
+        localStorage.setItem(this.storageName, this.currentScore);
     }
 
-    increaseScore(increaseRate) {
-        this.totalScore = parseInt(this.totalScore) + increaseRate;
-        this.updateStorage();
-    }
-
-    getCurrentScore() {
-        if (localStorage.hasOwnProperty(this.storageName)) {
-            this.totalScore = localStorage.getItem(this.storageName);
-            return this.totalScore;
-        } else {
-            this.totalScore = 0;
-            localStorage.setItem(this.storageName, this.totalScore);
-            return this.totalScore;
-        }
+    increaseScore(increment) {
+        this.currentScore += increment;
+        this.storeScore();
     }
 }
 
-const proposalStorage = new ScoreCounter("proposal");
-const voteStorage = new ScoreCounter("vote");
+const proposalStorage = new PersistentIntStorage("proposal");
+const voteStorage = new PersistentIntStorage("vote");
 
 class StepCounter {
     constructor(totalSteps) {
         this.totalSteps = totalSteps;
         this.reset();
-        this.status = true;
+        this.active = true;
     }
 
     step() {
-        if (this.status == true) {
+        if (this.active) {
             if (this.currentStep >= this.totalSteps) {
                 this.reset();
             }
@@ -75,12 +67,8 @@ class StepCounter {
         }
     }
 
-    isStepCounterFull() {
-        if (this.currentStep == this.totalSteps) {
-            return true;
-        } else {
-            return false;
-        }
+    isFull() {
+        return this.currentStep === this.totalSteps;
     }
 
     reset() {
@@ -89,7 +77,7 @@ class StepCounter {
     }
 
     toggleOnOff() {
-        this.status = !this.status;
+        this.active = !this.active;
     }
 }
 
@@ -113,21 +101,10 @@ async function proposeTexts() {
     console.log(result);
 
     proposalCounter.step();
-    if (proposalCounter.isStepCounterFull()) {
+    if (proposalCounter.isFull()) {
         proposalStorage.increaseScore(3);
         toggleOverlayCircle("proposal");
     }
-}
-
-async function voteText(isCorrect) {
-    await SwissVoiceAPI.voteProposed(isCorrect);
-    voteCounter.step();
-    if (voteCounter.isStepCounterFull()) {
-        voteStorage.increaseScore(5);
-        toggleOverlayCircle("vote");
-    }
-
-    await showProposedText();
 }
 
 async function showProposedText() {
@@ -144,52 +121,72 @@ async function showProposedText() {
     elements.proposedTextDisplay.text(text);
 }
 
-function toggleSlider(event) {
+async function voteText(isCorrect) {
+    await SwissVoiceAPI.voteProposed(isCorrect);
+    voteCounter.step();
+
+    if (voteCounter.isFull()) {
+        voteStorage.increaseScore(voteCounter.totalSteps);
+        toggleOverlayCircle();
+    }
+
+    await showProposedText();
+}
+
+function toggleSlide(event) {
+    const btn = event.target;
+    showSlide(btn);
+}
+
+function showSlide(btn) {
+    console.log("showing slide", btn);
     $(".slide-active").removeClass("slide-active");
     $(".slider-btn.active").removeClass("active");
-    const btn = event.target;
+
     btn.classList.add("active");
     const target = document.querySelector(btn.dataset.target);
     target.classList.add("slide-active");
-    currentActiveSlide = toggleString(currentActiveSlide, "proposal", "vote");
-}
 
-function toggleString(variable, string1, string2 ) {
-    if (variable == string1) {
-        return string2;
-    } else {
-        return string1;
-    }
+    currentActiveSlide = btn.id;
 }
 
 function toggleUserGuidance() {
     $(".toggle-guidance").toggleClass("off");
     $(".step-bar").toggleClass("off");
+
     voteCounter.toggleOnOff();
     proposalCounter.toggleOnOff();
-    $(".overlay-circle").addClass("off");
-    if (!$(".cover-circle-overlay").hasClass("off")) {
-        $(".cover-circle-overlay").addClass("off")
-    }
+
+    // JQuery won't add duplicate classes
+    elements.overlayCircle.addClass("off");
+    elements.coverCircleOverlay.addClass("off");
 }
 
-async function toggleOverlayCircle() {
-    $(".vote-count").text(voteStorage.getCurrentScore());
-    $(".proposal-count").text(proposalStorage.getCurrentScore());
-    $(".overlay-circle").toggleClass("off");
-    $(".cover-circle-overlay").toggleClass("off")
+function toggleOverlayCircle() {
+    elements.voteCountDisplay.text(voteStorage.currentScore);
+    elements.proposedCountDisplay.text(proposalStorage.currentScore);
+
+    elements.coverCircleOverlay.toggleClass("off");
+    elements.overlayCircle.toggleClass("off");
 }
 
-function nextStepInGuide(currNameOfBar) {
+function nextStepInGuide(currentSlide) {
     toggleOverlayCircle();
 
-    if (currNameOfBar == "proposal") {
-        proposalCounter.reset();
-        elements.voteBtn.click();
-    }
+    currentSlide = currentSlide || currentActiveSlide;
 
-    if (currNameOfBar == "vote") {
-        voteCounter.reset();
-        elements.proposalBtn.click();
+    switch (currentSlide) {
+        case "slider-proposal-btn":
+            proposalCounter.reset();
+            showSlide(elements.voteSlideBtn[0]);
+            break;
+
+        case "slider-vote-btn":
+            voteCounter.reset();
+            showSlide(elements.proposalSlideBtn[0]);
+            break;
+
+        default:
+            throw Error("unhandled case for slide = " + currentSlide);
     }
 }

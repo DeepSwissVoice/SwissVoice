@@ -21,11 +21,11 @@ const {elements} = setup({
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        "#proposal-next-btn": () => nextStepInGuide("blabla", "slider-proposal-btn"),
-        "#vote-next-btn": () => nextStepInGuide("blabla", "slider-vote-btn"),
+        "#proposal-next-btn": () => nextStepInGuide("slider-proposal-btn"),
+        "#vote-next-btn": () => nextStepInGuide("slider-vote-btn"),
         ".slider-btn": toggleSlide,
         ".toggle-guidance": toggleUserGuidance,
-        ".cover-circle-overlay": nextStepInGuide
+        ".cover-circle-overlay":() => nextStepInGuide()
     }
 });
 
@@ -170,8 +170,10 @@ function toggleOverlayCircle() {
     elements.overlayCircle.toggleClass("off");
 }
 
-function nextStepInGuide(_, currentSlide = currentActiveSlide) {
+function nextStepInGuide(currentSlide) {
     toggleOverlayCircle();
+
+    currentSlide = currentSlide || currentActiveSlide;
 
     switch (currentSlide) {
         case "slider-proposal-btn":

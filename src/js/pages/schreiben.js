@@ -10,7 +10,7 @@ const {elements} = setup({
         proposeTextsInput: "#textarea-input",
         proposedTextDisplay: "#proposed-text-display",
         voteSystem: "#vote-system",
-        writeBtn: "#slider-write-btn",
+        proposalBtn: "#slider-proposal-btn",
         voteBtn: "#slider-vote-btn"
     },
     buttons: {
@@ -179,13 +179,15 @@ async function toggleOverlayCircle() {
 }
 
 function nextStepInGuide(currNameOfBar) {
+    toggleOverlayCircle();
+
     if (currNameOfBar == "proposal") {
         proposalCounter.reset();
+        elements.voteBtn.click();
     }
 
     if (currNameOfBar == "vote") {
         voteCounter.reset();
+        elements.proposalBtn.click();
     }
-
-    toggleOverlayCircle();
 }

@@ -15,7 +15,9 @@ const {elements} = setup({
         voteCountDisplay: ".vote-count",
         proposedCountDisplay: ".proposal-count",
         overlayCircle: ".overlay-circle",
-        coverCircleOverlay: ".cover-circle-overlay"
+        coverCircleOverlay: ".cover-circle-overlay",
+        voteTrueBtn: "#vote-text-true-btn",
+        voteFalseBtn: "#vote-text-false-btn"
     },
     buttons: {
         "#send-text": proposeTexts,
@@ -122,8 +124,10 @@ async function showProposedText() {
 }
 
 async function voteText(isCorrect) {
+    toggleVoteBtns();
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
+    toggleVoteBtns();
 
     if (voteCounter.isFull()) {
         voteStorage.increaseScore(voteCounter.totalSteps);
@@ -148,6 +152,11 @@ function showSlide(btn) {
     target.classList.add("slide-active");
 
     currentActiveSlide = btn.id;
+}
+
+function toggleVoteBtns() {
+    elements.voteTrueBtn.toggleClass("disabled");
+    elements.voteFalseBtn.toggleClass("disabled");
 }
 
 function toggleUserGuidance() {

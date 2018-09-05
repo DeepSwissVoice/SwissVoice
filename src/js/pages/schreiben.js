@@ -2,7 +2,7 @@ import SwissVoiceAPI from "../api";
 import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
-let currentActiveSlide = "proposal";
+let currentActiveSlide = "slider-proposal-btn";
 
 const {elements} = setup({
     onReady: showProposedText,
@@ -21,8 +21,8 @@ const {elements} = setup({
         "#send-text": proposeTexts,
         "#vote-text-true-btn": () => voteText(true),
         "#vote-text-false-btn": () => voteText(false),
-        "#proposal-next-btn": () => nextStepInGuide("slider-proposal-btn"),
-        "#vote-next-btn": () => nextStepInGuide("slider-vote-btn"),
+        "#proposal-next-btn": () => nextStepInGuide("blabla", "slider-proposal-btn"),
+        "#vote-next-btn": () => nextStepInGuide("blabla", "slider-vote-btn"),
         ".slider-btn": toggleSlide,
         ".toggle-guidance": toggleUserGuidance,
         ".cover-circle-overlay": nextStepInGuide
@@ -170,10 +170,8 @@ function toggleOverlayCircle() {
     elements.overlayCircle.toggleClass("off");
 }
 
-function nextStepInGuide(currentSlide) {
+function nextStepInGuide(_, currentSlide = currentActiveSlide) {
     toggleOverlayCircle();
-
-    currentSlide = currentSlide || currentActiveSlide;
 
     switch (currentSlide) {
         case "slider-proposal-btn":

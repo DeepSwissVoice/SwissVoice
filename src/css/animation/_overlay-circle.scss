@@ -64,6 +64,10 @@
   display: none;
 }
 
+.overlay-circle div,p,i {
+  display: block;
+}
+
 /* animations */
 .overlay-circle.off {
   display: none;

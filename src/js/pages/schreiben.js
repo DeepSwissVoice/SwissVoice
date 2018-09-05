@@ -37,8 +37,8 @@ class ScoreCounter {
     }
 
     increaseScore(increaseRate) {
-        this.totalScore += increaseRate;
-        updateStorage();
+        this.totalScore = parseInt(this.totalScore) + increaseRate;
+        this.updateStorage();
     }
 
     getCurrentScore() {
@@ -114,6 +114,7 @@ async function proposeTexts() {
 
     proposalCounter.step();
     if (proposalCounter.isStepCounterFull()) {
+        proposalStorage.increaseScore(3);
         toggleOverlayCircle("proposal");
     }
 }
@@ -122,6 +123,7 @@ async function voteText(isCorrect) {
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
     if (voteCounter.isStepCounterFull()) {
+        voteStorage.increaseScore(5);
         toggleOverlayCircle("vote");
     }
 

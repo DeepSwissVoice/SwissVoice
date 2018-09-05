@@ -125,9 +125,10 @@ async function showProposedText() {
 
 async function voteText(isCorrect) {
     toggleVoteBtns();
+    const sleepPromise = sleep(500);
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
-    // is it possible to waite a minimum of time, until the next toggleVoteBtns() is called?
+    await sleepPromise;
     toggleVoteBtns();
 
     if (voteCounter.isFull()) {

@@ -127,6 +127,7 @@ async function voteText(isCorrect) {
     toggleVoteBtns();
     await SwissVoiceAPI.voteProposed(isCorrect);
     voteCounter.step();
+    // is it possible to waite a minimum of time, until the next toggleVoteBtns() is called?
     toggleVoteBtns();
 
     if (voteCounter.isFull()) {
@@ -166,7 +167,6 @@ function toggleUserGuidance() {
     voteCounter.toggleOnOff();
     proposalCounter.toggleOnOff();
 
-    // JQuery won't add duplicate classes
     elements.overlayCircle.addClass("off");
     elements.coverCircleOverlay.addClass("off");
 }

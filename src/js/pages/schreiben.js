@@ -3,6 +3,9 @@ import setup from "../page-setup";
 import {firstCharUpperCase, sleep} from "../utils";
 
 let currentActiveSlide = "slider-proposal-btn";
+let keyListenerArrowLeft = false;
+let keyListenerArrowReight = false;
+let KeyListenerEnterToNextStep = false;
 
 const {elements} = setup({
     onReady: showProposedText,
@@ -145,8 +148,8 @@ async function voteText(isCorrect) {
 function toggleSlide(event) {
     const btn = event.target;
     showSlide(btn);
-    //toggleListener("keyup", "arrowLeftForVoteTrue", 37, voteText, true);
-    //toggleListener("keyup", "arrowLeftForVoteFalse", 39, voteText, false);
+    toggleListener(keyListenerArrowLeft, "keyup", "arrowLeftForVoteTrue", 37, voteText, true);
+    toggleListener(keyListenerArrowReight, "keyup", "arrowReightForVoteFalse", 39, voteText, false);
 }
 
 function showSlide(btn) {
@@ -184,7 +187,7 @@ function toggleOverlayCircle() {
     elements.coverCircleOverlay.toggleClass("off");
     elements.overlayCircle.toggleClass("off");
 
-    //toggleListener("keyup", "enterForNextStep", 13, nextStepInGuide);
+    toggleListener(KeyListenerEnterToNextStep, "keyup", "enterForNextStep", 13, nextStepInGuide);
 }
 
 function nextStepInGuide(currentSlide) {
@@ -214,10 +217,10 @@ function onSpecificKeyUP(event, keyCode, callback, callbackArgs) {
     }
 }
 
-// function toggleListener(type, namespace, keyCode, callback, callbackArgs) {
-//     $("body").toggle(function(type, namespace, keyCode, callback, callbackArgs) {
-//         $("body").on(type + "." + namespace, (event) => onSpecificKeyUP(event, keyCode, callback, callbackArgs));
-//     }, function(type, namespace) {
-//         $("body").off(type + "." + namespace);
-//     })
-// }
+function toggleListener(isListening, type, namespace, keyCode, callback, callbackArgs) {
+    if (!isListening) {
+        $("body").on(type + "." + namespace, (event) => onSpecificKeyUP(event, keyCode, callback, callbackArgs));
+    } else {
+        $("body").off(type + "." + namespace);
+    }
+}

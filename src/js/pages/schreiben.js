@@ -81,7 +81,7 @@ class StepCounter {
 
     reset() {
         this.currentStep = 0;
-        $(".slide-active").find(`.circle`).removeClass("done");
+        $(".slide-active").find(".circle").removeClass("done");
     }
 
     toggleOnOff() {

@@ -28,6 +28,9 @@ const {elements} = setup({
         ".slider-btn": toggleSlide,
         ".toggle-guidance": toggleUserGuidance,
         ".cover-circle-overlay":() => nextStepInGuide()
+    },
+    keys: {
+        "#textarea-input":(event) => onSpecificKeyUP(event, 13, proposeTexts)
     }
 });
 
@@ -142,6 +145,8 @@ async function voteText(isCorrect) {
 function toggleSlide(event) {
     const btn = event.target;
     showSlide(btn);
+    //toggleListener("keyup", "arrowLeftForVoteTrue", 37, voteText, true);
+    //toggleListener("keyup", "arrowLeftForVoteFalse", 39, voteText, false);
 }
 
 function showSlide(btn) {
@@ -178,6 +183,8 @@ function toggleOverlayCircle() {
 
     elements.coverCircleOverlay.toggleClass("off");
     elements.overlayCircle.toggleClass("off");
+
+    //toggleListener("keyup", "enterForNextStep", 13, nextStepInGuide);
 }
 
 function nextStepInGuide(currentSlide) {
@@ -200,3 +207,17 @@ function nextStepInGuide(currentSlide) {
             throw Error("unhandled case for slide = " + currentSlide);
     }
 }
+
+function onSpecificKeyUP(event, keyCode, callback, callbackArgs) {
+    if (event.which === keyCode) {
+        callback(callbackArgs);
+    }
+}
+
+// function toggleListener(type, namespace, keyCode, callback, callbackArgs) {
+//     $("body").toggle(function(type, namespace, keyCode, callback, callbackArgs) {
+//         $("body").on(type + "." + namespace, (event) => onSpecificKeyUP(event, keyCode, callback, callbackArgs));
+//     }, function(type, namespace) {
+//         $("body").off(type + "." + namespace);
+//     })
+// }

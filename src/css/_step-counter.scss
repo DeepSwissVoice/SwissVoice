@@ -1,0 +1,79 @@
+.step-counter {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.step-bar {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.circle {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid black;
+  border-radius: 100%;
+  cursor: default;
+}
+
+.center-tick {
+  display: inline;
+  text-align: center;
+  position: absolute;
+  font-size: 20px;
+  left: 0;
+  top: 0;
+}
+
+.toggle-guidance {
+  position: absolute;
+  width: 2rem;
+  height: 1rem;
+  right: 0;
+  top: 15%;
+  border: 1px solid black;
+  background-color: rgba(162, 160, 255, 0.5);
+  transition: background-color 0.5s ease-in;
+  overflow: hidden;
+}
+
+.toggle-slider {
+  position: absolute;
+  width: 0.5rem;
+  height: 100%;
+  background-color: black;
+  left: 65%;
+  transition: left 0.5s ease-in;
+}
+
+/* animations */
+/* circles and ticks */
+.circle i {
+  opacity: 0;
+}
+
+div.done {
+  background-color: #a2a0ff;
+}
+
+div.done i {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+/* guidance on/off */
+.toggle-guidance.off {
+  background-color: rgba(232, 232, 232, 0.7);
+  transition: background-color 0.5s ease-in;
+}
+
+.toggle-guidance.off .toggle-slider {
+  left: 10%;
+  transition: left 0.5s ease-in;
+}
+
+.step-bar.off {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}

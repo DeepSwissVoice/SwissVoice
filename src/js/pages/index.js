@@ -27,7 +27,17 @@ async function loadingAnimation() {
     elements.footerArea.removeClass("footer-off");
 }
 
+function screenFadeOut() {
+    elements.flyTextLi.addClass("fade-out");
+    elements.logoScreen.toggleClass("fade-out loaded");
+}
+
 async function init() {
     setupTeaserTriggers();
-    await loadingAnimation();
+    if (!sessionStorage.hasOwnProperty("loadingAnimation")) {
+        sessionStorage.setItem("loadingAnimation", true);
+        await loadingAnimation();
+    } else {
+        screenFadeOut();
+    }
 }

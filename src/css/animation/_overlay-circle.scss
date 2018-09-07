@@ -1,0 +1,126 @@
+.overlay-circle {
+  display: flex;
+  position: absolute;
+  width: 225px;
+  height: 225px;
+  background-color: rgb(79, 251, 178);
+  border-radius: 100%;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.circle-title {
+  font-size: 2.5rem;
+}
+
+.next-btn {
+  position: absolute;
+  top: 150px;
+  font-size: 40px;
+}
+
+.next-btn:hover {
+  color: #005f91;
+  transition: 200ms;
+}
+
+.proposal-count-text {
+  position: absolute;
+  top: 40px;
+  right: 130px;
+}
+
+.proposal-count {
+  position: absolute;
+  top: 40px;
+  right: 100px;
+}
+
+.vote-count-text {
+  position: absolute;
+  top: 60px;
+  right: 130px;
+}
+
+.vote-count {
+  position: absolute;
+  top: 60px;
+  right: 100px;
+}
+
+.cover-circle-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.cover-circle-overlay.off {
+  display: none;
+}
+
+.overlay-circle.off div, p, i {
+  display: none;
+}
+
+.overlay-circle div, p, i {
+  display: block;
+}
+
+/* animations */
+.overlay-circle.off {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s, display 0.5s ease-in 0.5s;
+}
+
+/* Large devices (desktops, less than 1200px) */
+@include media-breakpoint-down(lg) {
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@include media-breakpoint-down(md) {
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@include media-breakpoint-down(sm) {
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@include media-breakpoint-down(xs) {
+  .overlay-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .circle-title {
+    font-size: 2rem;
+  }
+
+  .next-btn {
+    font-size: 30px;
+    top: 130px;
+  }
+
+  .proposal-count-text {
+    top: 30px;
+    right: 105px;
+  }
+
+  .proposal-count {
+    top: 30px;
+    right: 80px;
+  }
+
+  .vote-count-text {
+    top: 50px;
+    right: 105px;
+  }
+
+  .vote-count {
+    top: 50px;
+    right: 80px;
+  }
+
+}

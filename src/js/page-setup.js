@@ -42,6 +42,11 @@ export default function setup(options) {
                 $(selector).click(listener);
             }
         }
+        if (options.keyUpListeners) {
+            for (const [selector, listener] of Object.entries(options.keyUpListeners)) {
+                $(selector).keyup(listener);
+            }
+        }
     }
 
     async function ready() {

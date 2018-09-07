@@ -60,11 +60,11 @@
   display: none;
 }
 
-.overlay-circle.off div,p,i {
+.overlay-circle.off div, p, i {
   display: none;
 }
 
-.overlay-circle div,p,i {
+.overlay-circle div, p, i {
   display: block;
 }
 
@@ -74,7 +74,6 @@
   opacity: 0;
   transition: opacity 0.5s, display 0.5s ease-in 0.5s;
 }
-
 
 /* Large devices (desktops, less than 1200px) */
 @include media-breakpoint-down(lg) {

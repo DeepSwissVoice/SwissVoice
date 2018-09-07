@@ -4,7 +4,7 @@ import {firstCharUpperCase, sleep} from "../utils";
 
 let currentActiveSlide = "slider-proposal-btn";
 let keyListenerArrowLeft = false;
-let keyListenerArrowReight = false;
+let keyListenerArrowRight = false;
 let KeyListenerEnterToNextStep = false;
 
 const {elements} = setup({
@@ -30,10 +30,10 @@ const {elements} = setup({
         "#vote-next-btn": () => nextStepInGuide("slider-vote-btn"),
         ".slider-btn": toggleSlide,
         ".toggle-guidance": toggleUserGuidance,
-        ".cover-circle-overlay":() => nextStepInGuide()
+        ".cover-circle-overlay": () => nextStepInGuide()
     },
-    keys: {
-        "#textarea-input":(event) => onSpecificKeyUP(event, 13, proposeTexts)
+    keyUpListeners: {
+        "#textarea-input": (event) => onSpecificKeyUP(event, 13, proposeTexts)
     }
 });
 
@@ -148,8 +148,8 @@ async function voteText(isCorrect) {
 function toggleSlide(event) {
     const btn = event.target;
     showSlide(btn);
-    toggleListener(keyListenerArrowLeft, "keyup", "arrowLeftForVoteTrue", 37, voteText, true);
-    toggleListener(keyListenerArrowReight, "keyup", "arrowReightForVoteFalse", 39, voteText, false);
+    toggleListener(keyListenerArrowLeft, "keyup", "arrowLeftForVoteTrue", 37, () => voteText(true));
+    toggleListener(keyListenerArrowRight, "keyup", "arrowRightForVoteFalse", 39, () => voteText(false));
 }
 
 function showSlide(btn) {
@@ -211,15 +211,15 @@ function nextStepInGuide(currentSlide) {
     }
 }
 
-function onSpecificKeyUP(event, keyCode, callback, callbackArgs) {
+function onSpecificKeyUP(event, keyCode, callback) {
     if (event.which === keyCode) {
-        callback(callbackArgs);
+        callback();
     }
 }
 
-function toggleListener(isListening, type, namespace, keyCode, callback, callbackArgs) {
+function toggleListener(isListening, type, namespace, keyCode, callback) {
     if (!isListening) {
-        $("body").on(type + "." + namespace, (event) => onSpecificKeyUP(event, keyCode, callback, callbackArgs));
+        $("body").on(type + "." + namespace, (event) => onSpecificKeyUP(event, keyCode, callback));
     } else {
         $("body").off(type + "." + namespace);
     }
